@@ -1,24 +1,40 @@
 <table style="height:100%; width:900px;">
   <tr style="height:100%;">
     <td style="width:230px;">
-      <ul class="sfiles">
-        <li *ngFor="let sfile of project?.sitems"
-          [class.selected]="sfile === selectedSfile"
-          (click)="select(sfile)">
-          {{sfile.name}}
+      <ul>
+        <li *ngFor="let item of project?.sitems"
+          [class.selected]="item === selectedItem">
+          <div *ngIf="item.discriminator === 1; then file else folder"></div>
+          <ng-template #file>
+            <div (click)="select(item)">
+              {{item.name}}
+            </div>
+          </ng-template>
+          <ng-template #folder>
+            <div *ngIf="item.open; then open else closed"></div>
+            <ng-template #open>
+              <div (click)="select(item)">&#9207; {{item.name}}</div>
+              <div *ngIf="item.open">
+                <ul>
+                  <li *ngFor="let file of item.sfiles"
+                  [class.selected]="file === selectedItem"
+                  (click)="select(file)">
+                    {{file.name}}
+                  </li>
+                </ul>
+              </div>
+            </ng-template>
+            <ng-template #closed>
+              <div (click)="select(item)">&#9205; {{item.name}}</div>
+            </ng-template>
+          </ng-template>
         </li>
       </ul>
     </td>
     <td style=" padding:16px 16px; left: 0;">
-      <span *ngIf="selectedSfile">
-        <div [froalaEditor]='options' [(froalaModel)]="selectedSfile.text"></div>
+      <span *ngIf="selectedFile">
+        <div [froalaEditor]='options' [(froalaModel)]="selectedFile.text"></div>
       </span>
-    </td>
-    <td>
-      <tree-root [nodes]="nodes"></tree-root>
-      <!--<span *ngIf="selectedSfile">
-        {{selectedSfile.text}}
-      </span>-->
     </td>
   </tr>
 </table>

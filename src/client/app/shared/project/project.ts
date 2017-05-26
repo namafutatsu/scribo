@@ -6,15 +6,19 @@ export class Project {
 }
 
 export abstract class Sitem {
+  discriminator: number;
   id: number;
   index: number;
   name: string;
 }
 
 export class Sfolder extends Sitem {
+  discriminator: number = 0;
   sfiles: Sfile[];
+  open: boolean = false;
 }
 
 export class Sfile extends Sitem {
+  discriminator: number = 1;
   text: string;
 }

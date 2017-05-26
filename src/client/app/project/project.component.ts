@@ -4,11 +4,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
 
 import { Project }                from '../shared/project/project';
-import { Sfile }                from '../shared/project/project';
+import { Sitem, Sfile, Sfolder }                from '../shared/project/project';
 import { ProjectService }         from '../shared/project/project.service';
 
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
-import { TreeModule } from 'angular-tree-component';
 
 @Component({
   moduleId: module.id,
@@ -19,7 +18,8 @@ import { TreeModule } from 'angular-tree-component';
 export class ProjectComponent implements OnInit {
   project: Project;
   /*sfiles: Sfile[] = [];*/
-  selectedSfile: Sfile;
+  selectedItem: Sitem;
+  selectedFile: Sfile;
 
   constructor(
     private projectService: ProjectService,
@@ -37,16 +37,55 @@ export class ProjectComponent implements OnInit {
     /*});*/
   }
 
-  select(sfile: Sfile): void {
-    this.selectedSfile = sfile;
+  select(item: Sitem): void {
+    this.selectedItem = item;
+    if (item.discriminator === 1) {
+      this.selectedFile = item as Sfile;
+    } else {
+      this.selectedFile = null;
+      const folder = item as Sfolder;
+      folder.open = !folder.open;
+    }
   }
-
+  
+  buttons = ['bold', 'italic', 'underline', 'specialCharacters', 'paragraphFormat','quote','align','print','fullscreen','undo','redo','alert']; 
   public options: Object = {
     charCounterCount: true,
-    toolbarButtons: ['bold', 'italic', 'underline', 'specialCharacters', 'paragraphFormat','quote','align','print','undo','redo','alert'],
-    toolbarButtonsXS: ['bold', 'italic', 'underline', 'specialCharacters', 'paragraphFormat','quote','align','print','undo','redo','alert'],
-    toolbarButtonsSM: ['bold', 'italic', 'underline', 'specialCharacters', 'paragraphFormat','quote','align','print','undo','redo','alert'],
-    toolbarButtonsMD: ['bold', 'italic', 'underline', 'specialCharacters', 'paragraphFormat','quote','align','print','undo','redo','alert']
+    height:'750', 
+    inlineMode:false, 
+    pluginsEnabled: [ 
+      'align', 
+      // 'charCounter', 
+      // 'codeBeautifier', 
+      // 'codeView', 
+      // 'colors', 
+      'draggable', 
+      // 'emoticons', 
+      'entities', 
+      // 'file', 
+      // 'fontFamily', 
+      'fontSize', 
+      'fullscreen', 
+      // 'image', 
+      // 'imageManager', 
+      'inlineStyle', 
+      'lineBreaker', 
+      // 'link', 
+      'lists', 
+      'paragraphFormat', 
+      'paragraphStyle', 
+      // 'quickInsert', 
+      'quote', 
+      'save', 
+      // 'table', 
+      // 'url', 
+      // 'video', 
+      'wordPaste' 
+    ], 
+    toolbarButtons: this.buttons, 
+    toolbarButtonsSM: this.buttons, 
+    toolbarButtonsMD: this.buttons, 
+    toolbarButtonsXS: this.buttons, 
   };
 
     nodes = [
