@@ -1,7 +1,7 @@
 import { join } from 'path';
 
 import { SeedConfig } from './seed.config';
-// import { ExtendPackages } from './seed.config.interfaces';
+ import { ExtendPackages } from './seed.config.interfaces';
 
 /**
  * This class extends the basic seed configuration, allowing for project specific overrides. A few examples can be found
@@ -22,8 +22,10 @@ export class ProjectConfig extends SeedConfig {
     // Add `NPM` third-party libraries to be injected/bundled.
     this.NPM_DEPENDENCIES = [
       ...this.NPM_DEPENDENCIES,
-      // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
-      // {src: 'lodash/lodash.min.js', inject: 'libs'},
+      { src: 'jquery/dist/jquery.min.js', inject: 'libs'},
+      { src: 'froala-editor/js/froala_editor.pkgd.min.js', inject: 'libs' },
+      { src: 'font-awesome/css/font-awesome.min.css', inject: true },
+      { src: 'froala-editor/css/froala_editor.pkgd.min.css', inject: true }
     ];
 
     // Add `local` third-party libraries to be injected/bundled.
@@ -43,13 +45,25 @@ export class ProjectConfig extends SeedConfig {
     ];
 
     // Add packages (e.g. ng2-translate)
-    // let additionalPackages: ExtendPackages[] = [{
-    //   name: 'ng2-translate',
-    //   // Path to the package's bundle
-    //   path: 'node_modules/ng2-translate/bundles/ng2-translate.umd.js'
-    // }];
-    //
-    // this.addPackagesBundles(additionalPackages);
+    let additionalPackages: ExtendPackages[] = [
+      // required for dev build
+      {
+        name:'angular2-froala-wysiwyg',
+        path:'node_modules/angular2-froala-wysiwyg/bundles/angular2-froala-wysiwyg.umd.min.js'
+      },
+
+      // required for prod build
+      {
+        name:'angular2-froala-wysiwyg/*',
+        path:'node_modules/angular2-froala-wysiwyg/bundles/angular2-froala-wysiwyg.umd.min.js'
+      },
+      {
+        name:'angular-tree-component',
+        path:'node_modules/angular-tree-component/dist/angular-tree-component.umd.js'
+      }
+    ]
+
+    this.addPackagesBundles(additionalPackages);
 
     /* Add proxy middleware */
     // this.PROXY_MIDDLEWARE = [

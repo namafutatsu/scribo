@@ -1,0 +1,24 @@
+<table style="height:100%; width:900px;">
+  <tr style="height:100%;">
+    <td style="width:230px;">
+      <ul class="sfiles">
+        <li *ngFor="let sfile of project?.sitems"
+          [class.selected]="sfile === selectedSfile"
+          (click)="select(sfile)">
+          {{sfile.name}}
+        </li>
+      </ul>
+    </td>
+    <td style=" padding:16px 16px; left: 0;">
+      <span *ngIf="selectedSfile">
+        <div [froalaEditor]='options' [(froalaModel)]="selectedSfile.text"></div>
+      </span>
+    </td>
+    <td>
+      <tree-root [nodes]="nodes"></tree-root>
+      <!--<span *ngIf="selectedSfile">
+        {{selectedSfile.text}}
+      </span>-->
+    </td>
+  </tr>
+</table>

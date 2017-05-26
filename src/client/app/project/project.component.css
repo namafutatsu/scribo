@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  padding: 0 16px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  color: #8f8f8f;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 25px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+li.selected {
+  color: #24292f;
+}
+
+td {
+  vertical-align: top;
+  border: 0 solid #e1e1e1;
+  border-left-width: 1px;
+  padding: 16px 0px;
+}
