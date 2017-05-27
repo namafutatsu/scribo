@@ -5,7 +5,6 @@
 
 ul {
   list-style-type: none;
-  margin: 0;
 }
 
 li {
@@ -18,7 +17,7 @@ li {
 }
 
 li.selected {
-  color: #24292f;
+  color: #4f4f51;
 }
 
 td {
@@ -26,4 +25,18 @@ td {
   border: 0 solid #e1e1e1;
   /*border-left-width: 1px;*/
   padding: 16px 0px;
+}
+
+#menu {
+  float:left;
+  width: 250px
+}
+
+#editor {
+  float:left;
+  position: absolute;
+  /*margin-top: 5px;*/
+  left: 250px;
+  right: 20px;
+  max-width: 900px;
 }

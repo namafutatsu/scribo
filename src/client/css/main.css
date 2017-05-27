@@ -10,11 +10,6 @@ html, body {
   width: 100%;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-}
-
 /* Box-sizing border-box */
 *, *:before, *:after {
   box-sizing: border-box;
@@ -22,22 +17,72 @@ body {
 
 /* Set up a default font and some padding to provide breathing room */
 body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Lato', sans-serif;
   font-size: 14px;
+  color: #4f4f51;
+  background-color: #f2eae1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+h1 {
+  font-family: 'Vollkorn', sans-serif;
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+  color: #4f4f51;
+	line-height: 26.4px;
+}
+h2 {
+  font-family: 'Vollkorn', sans-serif;
+	font-size: 20px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+  color: #4f4f51;
+	line-height: 15.4px;
+}
+h3 {
+  font-family: 'Vollkorn', sans-serif;
+	font-size: 14px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+  color: #4f4f51;
+	line-height: 15.4px;
+}
 p {
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  line-height: 20px;
-  margin-bottom: 1em;
-  margin-top: 1em;
+  font-family: 'Lato', sans-serif;
+	font-size: 14px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+  color: #4f4f51;
+	line-height: 20px;
+}
+blockquote {
+  font-family: 'Lato', sans-serif;
+	font-size: 21px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+  color: #4f4f51;
+	line-height: 30px;
+}
+pre {
+  font-family: 'Lato', sans-serif;
+	font-size: 13px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+  color: #4f4f51;
+	line-height: 18.5667px;
 }
 
 ul {
-  margin: 10px 0 0;
+  margin: 0;
   padding: 0 0 0 20px;
 }
 

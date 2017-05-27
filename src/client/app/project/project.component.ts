@@ -51,7 +51,8 @@ export class ProjectComponent implements OnInit {
   buttons = ['bold', 'italic', 'underline', 'specialCharacters', 'paragraphFormat','quote','align','print','fullscreen','undo','redo','alert']; 
   public options: Object = {
     charCounterCount: true,
-    height:'750', 
+    theme:'scribo',
+    // height:'750',
     inlineMode:false, 
     pluginsEnabled: [ 
       'align', 
@@ -80,36 +81,14 @@ export class ProjectComponent implements OnInit {
       // 'table', 
       // 'url', 
       // 'video', 
-      'wordPaste' 
+      'wordPaste',
+      'specialCharacters', 
+      'wordPaste', 
+      'print'  
     ], 
     toolbarButtons: this.buttons, 
     toolbarButtonsSM: this.buttons, 
     toolbarButtonsMD: this.buttons, 
     toolbarButtonsXS: this.buttons, 
   };
-
-    nodes = [
-    {
-      id: 1,
-      name: 'root1',
-      children: [
-        { id: 2, name: 'child1' },
-        { id: 3, name: 'child2' }
-      ]
-    },
-    {
-      id: 4,
-      name: 'root2',
-      children: [
-        { id: 5, name: 'child2.1' },
-        {
-          id: 6,
-          name: 'child2.2',
-          children: [
-            { id: 7, name: 'subsub' }
-          ]
-        }
-      ]
-    }
-  ];
 }
