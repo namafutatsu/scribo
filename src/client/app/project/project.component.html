@@ -1,6 +1,4 @@
-<table style="height:100%; width:900px;">
-  <tr style="height:100%;">
-    <td style="width:230px;">
+<div id="menu">
       <ul>
         <li *ngFor="let item of project?.sitems"
           [class.selected]="item === selectedItem">
@@ -30,11 +28,7 @@
           </ng-template>
         </li>
       </ul>
-    </td>
-    <td style=" padding:16px 16px; left: 0;">
-      <span *ngIf="selectedFile">
-        <div [froalaEditor]='options' [(froalaModel)]="selectedFile.text"></div>
-      </span>
-    </td>
-  </tr>
-</table>
+</div>
+<div id="editor" *ngIf="selectedFile">
+  <div [froalaEditor]='options' [(froalaModel)]="selectedFile.text"></div>
+</div>
