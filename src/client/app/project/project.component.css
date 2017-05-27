@@ -5,6 +5,7 @@
 
 ul {
   list-style-type: none;
+  margin: 0;
 }
 
 li {
@@ -23,6 +24,6 @@ li.selected {
 td {
   vertical-align: top;
   border: 0 solid #e1e1e1;
-  border-left-width: 1px;
+  /*border-left-width: 1px;*/
   padding: 16px 0px;
 }
