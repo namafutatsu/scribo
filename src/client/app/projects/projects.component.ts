@@ -28,6 +28,6 @@ export class ProjectsComponent implements OnInit {
   }
 
   select(project: Project): void {
-    this.router.navigate(['/project', project.key]);
+    this.router.navigate(['/project', project.id]);
   }
 }

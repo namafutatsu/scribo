@@ -5,7 +5,7 @@ import { ProjectComponent } from './project.component';
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: 'project/:key', component: ProjectComponent }
+      { path: 'project/:id', component: ProjectComponent }
     ])
   ],
   exports: [RouterModule]

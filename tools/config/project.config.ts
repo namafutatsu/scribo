@@ -60,6 +60,10 @@ export class ProjectConfig extends SeedConfig {
       {
         name:'angular-tree-component',
         path:'node_modules/angular-tree-component/dist/angular-tree-component.umd.js'
+      },
+      {
+        name:'angular-in-memory-web-api',
+        path:'node_modules/angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
       }
     ]
 

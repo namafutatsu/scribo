@@ -5,6 +5,9 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './shared/mock.service';
+
 import { AboutModule } from './about/about.module';
 import { ProjectsModule } from './projects/projects.module';
 import { ProjectModule } from './project/project.module';
@@ -16,6 +19,7 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     HttpModule,
     AppRoutingModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService),
     AboutModule,
     HomeModule,
     ProjectsModule,
