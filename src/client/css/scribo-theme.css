@@ -1089,7 +1089,8 @@
   -moz-box-shadow: none;
   box-shadow: none;
   border: 0px;
-  border-top: 5px solid #4f4f51;
+  /*todo design dilemma*/
+  border-top: 0px solid #4f4f51; 
 }
 .scribo-theme.fr-toolbar.fr-inline .fr-arrow {
   width: 0;

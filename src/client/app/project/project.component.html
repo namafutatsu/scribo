@@ -1,34 +1,48 @@
-<div id="menu">
-      <ul>
-        <li *ngFor="let item of project?.sitems"
-          [class.selected]="item === selectedItem">
-          <div *ngIf="item.discriminator === 1; then file else folder"></div>
-          <ng-template #file>
-            <div (click)="select(item)">
-              {{item.name}}
+<div id="menu" *ngIf="project">
+
+  <div id="toolbar">
+    <button (click)="update()">
+      <i class="fa fa-floppy-o" aria-hidden="true"></i>
+    </button>
+    <button (click)="commit()">
+      <i class="fa fa-cloud" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <br><br>
+  
+  <div id="navigation">
+    <ul>
+      <li *ngFor="let item of project?.sitems"
+        [class.selected]="item === selectedItem">
+        <div *ngIf="item.discriminator === 1; then file else folder"></div>
+        <ng-template #file>
+          <div (click)="select(item)">
+            {{item.name}}
+          </div>
+        </ng-template>
+        <ng-template #folder>
+          <div *ngIf="item.open; then open else closed"></div>
+          <ng-template #open>
+            <div (click)="select(item)">&#9207; {{item.name}}</div>
+            <div *ngIf="item.open">
+              <ul>
+                <li *ngFor="let file of item.sfiles"
+                [class.selected]="file === selectedItem"
+                (click)="select(file)">
+                  {{file.name}}
+                </li>
+              </ul>
             </div>
           </ng-template>
-          <ng-template #folder>
-            <div *ngIf="item.open; then open else closed"></div>
-            <ng-template #open>
-              <div (click)="select(item)">&#9207; {{item.name}}</div>
-              <div *ngIf="item.open">
-                <ul>
-                  <li *ngFor="let file of item.sfiles"
-                  [class.selected]="file === selectedItem"
-                  (click)="select(file)">
-                    {{file.name}}
-                  </li>
-                </ul>
-              </div>
-            </ng-template>
-            <ng-template #closed>
-              <div (click)="select(item)">&#9205; {{item.name}}</div>
-            </ng-template>
+          <ng-template #closed>
+            <div (click)="select(item)">&#9205; {{item.name}}</div>
           </ng-template>
-        </li>
-      </ul>
+        </ng-template>
+      </li>
+    </ul>
+  </div>
 </div>
 <div id="editor" *ngIf="selectedFile">
-  <div [froalaEditor]='options' [(froalaModel)]="selectedFile.text"></div>
+  <div [froalaEditor]='editorOptions' [(froalaModel)]="selectedFile.text"></div>
 </div>

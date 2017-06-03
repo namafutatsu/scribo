@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
 import { Project } from './project';
-import { PROJECTS } from '../../../assets/mock/projects';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -24,6 +23,16 @@ export class ProjectService {
     return this.http.get(url)
       .toPromise()
       .then(response => response.json().data as Project)
+      .catch(this.handleError);
+  }
+
+  private headers = new Headers({'Content-Type': 'application/json'});
+  update(project: Project): Promise<Project> {
+    const url = `${this.projectsUrl}/${project.id}`;
+    return this.http
+      .put(url, JSON.stringify(project), {headers: this.headers})
+      .toPromise()
+      .then(() => project)
       .catch(this.handleError);
   }
 

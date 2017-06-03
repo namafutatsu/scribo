@@ -8,6 +8,7 @@ import { Sitem, Sfile, Sfolder }                from '../shared/project/project'
 import { ProjectService }         from '../shared/project/project.service';
 
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+// declare var $ :any;
 
 @Component({
   moduleId: module.id,
@@ -17,7 +18,6 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 })
 export class ProjectComponent implements OnInit {
   project: Project;
-  /*sfiles: Sfile[] = [];*/
   selectedItem: Sitem;
   selectedFile: Sfile;
 
@@ -31,10 +31,6 @@ export class ProjectComponent implements OnInit {
     this.route.params
     .switchMap((params: Params) => this.projectService.getProject(+params['id']))
     .subscribe(project => this.project = project);
-/*    .subscribe(function(project) {
-      this.project = project;
-      this.sfiles = project.sitems*///.filter(s => s as Sfile !== undefined)
-    /*});*/
   }
 
   select(item: Sitem): void {
@@ -47,11 +43,23 @@ export class ProjectComponent implements OnInit {
       folder.open = !folder.open;
     }
   }
+
+  update() {
+    if (this.project !== undefined)
+      this.projectService.update(this.project);
+  }
+
+  commit() {
+    if (this.project !== undefined)
+      this.projectService.update(this.project);
+  }
   
-  buttons = ['bold', 'italic', 'underline', 'specialCharacters', 'paragraphFormat','quote','align','print','fullscreen','undo','redo','alert']; 
-  public options: Object = {
+  editorButtons = ['bold', 'italic', 'underline', 'specialCharacters', 'paragraphFormat','align','print','fullscreen','undo','redo','alert']; 
+  public editorOptions: Object = {
     charCounterCount: true,
     theme:'scribo',
+
+    tooltips: false,
     // height:'750',
     inlineMode:false, 
     pluginsEnabled: [ 
@@ -76,8 +84,8 @@ export class ProjectComponent implements OnInit {
       'paragraphFormat', 
       'paragraphStyle', 
       // 'quickInsert', 
-      'quote', 
-      'save', 
+      // 'quote', 
+      // 'save', 
       // 'table', 
       // 'url', 
       // 'video', 
@@ -85,10 +93,11 @@ export class ProjectComponent implements OnInit {
       'specialCharacters', 
       'wordPaste', 
       'print'  
-    ], 
-    toolbarButtons: this.buttons, 
-    toolbarButtonsSM: this.buttons, 
-    toolbarButtonsMD: this.buttons, 
-    toolbarButtonsXS: this.buttons, 
+    ],
+
+    toolbarButtons: this.editorButtons, 
+    toolbarButtonsSM: this.editorButtons, 
+    toolbarButtonsMD: this.editorButtons, 
+    toolbarButtonsXS: this.editorButtons, 
   };
 }
