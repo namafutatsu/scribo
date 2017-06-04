@@ -4,7 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
 
 import { Project }                from '../shared/project/project';
-import { Sitem, Sfile, Sfolder }                from '../shared/project/project';
+import { Sitem, Sfile, Sfolder }  from '../shared/project/project';
 import { ProjectService }         from '../shared/project/project.service';
 
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
@@ -29,7 +29,7 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params
-    .switchMap((params: Params) => this.projectService.getProject(+params['id']))
+    .switchMap((params: Params) => this.projectService.getProject(params['key']))
     .subscribe(project => this.project = project);
   }
 

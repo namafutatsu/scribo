@@ -1,5 +1,5 @@
 export class Project {
-  id: number;
+  id: string;
   key: string;
   name: string;
   sitems: Sitem[];
@@ -7,7 +7,7 @@ export class Project {
 
 export abstract class Sitem {
   discriminator: number;
-  id: number;
+  id: string;
   index: number;
   name: string;
 }

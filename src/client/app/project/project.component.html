@@ -43,6 +43,7 @@
     </ul>
   </div>
 </div>
+
 <div id="editor" *ngIf="selectedFile">
   <div [froalaEditor]='editorOptions' [(froalaModel)]="selectedFile.text"></div>
 </div>

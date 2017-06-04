@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 // import 'rxjs/add/operator/do';  // for debugging
+import { Config } from '../config/env.config';
 
 /**
  * This class provides the NameList service with methods to read names and add names.
@@ -21,22 +22,22 @@ export class NameListService {
    * @return {string[]} The Observable for the HTTP request.
    */
   get(): Observable<string[]> {
-    return this.http.get('assets/mock/names.json')
-                    .map((res: Response) => res.json())
+    return this.http.get(`${Config.API}/api/name-list/static`)
+      .map((res: Response) => res.json())
     //              .do(data => console.log('server data:', data))  // debug
-                    // .catch(this.handleError);
+                    .catch(this.handleError);
   }
 
   /**
     * Handle HTTP error
     */
-  // private handleError (error: any) {
-  //   // In a real world app, we might use a remote logging infrastructure
-  //   // We'd also dig deeper into the error to get a better message
-  //   let errMsg = (error.message) ? error.message :
-  //     error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-  //   console.error(errMsg); // log to console instead
-  //   return Observable.throw(errMsg);
-  // }
+  private handleError (error: any) {
+    // In a real world app, we might use a remote logging infrastructure
+    // We'd also dig deeper into the error to get a better message
+    let errMsg = (error.message) ? error.message :
+      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg); // log to console instead
+    return Observable.throw(errMsg);
+  }
 }
 
