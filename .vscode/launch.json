@@ -1,12 +1,13 @@
 {
   "version": "0.2.0",
   "configurations": [
+    
     {
       "name": "Launch Chrome against localhost, with sourcemaps",
       "type": "chrome",
-      "preLaunchTask": "start",
+      // "preLaunchTask": "start",
       "request": "launch",
-      "url": "http://localhost:5555",
+      "url": "http://localhost:5555/projects",
       "sourceMaps": true,
       "webRoot": "${workspaceRoot}/src/client",
       "sourceMapPathOverrides": {
@@ -23,6 +24,13 @@
       "sourceMapPathOverrides": {
         "app/*": "${webRoot}/app/*"
       }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Server",
+      "program": "${workspaceRoot}/app.server.dev.js",
+      "protocol": "inspector"
     }
   ]
 }

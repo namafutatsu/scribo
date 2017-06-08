@@ -1,34 +1,85 @@
-<div id="menu">
-      <ul>
-        <li *ngFor="let item of project?.sitems"
-          [class.selected]="item === selectedItem">
-          <div *ngIf="item.discriminator === 1; then file else folder"></div>
-          <ng-template #file>
-            <div (click)="select(item)">
-              {{item.name}}
+<div id="menu" *ngIf="project">
+
+  <div id="toolbar">
+    <!--<div *ngIf="editName">
+      <input>
+      <button (click)="rename()" [disabled]="!selectedItem">
+        <i class="fa fa-check" aria-hidden="true"></i>
+      </button>
+    </div>-->
+    <!--<div *ngIf="!editName">-->
+      <button (click)="update()">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+      </button>
+      <!--<button (click)="commit()">
+        <i class="fa fa-cloud-download" aria-hidden="true"></i>
+      </button>-->
+      <!--<button (click)="newFolder()" [disabled]="!selectedItem">
+        <i class="fa fa-folder-o" aria-hidden="true"></i>
+      </button>
+      <button (click)="newFile()" [disabled]="!selectedItem">
+        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+      </button>
+      <button (click)="rename()" [disabled]="!selectedItem">
+        <i class="fa fa-i-cursor" aria-hidden="true"></i>
+      </button>
+    </div>-->
+    <!--<button (click)="moveUp()" [disabled]="!selectedItem">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </button>
+    <button (click)="moveDown()" [disabled]="!selectedItem">
+      <i class="fa fa-arrow-down" aria-hidden="true"></i>
+    </button>
+    fa fa-code-fork-->
+  </div>
+  <br><br>
+  <div id="navigation">
+    <ul>
+      <li *ngFor="let item of project?.sitems"
+        [class.selected]="item === selectedItem">
+        <div *ngIf="item.discriminator === 1; then file else folder"></div>
+        <ng-template #file>
+          <div (click)="select(item)">
+            {{item.name}}
+          </div>
+          <!--<input [(ngModel)]="item.name">-->
+        </ng-template>
+        <ng-template #folder>
+          <div *ngIf="item.open; then open else closed"></div>
+          <ng-template #open>
+            <div (click)="select(item)">&#9207; {{item.name}}</div>
+            <div *ngIf="item.open">
+              <ul>
+                <li *ngFor="let file of item.sfiles"
+                [class.selected]="file === selectedItem"
+                (click)="select(file)">
+                  {{file.name}}
+                </li>
+              </ul>
             </div>
           </ng-template>
-          <ng-template #folder>
-            <div *ngIf="item.open; then open else closed"></div>
-            <ng-template #open>
-              <div (click)="select(item)">&#9207; {{item.name}}</div>
-              <div *ngIf="item.open">
-                <ul>
-                  <li *ngFor="let file of item.sfiles"
-                  [class.selected]="file === selectedItem"
-                  (click)="select(file)">
-                    {{file.name}}
-                  </li>
-                </ul>
-              </div>
-            </ng-template>
-            <ng-template #closed>
-              <div (click)="select(item)">&#9205; {{item.name}}</div>
-            </ng-template>
+          <ng-template #closed>
+            <div (click)="select(item)">&#9205; {{item.name}}</div>
           </ng-template>
-        </li>
-      </ul>
+        </ng-template>
+      </li>
+    </ul>
+  </div>
 </div>
+
 <div id="editor" *ngIf="selectedFile">
-  <div [froalaEditor]='options' [(froalaModel)]="selectedFile.text"></div>
+  <div [froalaEditor]='editorOptions' [(froalaModel)]="selectedFile.text"></div>
+</div>
+
+<div id="annexe" *ngIf="selectedFile">
+  <div id="notes" *ngIf="selectedFile.notes?.length > 0">
+    Todo:
+    <li *ngFor="let note of selectedFile.notes" [class.cancelled]="note.status < 0">
+      <i class="fa fa-check-square-o" aria-hidden="true" *ngIf="note.status == 1" (click)="clickNote(note)"></i>
+      <i class="fa fa-square-o" aria-hidden="true" *ngIf="note.status == 0" (click)="clickNote(note)"></i>
+      <i class="fa fa-times" aria-hidden="true" *ngIf="note.status == -1" (click)="clickNote(note)"></i>
+      <input [(ngModel)]="note.text"  [class.cancelled]="note.status < 0"/>
+      <!--<div *ngIf="note.status < 0">{{node.text}}</div>-->
+    </li>
+  </div>
 </div>

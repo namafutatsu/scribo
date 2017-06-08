@@ -35,11 +35,11 @@ export class HomeComponent implements OnInit {
    * Handle the nameListService observable
    */
   getNames() {
-    this.nameListService.get()
-      .subscribe(
-        names => this.names = names,
-        error => this.errorMessage = <any>error
-      );
+    // this.nameListService.get()
+    //   .subscribe(
+    //     names => this.names = names,
+    //     error => this.errorMessage = <any>error
+    //   );
   }
 
   /**

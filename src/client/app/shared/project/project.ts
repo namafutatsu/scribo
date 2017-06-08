@@ -1,15 +1,29 @@
 export class Project {
-  id: number;
+  id: string;
   key: string;
   name: string;
   sitems: Sitem[];
 }
 
+export enum noteStatus {
+  Cancelled = -1,
+  Todo,
+  Done
+}
+
+export class Note {
+  id: string;
+  index: number;
+  text: string;
+  status: noteStatus;
+}
+
 export abstract class Sitem {
   discriminator: number;
-  id: number;
+  id: string;
   index: number;
   name: string;
+  notes: Note[];
 }
 
 export class Sfolder extends Sitem {
