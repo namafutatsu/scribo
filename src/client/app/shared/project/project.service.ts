@@ -8,7 +8,8 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ProjectService {
-  private projectsUrl = `${Config.API}/api/projects`;
+  projectsUrl = `${Config.API}/api/projects`;
+  headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) { }
 
@@ -27,7 +28,6 @@ export class ProjectService {
       .catch(this.handleError);
   }
 
-  private headers = new Headers({'Content-Type': 'application/json'});
   update(project: Project): Promise<Project> {
     const url = `${this.projectsUrl}/put`;
     return this.http
@@ -37,7 +37,7 @@ export class ProjectService {
       .catch(this.handleError);
   }
 
-  private handleError(error: any): Promise<any> {
+  handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }

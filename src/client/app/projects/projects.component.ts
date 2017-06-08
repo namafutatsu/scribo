@@ -20,7 +20,7 @@ export class ProjectsComponent implements OnInit {
   ngOnInit(): void {
     this.getProjects();
   }
-  
+
   getProjects(): void {
     this.projectService
         .getProjects()

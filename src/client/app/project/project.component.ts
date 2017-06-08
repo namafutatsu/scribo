@@ -3,12 +3,11 @@ import { Component, OnInit }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
 
-import { Project }                from '../shared/project/project';
-import { Sitem, Sfile, Sfolder }  from '../shared/project/project';
+import { Project, Note, Sitem, Sfile, Sfolder } from '../shared/project/project';
 import { ProjectService }         from '../shared/project/project.service';
 
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
-// declare var $ :any;
+declare var $ :any;
 
 @Component({
   moduleId: module.id,
@@ -20,6 +19,62 @@ export class ProjectComponent implements OnInit {
   project: Project;
   selectedItem: Sitem;
   selectedFile: Sfile;
+  editorButtons = ['bold',
+    'italic',
+    'underline',
+    'specialCharacters',
+    'paragraphFormat',
+    'align',
+    'print',
+    'fullscreen',
+    'undo',
+    'redo',
+    'alert'];
+  editorOptions: Object = {
+    charCounterCount: true,
+    theme:'scribo',
+
+    tooltips: false,
+    // height:'750',
+    inlineMode:false,
+    pluginsEnabled: [
+      'align',
+      // 'charCounter',
+      // 'codeBeautifier',
+      // 'codeView',
+      // 'colors',
+      'draggable',
+      // 'emoticons',
+      'entities',
+      // 'file',
+      // 'fontFamily',
+      'fontSize',
+      'fullscreen',
+      // 'image',
+      // 'imageManager',
+      'inlineStyle',
+      'lineBreaker',
+      // 'link',
+      'lists',
+      'paragraphFormat',
+      'paragraphStyle',
+      // 'quickInsert',
+      // 'quote',
+      // 'save',
+      // 'table',
+      // 'url',
+      // 'video',
+      'wordPaste',
+      'specialCharacters',
+      'wordPaste',
+      'print'
+    ],
+
+    toolbarButtons: this.editorButtons,
+    toolbarButtonsSM: this.editorButtons,
+    toolbarButtonsMD: this.editorButtons,
+    toolbarButtonsXS: this.editorButtons,
+  };
 
   constructor(
     private projectService: ProjectService,
@@ -44,6 +99,10 @@ export class ProjectComponent implements OnInit {
     }
   }
 
+  clickNote(note: Note): void {
+    note.status = (note.status + 2) % 3 - 1;
+  }
+
   update() {
     if (this.project !== undefined)
       this.projectService.update(this.project);
@@ -53,51 +112,4 @@ export class ProjectComponent implements OnInit {
     if (this.project !== undefined)
       this.projectService.update(this.project);
   }
-  
-  editorButtons = ['bold', 'italic', 'underline', 'specialCharacters', 'paragraphFormat','align','print','fullscreen','undo','redo','alert']; 
-  public editorOptions: Object = {
-    charCounterCount: true,
-    theme:'scribo',
-
-    tooltips: false,
-    // height:'750',
-    inlineMode:false, 
-    pluginsEnabled: [ 
-      'align', 
-      // 'charCounter', 
-      // 'codeBeautifier', 
-      // 'codeView', 
-      // 'colors', 
-      'draggable', 
-      // 'emoticons', 
-      'entities', 
-      // 'file', 
-      // 'fontFamily', 
-      'fontSize', 
-      'fullscreen', 
-      // 'image', 
-      // 'imageManager', 
-      'inlineStyle', 
-      'lineBreaker', 
-      // 'link', 
-      'lists', 
-      'paragraphFormat', 
-      'paragraphStyle', 
-      // 'quickInsert', 
-      // 'quote', 
-      // 'save', 
-      // 'table', 
-      // 'url', 
-      // 'video', 
-      'wordPaste',
-      'specialCharacters', 
-      'wordPaste', 
-      'print'  
-    ],
-
-    toolbarButtons: this.editorButtons, 
-    toolbarButtonsSM: this.editorButtons, 
-    toolbarButtonsMD: this.editorButtons, 
-    toolbarButtonsXS: this.editorButtons, 
-  };
 }
