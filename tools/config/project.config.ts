@@ -25,13 +25,14 @@ export class ProjectConfig extends SeedConfig {
       { src: 'jquery/dist/jquery.min.js', inject: 'libs'},
       { src: 'froala-editor/js/froala_editor.pkgd.min.js', inject: 'libs' },
       { src: 'font-awesome/css/font-awesome.min.css', inject: true },
-      { src: 'froala-editor/css/froala_editor.pkgd.min.css', inject: true }
+      { src: 'froala-editor/css/froala_editor.pkgd.min.css', inject: true },
     ];
 
     // Add `local` third-party libraries to be injected/bundled.
     this.APP_ASSETS = [
       // {src: `${this.APP_SRC}/your-path-to-lib/libs/jquery-ui.js`, inject: true, vendor: false}
-      {src: `${this.CSS_SRC}/scribo-theme.css`, inject: true, vendor: false},
+      { src: `${this.CSS_SRC}/scribo-theme.css`, inject: true, vendor: false },
+      { src: `${this.CSS_SRC}/tree.css`, inject: true, vendor: false }
     ];
 
     this.ROLLUP_INCLUDE_DIR = [
@@ -62,9 +63,13 @@ export class ProjectConfig extends SeedConfig {
         path:'node_modules/angular-tree-component/dist/angular-tree-component.umd.js'
       },
       {
-        name:'angular-in-memory-web-api',
-        path:'node_modules/angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
+        name:'ng2-tree',
+        path:'node_modules/ng2-tree/index.js'
       }
+      // {
+      //   name:'angular-in-memory-web-api',
+      //   path:'node_modules/angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
+      // }
     ];
 
     this.addPackagesBundles(additionalPackages);

@@ -1,9 +1,3 @@
-export class Project {
-  id: string;
-  key: string;
-  name: string;
-  sitems: Sitem[];
-}
 
 export enum noteStatus {
   Cancelled = -1,
@@ -28,11 +22,18 @@ export abstract class Sitem {
 
 export class Sfolder extends Sitem {
   discriminator: number = 0;
-  sfiles: Sfile[];
+  sitems: Sitem[];
   open: boolean = false;
 }
 
 export class Sfile extends Sitem {
   discriminator: number = 1;
   text: string;
+}
+
+export class Project extends Sfolder {
+  discriminator: number = 0;
+  id: string;
+  key: string;
+  name: string;
 }

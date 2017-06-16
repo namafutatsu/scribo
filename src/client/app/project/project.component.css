@@ -3,10 +3,6 @@
   padding: 0 16px;
 }
 
-ul {
-  list-style-type: none;
-}
-
 td {
   vertical-align: top;
   border: 0 solid #e1e1e1;
@@ -14,9 +10,13 @@ td {
   padding: 16px 0px;
 }
 
+#navigation {
+  padding: 10px 0px;
+}
+
 #menu {
+  width: 250px;
   float:left;
-  width: 200px;
 }
 
 #menu li {
@@ -134,3 +134,4 @@ input {
   border:0;
   float:left;
 }
+
