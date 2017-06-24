@@ -101,7 +101,7 @@ td {
 button {
   color: #4f4f51;
   background-color: #f2eae1;
-  -webkit-transition: background-color 0.2s ease 0s;
+  transition: background-color 0.2s ease 0s;
   font-size: 14px;
   width:38px;
   height:38px;

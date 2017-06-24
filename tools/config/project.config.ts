@@ -65,6 +65,10 @@ export class ProjectConfig extends SeedConfig {
       {
         name:'ng2-tree',
         path:'node_modules/ng2-tree/index.js'
+      },
+      {
+        name:'angular2-uuid',
+        path:'node_modules/angular2-uuid/index.js'
       }
       // {
       //   name:'angular-in-memory-web-api',

@@ -7,22 +7,22 @@
       </button>
     </div>-->
     <!--<div *ngIf="!editName">-->
-      <button (click)="save()">
+      <button (click)="saveButton()">
         <i class="fa fa-floppy-o" aria-hidden="true"></i>
       </button>
       <!--<button (click)="commit()">
         <i class="fa fa-cloud-download" aria-hidden="true"></i>
       </button>-->
-      <button (click)="newFolder(selectedNode)" [disabled]="!selectedItem">
+      <button (click)="newFolderButton(selectedNode)" [disabled]="!selectedItem">
         <i class="fa fa-folder-o" aria-hidden="true"></i>
       </button>
-      <button (click)="newFile(selectedNode)" [disabled]="!selectedItem">
+      <button (click)="newFileButton(selectedNode)" [disabled]="!selectedItem">
         <i class="fa fa-file-text-o" aria-hidden="true"></i>
       </button>
-      <button (click)="rename(selectedNode)" [disabled]="!selectedItem">
+      <button (click)="renameButton(selectedNode)" [disabled]="!selectedItem">
         <i class="fa fa-i-cursor" aria-hidden="true"></i>
       </button>
-      <button (click)="delete(selectedNode)" [disabled]="!selectedItem">
+      <button (click)="deleteButton(selectedNode)" [disabled]="!selectedItem">
         <i class="fa fa-trash-o" aria-hidden="true"></i>
       </button>
     <!--</div>-->
@@ -38,13 +38,12 @@
   <br/><br/>
   <div id="navigation">
   <tree [tree]="tree"
-          (nodeRemoved)="onNodeRemoved($event)"
           (nodeRenamed)="onNodeRenamed($event)"
           (nodeSelected)="onNodeSelected($event)"
           (nodeMoved)="onNodeMoved($event)"
           (nodeCreated)="onNodeCreated($event)"></tree>
   </div>
-  <!--<div id="navigation">
+  <!--<div id="navigation">  (nodeRemoved)="onNodeRemoved($event)"
     <ul>
       <li *ngFor="let item of project?.sitems"
         [class.selected]="item === selectedItem">

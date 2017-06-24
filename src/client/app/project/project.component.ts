@@ -3,15 +3,12 @@ import { Component, OnInit }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
 
-import { Project, Note, Sitem, Sfile, Sfolder } from '../shared/project/project';
-import { ProjectService }         from '../shared/project/project.service';
-
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
-// import { TreeModule }             from 'angular-tree-component';
 import { NodeEvent, Tree, TreeModel, RenamableNode, TreeModelSettings, Ng2TreeSettings } from 'ng2-tree';
 import { UUID }                   from 'angular2-uuid';
 
-// declare var $ :any;
+import { Project, Note, Sitem, Sfile, Sfolder } from '../shared/models';
+import { ProjectService }         from '../shared/services/project.service';
 
 @Component({
   moduleId: module.id,
@@ -24,7 +21,8 @@ export class ProjectComponent implements OnInit {
   selectedItem: Sitem;
   selectedFile: Sfile;
   selectedNode: Tree;
-  editorButtons = ['bold',
+  editorButtons = [
+    'bold',
     'italic',
     'underline',
     'specialCharacters',
@@ -34,7 +32,8 @@ export class ProjectComponent implements OnInit {
     'fullscreen',
     'undo',
     'redo',
-    'alert'];
+    'alert'
+  ];
   editorOptions: Object = {
     charCounterCount: true,
     theme:'scribo',
@@ -120,37 +119,69 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  loadTreeModel(item:Sitem): void {
-    this.tree = this.loadNode(item);
-    this.tree.settings = this.treeSettings;
-  }
-
   loadNode(item:Sitem): TreeModel {
     let node: TreeModel = {
-        value: item.name,
+        value: item.name,// + "." + item.index,
         id: item.id
     };
     this.nodes[item.id] = node;
     if (item.discriminator == 0) {
       var children: TreeModel[] = [];
-      (item as Sfolder).sitems.forEach(o => children.push(this.loadNode(o)))
+      (item as Sfolder).sitems
+        .sort((a,b) => a.index - b.index)
+        .forEach(o => children.push(this.loadNode(o)))
       node.children = children;
     }
     return node;
   }
 
-  public onNodeRemoved(e: NodeEvent): void {
+  loadTreeModel(item:Sitem): void {
+    this.tree = this.loadNode(item);
+    this.tree.settings = this.treeSettings;
   }
 
-  public onNodeMoved(e: NodeEvent): void {
-    // let id = e.node.node.id;
-    // let previousParentId = e.previousParent.node.id;
-    // let item = this.ids[id];
-    // let previousParent = this.ids[previousParentId] as Sfolder;
-    // previousParent.sitems.splice(previousParent.sitems.findIndex(o => o.id == e.node.node.id))
-    // let parentId = e.node.parent.id;
-    // let parent = this.ids[parentId] as Sfolder;
-    // parent.sitems.push(item);
+  // public onNodeRemoved(e: NodeEvent): void {
+
+  // }
+
+  public onNodeMoved(e: any): void {
+    let id = e.node.node.id;
+    let previousParentId = e.previousParent.node.id;
+    let item = this.ids[id];
+    let parentId = e.node.parent.node.id;
+    let parent = this.ids[parentId] as Sfolder;
+    let index = e.node.positionInParent;
+    let previousIndex = item.index;
+    if (previousParentId !== parentId) {
+      let previousParent = this.ids[previousParentId] as Sfolder;
+      this.remove(previousParent, item);
+      this.add(parent, item);
+      previousParent.sitems.filter(o => o.index > previousIndex).forEach(o => o.index--);
+      parent.sitems.filter(o => o.index >= index).forEach(o => o.index++);
+    } else {
+      parent.sitems.find(o => o.index === index).index = previousIndex;
+    }
+    // if (previousIndex < index) {
+    //   parent.sitems.filter(o => o.index >= previousIndex && o.index < index).forEach(o => o.index--);
+    // } else {
+    //   parent.sitems.filter(o => o.index >= index && o.index < previousIndex).forEach(o => o.index++);
+    // }
+    item.index = index;
+  }
+
+  // public updateIndexes(parent: Sfolder) {
+  //   let i = 0;
+  //   this.nodes[parent.id].children.forEach(o => this.ids[o.id].index = i++)
+  // }
+
+  public remove(parent: Sfolder, item: Sitem) {
+    let index = parent.sitems.indexOf(item);
+    if (index > -1)
+      parent.sitems.splice(index, 1);
+  }
+
+  public add(parent: Sfolder, item:Sitem) {
+    parent.sitems.push(item);
   }
 
   public onNodeRenamed(e: NodeEvent): void {
@@ -158,16 +189,34 @@ export class ProjectComponent implements OnInit {
     item.name = e.node.value;
   }
 
+  public createSitemFromNode(node: Tree): Sitem {
+    let item: Sitem;
+    if (node.isLeaf()) {
+      item = new Sfile();
+      (item as Sfile).text = "";
+    } else {
+      item = new Sfolder();
+      (item as Sfolder).sitems = [];
+    }
+    item.notes = [];
+    item.id = node.node.id as string;
+    item.index = node.positionInParent;
+    item.name = node.value;
+    (this.ids[node.parent.node.id] as Sfolder).sitems.push(item);
+    return item;
+  }
+
   public onNodeCreated(e: NodeEvent): void {
+    let id = UUID.UUID();
+    e.node.node.id = id;
+    this.ids[id] = this.createSitemFromNode(e.node);
+    this.nodes[id] = e.node.node;
   }
 
   public onNodeSelected(e: NodeEvent): void {
     this.selectedNode = e.node;
     let item:Sitem = this.ids[e.node.node.id];
     this.selectItem(item);
-    // if (e.node.isBranch && !e.node.isNodeExpanded) {
-    //   e.node.;
-    // }
   }
 
   selectItem(item: Sitem): void {
@@ -185,21 +234,40 @@ export class ProjectComponent implements OnInit {
     note.status = (note.status + 2) % 3 - 1;
   }
 
-  save() {
+  public saveButton() {
     if (this.project !== undefined)
       this.projectService.update(this.project);
   }
 
-  rename(node:Tree) {
+  public renameButton(node:Tree) {
     node.markAsBeingRenamed();
   }
 
-  delete(node:Tree) {
+  public deleteButton(node:Tree) {
+    let id = node.node.id;
+    delete this.ids[id];
+    delete this.nodes[id];
+    let parent = this.ids[node.parent.node.id] as Sfolder;
+    let index = node.positionInParent;
+    parent.sitems.filter(o => o.index > index).forEach(o => o.index--);
+    parent.sitems.splice(parent.sitems.findIndex(o => o.id === id), 1);
+    node.parent.removeChild(node);
+    this.selectedNode = undefined;
+    this.selectedFile = undefined;
+    this.selectedItem = undefined;
   }
 
-  newFile(node:Tree) {
+  private newItem(node:Tree, isFolder:boolean) {
+    let parent = node.isLeaf() ? node.parent : node;
+    let child = parent.createNode(isFolder);
+    child.node.settings = this.treeSettings;
   }
 
-  newFolder(node:Tree) {
+  public newFileButton(node:Tree) {
+    this.newItem(node, false);
+  }
+
+  public newFolderButton(node:Tree) {
+    this.newItem(node, true);
   }
 }

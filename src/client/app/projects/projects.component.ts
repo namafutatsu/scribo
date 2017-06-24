@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
 
-import { Project }                from '../shared/project/project';
-import { ProjectService }         from '../shared/project/project.service';
+import { Project }                from '../shared/models';
+import { ProjectService }         from '../shared/services/project.service';
 
 @Component({
   moduleId: module.id,
