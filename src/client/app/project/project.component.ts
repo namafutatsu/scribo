@@ -1,14 +1,14 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit }      from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Location }               from '@angular/common';
+import { Location } from '@angular/common';
 
-import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
-import { NodeEvent, Tree, TreeModel, RenamableNode, TreeModelSettings, Ng2TreeSettings } from 'ng2-tree';
-import { UUID }                   from 'angular2-uuid';
+import { NodeEvent, Tree, TreeModel, RenamableNode,TreeModelSettings,
+  Ng2TreeSettings } from 'ng2-tree';
+import { UUID } from 'angular2-uuid';
 
 import { Project, Note, Sitem, Sfile, Sfolder } from '../shared/models';
-import { ProjectService }         from '../shared/services/project.service';
+import { ProjectService } from '../shared/services/project.service';
 
 @Component({
   moduleId: module.id,
@@ -18,66 +18,10 @@ import { ProjectService }         from '../shared/services/project.service';
 })
 export class ProjectComponent implements OnInit {
   project: Project;
+  loading = false;
   selectedItem: Sitem;
   selectedFile: Sfile;
   selectedNode: Tree;
-  editorButtons = [
-    'bold',
-    'italic',
-    'underline',
-    'specialCharacters',
-    'paragraphFormat',
-    'align',
-    'print',
-    'fullscreen',
-    'undo',
-    'redo',
-    'alert'
-  ];
-  editorOptions: Object = {
-    charCounterCount: true,
-    theme:'scribo',
-    tooltips: false,
-    // height:'750',
-    inlineMode:false,
-    pluginsEnabled: [
-      'align',
-      // 'charCounter',
-      // 'codeBeautifier',
-      // 'codeView',
-      // 'colors',
-      'draggable',
-      // 'emoticons',
-      'entities',
-      // 'file',
-      // 'fontFamily',
-      'fontSize',
-      'fullscreen',
-      // 'image',
-      // 'imageManager',
-      'inlineStyle',
-      'lineBreaker',
-      // 'link',
-      'lists',
-      'paragraphFormat',
-      'paragraphStyle',
-      // 'quickInsert',
-      // 'quote',
-      // 'save',
-      // 'table',
-      // 'url',
-      // 'video',
-      'wordPaste',
-      'specialCharacters',
-      'wordPaste',
-      'print'
-    ],
-
-    toolbarButtons: this.editorButtons,
-    toolbarButtonsSM: this.editorButtons,
-    toolbarButtonsMD: this.editorButtons,
-    toolbarButtonsXS: this.editorButtons,
-  };
   treeSettings: TreeModelSettings = {
     cssClasses: {
       expanded: 'fa fa-caret-down',
@@ -88,7 +32,8 @@ export class ProjectComponent implements OnInit {
     templates: {
       node: '<i class="fa fa-folder-o"></i>',
       leaf: '<i class="fa fa-file-o"></i>'
-    }
+    },
+    rightMenu: false
   };
   public tree: TreeModel = {
     value: 'Loading...'
@@ -235,8 +180,9 @@ export class ProjectComponent implements OnInit {
   }
 
   public saveButton() {
+    this.loading = true;
     if (this.project !== undefined)
-      this.projectService.update(this.project);
+      this.projectService.update(this.project).then(() => this.loading = false);
   }
 
   public renameButton(node:Tree) {

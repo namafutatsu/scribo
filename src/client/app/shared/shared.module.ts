@@ -13,16 +13,30 @@ import { ProjectService } from './services/project.service';
  */
 
 @NgModule({
-  imports: [CommonModule, RouterModule],
-  declarations: [ToolbarComponent, NavbarComponent],
-  exports: [ToolbarComponent, NavbarComponent,
-    CommonModule, FormsModule, RouterModule]
+  imports: [
+    CommonModule,
+    RouterModule
+  ],
+  declarations: [
+    ToolbarComponent,
+    NavbarComponent
+  ],
+  exports: [
+    ToolbarComponent,
+    NavbarComponent,
+    CommonModule,
+    FormsModule,
+    RouterModule
+  ]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [NameListService, ProjectService]
+      providers: [
+        NameListService,
+        ProjectService
+      ]
     };
   }
 }

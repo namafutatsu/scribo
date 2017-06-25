@@ -7,7 +7,7 @@
       </button>
     </div>-->
     <!--<div *ngIf="!editName">-->
-      <button (click)="saveButton()">
+      <button (click)="saveButton()" [disabled]="loading">
         <i class="fa fa-floppy-o" aria-hidden="true"></i>
       </button>
       <!--<button (click)="commit()">
@@ -76,9 +76,7 @@
   </div>-->
 </div>
 
-<div id="editor" *ngIf="selectedFile">
-  <div [froalaEditor]='editorOptions' [(froalaModel)]="selectedFile.text"></div>
-</div>
+<editor [file]="selectedFile" *ngIf="selectedFile"></editor>
 
 <div id="annexe" *ngIf="selectedFile">
   <div id="notes" *ngIf="selectedFile.notes?.length > 0">
@@ -92,6 +90,7 @@
     </li>
   </div>
 </div>
+
 
 <!--<div id="tree">-->
   <!--<tree [tree]="tree"></tree>-->
