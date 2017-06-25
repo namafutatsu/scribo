@@ -1,87 +1,14 @@
-<div id="menu" *ngIf="project">
-  <div id="toolbar">
-    <!--<div *ngIf="editName">
-      <input>
-      <button (click)="rename()" [disabled]="!selectedItem">
-        <i class="fa fa-check" aria-hidden="true"></i>
-      </button>
-    </div>-->
-    <!--<div *ngIf="!editName">-->
-      <button (click)="saveButton()" [disabled]="loading">
-        <i class="fa fa-floppy-o" aria-hidden="true"></i>
-      </button>
-      <!--<button (click)="commit()">
-        <i class="fa fa-cloud-download" aria-hidden="true"></i>
-      </button>-->
-      <button (click)="newFolderButton(selectedNode)" [disabled]="!selectedItem">
-        <i class="fa fa-folder-o" aria-hidden="true"></i>
-      </button>
-      <button (click)="newFileButton(selectedNode)" [disabled]="!selectedItem">
-        <i class="fa fa-file-text-o" aria-hidden="true"></i>
-      </button>
-      <button (click)="renameButton(selectedNode)" [disabled]="!selectedItem">
-        <i class="fa fa-i-cursor" aria-hidden="true"></i>
-      </button>
-      <button (click)="deleteButton(selectedNode)" [disabled]="!selectedItem">
-        <i class="fa fa-trash-o" aria-hidden="true"></i>
-      </button>
-    <!--</div>-->
-    <!--<button (click)="moveUp()" [disabled]="!selectedItem">
-      <i class="fa fa-arrow-up" aria-hidden="true"></i>
-    </button>
-    <button (click)="moveDown()" [disabled]="!selectedItem">
-      <i class="fa fa-arrow-down" aria-hidden="true"></i>
-    </button>
-    fa fa-code-fork-->
-    
-  </div>
-  <br/><br/>
-  <div id="navigation">
-  <tree [tree]="tree"
-          (nodeRenamed)="onNodeRenamed($event)"
-          (nodeSelected)="onNodeSelected($event)"
-          (nodeMoved)="onNodeMoved($event)"
-          (nodeCreated)="onNodeCreated($event)"></tree>
-  </div>
-  <!--<div id="navigation">  (nodeRemoved)="onNodeRemoved($event)"
-    <ul>
-      <li *ngFor="let item of project?.sitems"
-        [class.selected]="item === selectedItem">
-        <div *ngIf="item.discriminator === 1; then file else folder"></div>
-        <ng-template #file>
-          <div (click)="select(item)">
-            {{item.name}}
-          </div>
-        </ng-template>
-        <ng-template #folder>
-          <div *ngIf="item.open; then open else closed"></div>
-          <ng-template #open>
-            <div (click)="select(item)">&#9207; {{item.name}}</div>
-            <div *ngIf="item.open">
-              <ul>
-                <li *ngFor="let file of item.sfiles"
-                [class.selected]="file === selectedItem"
-                (click)="select(file)">
-                  {{file.name}}
-                </li>
-              </ul>
-            </div>
-          </ng-template>
-          <ng-template #closed>
-            <div (click)="select(item)">&#9205; {{item.name}}</div>
-          </ng-template>
-        </ng-template>
-      </li>
-    </ul>
-  </div>-->
-</div>
+<explorer [project]="project" *ngIf="project"
+  (onFileSelect)="onFileSelect($event)"
+  (onFolderSelect)="onFolderSelect($event)"
+  (onSave)="onSave($event)"></explorer>
 
-<editor [file]="selectedFile" *ngIf="selectedFile"></editor>
+<editor [file]="file" *ngIf="file"></editor>
 
-<div id="annexe" *ngIf="selectedFile">
-  <div id="notes" *ngIf="selectedFile.notes?.length > 0">
+<div id="annexe" *ngIf="file">
+  <div id="notes" *ngIf="file.notes?.length > 0">
     Todo:
-    <li *ngFor="let note of selectedFile.notes" [class.cancelled]="note.status < 0">
+    <li *ngFor="let note of file.notes" [class.cancelled]="note.status < 0">
       <i class="fa fa-check-square-o" aria-hidden="true" *ngIf="note.status == 1" (click)="clickNote(note)"></i>
       <i class="fa fa-square-o" aria-hidden="true" *ngIf="note.status == 0" (click)="clickNote(note)"></i>
       <i class="fa fa-times" aria-hidden="true" *ngIf="note.status == -1" (click)="clickNote(note)"></i>
@@ -90,8 +17,3 @@
     </li>
   </div>
 </div>
-
-
-<!--<div id="tree">-->
-  <!--<tree [tree]="tree"></tree>-->
-<!--</div>-->
