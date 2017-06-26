@@ -30,15 +30,15 @@ export class ProjectComponent implements OnInit {
     });
   }
 
-  onFolderSelect(folder: Sfolder) {
+  onFolderSelected(folder: Sfolder) {
     this.file = null;
   }
 
-  onFileSelect(file: Sfile) {
+  onFileSelected(file: Sfile) {
     this.file = file;
   }
 
-  onSave() {
+  onSaving(): void {
     if (this.project !== undefined) {
       this.projectService.update(this.project)
     }

@@ -1,7 +1,7 @@
 <explorer [project]="project" *ngIf="project"
-  (onFileSelect)="onFileSelect($event)"
-  (onFolderSelect)="onFolderSelect($event)"
-  (onSave)="onSave($event)"></explorer>
+  (onFileSelected)="onFileSelected($event)"
+  (onFolderSelected)="onFolderSelected($event)"
+  (onSaving)="onSaving($event)"></explorer>
 
 <editor [file]="file" *ngIf="file"></editor>
 

@@ -1,12 +1,11 @@
 import { NgModule }               from '@angular/core';
 
-import { TreeModule } from 'ng2-tree';
-
 import { ExplorerComponent }        from './explorer.component';
+import { TreeviewModule } from './treeview/treeview.module';
 
 @NgModule({
   imports: [
-    TreeModule,
+    TreeviewModule
   ],
   declarations: [ExplorerComponent],
   exports: [ExplorerComponent]
