@@ -1,15 +1,15 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { NodeEvent, Tree, TreeModel, RenamableNode,TreeModelSettings,
-  Ng2TreeSettings } from 'ng2-tree';
+import { NodeEvent, Tree, TreeModel, TreeModelSettings } from 'ng2-tree';
 import { UUID } from 'angular2-uuid';
 
 import { Project, Sitem, Sfolder } from '../../../shared/models';
+import { Node } from '../explorer.models';
 
 @Component({
   selector: 'treeview',
-  template: `
-  <tree [tree]="tree"
+  template: 
+    `<tree [tree]="tree"
           (nodeRenamed)="onNodeRenamed($event)"
           (nodeSelected)="onNodeSelected($event)"
           (nodeMoved)="onNodeMoved($event)"
@@ -30,8 +30,8 @@ export class TreeviewComponent {
   @Output() onSelected = new EventEmitter<string>();
   @Output() onCreated = new EventEmitter<any>();
   @Output() onRenamed = new EventEmitter<string>();
-  @Output() onDeleted = new EventEmitter<string>();
-  @Output() onMoved = new EventEmitter<any>();
+  @Output() onDeleted = new EventEmitter();
+  @Output() onMoved = new EventEmitter<Node>();
 
   selectedNode: Tree;
   treeSettings: TreeModelSettings = {
@@ -50,18 +50,18 @@ export class TreeviewComponent {
   public tree: TreeModel = {
     value: 'Loading...'
   };
-  nodes: {[ id: string]: TreeModel; } = {};
+  // nodes: {[ id: string]: TreeModel; } = {};
 
   ngOnInit(): void {
     this.loadTreeModel();
   }
 
-  loadNode(item:Sitem): TreeModel {
+  loadNode(item: Sitem): TreeModel {
     let node: TreeModel = {
-        value: item.name,// + "." + item.index,
+        value: item.name,
         id: item.id
     };
-    this.nodes[item.id] = node;
+    // this.nodes[item.id] = node;
     if (item.discriminator == 0) {
       var children: TreeModel[] = [];
       (item as Sfolder).sitems
@@ -77,32 +77,22 @@ export class TreeviewComponent {
     this.tree.settings = this.treeSettings;
   }
 
-  public onNodeSelected(e: NodeEvent): void {
+  onNodeSelected(e: NodeEvent): void {
     this.selectedNode = e.node;
     this.onSelected.emit(e.node.node.id as string);
   }
 
-  public onNodeMoved(e: any): void {
-    let result = {
-      id : e.node.node.id,
-      previousParentId : e.previousParent.node.id,
-      parentId : e.node.parent.node.id,
-      index : e.node.positionInParent
-    }
-    this.onMoved.emit(result);
-  }
-
-  public create(isFolder:boolean) {
+  create(isFolder:boolean) {
     let node = this.selectedNode;
     let parent = node.isLeaf() ? node.parent : node;
     let child = parent.createNode(isFolder);
     child.node.settings = this.treeSettings;
   }
 
-  public onNodeCreated(e: NodeEvent): void {
+  onNodeCreated(e: NodeEvent): void {
     let id = UUID.UUID();
     e.node.node.id = id;
-    this.nodes[id] = e.node.node;
+    // this.nodes[id] = e.node.node;
     let result = {
       id: id,
       name: e.node.value,
@@ -113,21 +103,41 @@ export class TreeviewComponent {
     this.onCreated.emit(result);
   }
 
-  public rename(): void {
+  rename(): void {
     this.selectedNode.markAsBeingRenamed();
   }
 
-  public onNodeRenamed(e: NodeEvent): void {
+  getRoot(node: Tree): Tree {
+    return node.isRoot() ? node : this.getRoot(node.parent);
+  }
+
+  getStructure(tree: Tree): Node {
+    let root = this.getRoot(tree);
+    let node = new Node();
+    node.id = tree.node.id as string;
+    node.name = tree.value as string;
+    node.nodes = [];
+    if (tree.children != undefined) {
+      tree.children.forEach(o => node.nodes.push(this.getStructure(o)));
+    }
+    return node;
+  }
+
+  onNodeMoved(e: NodeEvent): void {
+    this.onMoved.emit(this.getStructure(e.node));
+
+  }
+
+  onNodeRenamed(e: NodeEvent): void {
     this.onRenamed.emit(e.node.value);
   }
 
-  public delete(): void {
+  delete(): void {
     let node = this.selectedNode;
-    let parentId = node.parent.node.id as string;
-    this.selectedNode = undefined;
+    this.selectedNode = null;
     let id = node.node.id;
-    delete this.nodes[id];
+    // delete this.nodes[id];
     node.parent.removeChild(node);
-    this.onDeleted.emit(parentId);
+    this.onDeleted.emit();
   }
 }

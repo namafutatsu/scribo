@@ -1,37 +1,42 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Project, Sitem, Sfile, Sfolder } from '../../shared/models';
+import { Node } from './explorer.models'
 
 @Component({
   selector: 'explorer',
-  template: `
-  <div id="toolbar">
-    <button (click)="this.save()" [disabled]="loading">
-      <i class="fa fa-floppy-o" aria-hidden="true"></i>
-    </button>
-    <button (click)="treeview.create(true)" [disabled]="!selectedItem">
-      <i class="fa fa-folder-o" aria-hidden="true"></i>
-    </button>
-    <button (click)="treeview.create(false)" [disabled]="!selectedItem">
-      <i class="fa fa-file-text-o" aria-hidden="true"></i>
-    </button>
-    <button (click)="treeview.rename()" [disabled]="!selectedItem">
-      <i class="fa fa-i-cursor" aria-hidden="true"></i>
-    </button>
-    <button (click)="treeview.delete()" [disabled]="!selectedItem">
-      <i class="fa fa-trash-o" aria-hidden="true"></i>
-    </button>   
-  </div>
-  <br/><br/>
-  <treeview #treeview [project]="project"
-          (onSelected)="onSelected($event)"
-          (onCreated)="onCreated($event)"
-          (onRenamed)="onRenamed($event)"
-          (onDeleted)="onDeleted($event)"
-          (onMoved)="onMoved($event)"
-          ></treeview>`,
+  template: 
+    `<div id="toolbar">
+      <button (click)="this.save()" [disabled]="loading">
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+      </button>
+      <button (click)="treeview.create(true)" [disabled]="!selectedItem">
+        <i class="fa fa-folder-o" aria-hidden="true"></i>
+      </button>
+      <button (click)="treeview.create(false)" [disabled]="!selectedItem">
+        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+      </button>
+      <button (click)="treeview.rename()" [disabled]="!selectedItem">
+        <i class="fa fa-i-cursor" aria-hidden="true"></i>
+      </button>
+      <button (click)="treeview.delete()" [disabled]="!selectedItem || selectedItem == project">
+        <i class="fa fa-trash-o" aria-hidden="true"></i>
+      </button>   
+    </div>
+    <br/><br/>
+    <treeview #treeview [project]="project"
+            (onSelected)="onSelected($event)"
+            (onCreated)="onCreated($event)"
+            (onRenamed)="onRenamed($event)"
+            (onDeleted)="onDeleted($event)"
+            (onMoved)="onMoved($event)"></treeview>
+            `,
   styles: [
-    `button {
+    `treeview {
+      float:left;
+    }
+    
+    button {
       color: #4f4f51;
       background-color: #f2eae1;
       transition: background-color 0.2s ease 0s;
@@ -69,21 +74,26 @@ export class ExplorerComponent {
   loading = false;
   selectedItem: Sitem;
   selectedFile: Sfile;
-  ids: { [id: string]: Sitem; } = {};
+  items: { [id: string]: Sitem; } = {};
+  parents: { [id: string]: Sfolder; } = {};
 
   ngOnInit(): void {
-    this.loadIds(this.project);
+    this.loadItems(this.project);
   }
 
-  loadIds(item:Sitem): void {
-    this.ids[item.id] = item;
+  loadItems(item:Sitem): void {
+    this.items[item.id] = item;
     if (item.discriminator == 0) {
-      (item as Sfolder).sitems.forEach(o => this.loadIds(o));
+      let folder = item as Sfolder;
+      folder.sitems.forEach(o => {
+        this.loadItems(o);
+        this.parents[o.id] = folder;
+      });
     }
   }
 
   onSelected(id: string): void {
-    let item = this.ids[id];
+    let item = this.items[id];
     this.selectedItem = item;
     if (item.discriminator === 1) {
       let file = item as Sfile;
@@ -96,59 +106,7 @@ export class ExplorerComponent {
     }
   }
 
-
-
-  // public onNodeMoved(e: any): void {
-  //   let id = e.node.node.id;
-  //   let previousParentId = e.previousParent.node.id;
-  //   let item = this.ids[id];
-  //   let parentId = e.node.parent.node.id;
-  //   let parent = this.ids[parentId] as Sfolder;
-  //   let index = e.node.positionInParent;
-  //   let previousIndex = item.index;
-  //   if (previousParentId !== parentId) {
-  //     let previousParent = this.ids[previousParentId] as Sfolder;
-  //     this.remove(previousParent, item);
-  //     this.add(parent, item);
-  //     previousParent.sitems.filter(o => o.index > previousIndex).forEach(o => o.index--);
-  //     parent.sitems.filter(o => o.index >= index).forEach(o => o.index++);
-  //   } else {
-  //     parent.sitems.find(o => o.index === index).index = previousIndex;
-  //   }
-  //   item.index = index;
-  // }
-
-  // public remove(parent: Sfolder, item: Sitem) {
-  //   let index = parent.sitems.indexOf(item);
-  //   if (index > -1)
-  //     parent.sitems.splice(index, 1);
-  // }
-
-  // public add(parent: Sfolder, item:Sitem) {
-  //   parent.sitems.push(item);
-  // }
-
-  public onMoved(result: any): void {
-    let id = result.id;
-    let parentId = result.parentId;
-    let index = result.index;
-    let previousParentId = result.previousParentId;
-    let item = this.ids[id];
-    let parent = this.ids[parentId] as Sfolder;
-    let previousIndex = item.index;
-    if (previousParentId !== parentId) {
-      let previousParent = this.ids[previousParentId] as Sfolder;
-      previousParent.sitems.splice(previousIndex, 1);
-      previousParent.sitems.filter(o => o.index > previousIndex).forEach(o => o.index--);
-      parent.sitems.push(item);
-      parent.sitems.filter(o => o.index >= index).forEach(o => o.index++);
-    } else {
-      parent.sitems.find(o => o.index === index).index = previousIndex;
-    }
-    item.index = index;
-  }
-
-  public onCreated(result: any): void {
+  onCreated(result: any): void {
     let item: Sitem;
     if (result.isFolder) {
       item = new Sfolder();
@@ -159,29 +117,51 @@ export class ExplorerComponent {
     }
     item.id = result.id;
     item.name = result.name;
-    item.index = result.index;
     item.notes = [];
-    (this.ids[result.parentId] as Sfolder).sitems.push(item);
-    this.ids[item.id] = item;
+    let parent = this.items[result.parentId] as Sfolder;
+    parent.sitems.filter(o => o.index >= result.index).forEach(o => o.index++);
+    parent.sitems.push(item);
+    item.index = result.index;
+    this.items[item.id] = item;
+    this.parents[item.id] = parent;
   }
 
-  public onRenamed(name: string) {
+  onRenamed(name: string) {
     this.selectedItem.name = name;
   }
 
-  public onDeleted(parentId: string) {
+  setStructure(tree: Node): void {
+    let folder = this.items[tree.id] as Sfolder;
+    folder.sitems = [];
+    let i = 0;
+    tree.nodes.forEach(o => {
+      let item = this.items[o.id];
+      item.index = i++;
+      folder.sitems.push(item);
+      if (item.discriminator == 0) {
+        this.setStructure(o);
+      }
+    });
+  }
+
+  onMoved(tree: Node): void {
+    this.setStructure(tree);
+  }
+
+  onDeleted() {
     let id = this.selectedItem.id;
-    delete this.ids[id];
-    let parent = this.ids[parentId] as Sfolder;
+    let parent = this.parents[id] as Sfolder;
     let index = this.selectedItem.index;
-    parent.sitems.filter(o => o.index > index).forEach(o => o.index--);
     parent.sitems.splice(parent.sitems.findIndex(o => o.id === id), 1);
-    this.selectedFile = undefined;
-    this.selectedItem = undefined;
+    parent.sitems.filter(o => o.index > index).forEach(o => o.index--);
+    delete this.items[id];
+    delete this.parents[id];
+    this.selectedFile = null;
+    this.selectedItem = null;
     this.onFileSelected.emit(null);
   }
 
-  public save(): void {
+  save(): void {
     this.onSaving.emit()
   }
 
