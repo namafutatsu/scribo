@@ -1,15 +1,15 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Project, Sitem, Sfile, Sfolder } from '../../shared/models';
-import { Node } from './explorer.models'
+import { Node } from './explorer.models';
 
 @Component({
   moduleId: module.id,
-  selector: 'explorer',
+  selector: 's-explorer',
   templateUrl: 'explorer.component.html',
   styleUrls: ['explorer.component.css']
 })
-export class ExplorerComponent {
+export class ExplorerComponent implements OnInit {
   @Input() project: Project;
   @Output() onFileSelected = new EventEmitter<Sfile>();
   @Output() onFolderSelected = new EventEmitter<Sfolder>();
@@ -27,7 +27,7 @@ export class ExplorerComponent {
 
   loadItems(item:Sitem): void {
     this.items[item.id] = item;
-    if (item.discriminator == 0) {
+    if (item.discriminator === 0) {
       let folder = item as Sfolder;
       folder.sitems.forEach(o => {
         this.loadItems(o);
@@ -57,7 +57,7 @@ export class ExplorerComponent {
       (item as Sfolder).sitems = [];
     } else {
       item = new Sfile();
-      (item as Sfile).text = "";
+      (item as Sfile).text = '';
     }
     item.id = result.id;
     item.name = result.name;
@@ -82,7 +82,7 @@ export class ExplorerComponent {
       let item = this.items[o.id];
       item.index = i++;
       folder.sitems.push(item);
-      if (item.discriminator == 0) {
+      if (item.discriminator === 0) {
         this.setStructure(o);
       }
     });
@@ -106,7 +106,7 @@ export class ExplorerComponent {
   }
 
   save(): void {
-    this.onSaving.emit()
+    this.onSaving.emit();
   }
 
 }

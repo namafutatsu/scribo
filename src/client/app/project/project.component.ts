@@ -40,7 +40,7 @@ export class ProjectComponent implements OnInit {
 
   onSaving(): void {
     if (this.project !== undefined) {
-      this.projectService.update(this.project)
+      this.projectService.update(this.project);
     }
   }
 

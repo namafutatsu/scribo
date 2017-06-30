@@ -16,9 +16,9 @@
   </button>   
 </div>
 <br/><br/>
-<treeview #treeview [project]="project"
+<s-treeview #treeview [project]="project"
   (onSelected)="onSelected($event)"
   (onCreated)="onCreated($event)"
   (onRenamed)="onRenamed($event)"
-  (onDeleted)="onDeleted($event)"
-  (onMoved)="onMoved($event)"></treeview>
+  (onDeleted)="onDeleted()"
+  (onMoved)="onMoved($event)"></s-treeview>

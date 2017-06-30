@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { NameListService } from './name-list/name-list.service';
 import { ProjectService } from './services/project.service';
 
 /**
@@ -34,7 +33,6 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        NameListService,
         ProjectService
       ]
     };

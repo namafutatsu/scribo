@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { NodeEvent, Tree, TreeModel, TreeModelSettings } from 'ng2-tree';
 import { UUID } from 'angular2-uuid';
@@ -8,11 +8,11 @@ import { Node } from '../explorer.models';
 
 @Component({
   moduleId: module.id,
-  selector: 'treeview',
+  selector: 's-treeview',
   templateUrl: 'treeview.component.html',
   styleUrls: ['treeview.component.css']
 })
-export class TreeviewComponent {
+export class TreeviewComponent implements OnInit {
   @Input() project: Project;
   @Output() onSelected = new EventEmitter<string>();
   @Output() onCreated = new EventEmitter<any>();
@@ -49,11 +49,11 @@ export class TreeviewComponent {
         id: item.id
     };
     // this.nodes[item.id] = node;
-    if (item.discriminator == 0) {
+    if (item.discriminator === 0) {
       var children: TreeModel[] = [];
       (item as Sfolder).sitems
         .sort((a,b) => a.index - b.index)
-        .forEach(o => children.push(this.loadNode(o)))
+        .forEach(o => children.push(this.loadNode(o)));
       node.children = children;
     }
     return node;
@@ -104,7 +104,7 @@ export class TreeviewComponent {
     node.id = tree.node.id as string;
     node.name = tree.value as string;
     node.nodes = [];
-    if (tree.children != undefined) {
+    if (tree.children !== undefined) {
       tree.children.forEach(o => node.nodes.push(this.getStructure(o)));
     }
     return node;
