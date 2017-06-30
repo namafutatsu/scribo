@@ -1,0 +1,31 @@
+treeview {
+  float:left;
+}
+
+button {
+  color: #4f4f51;
+  background-color: #f2eae1;
+  transition: background-color 0.2s ease 0s;
+  font-size: 14px;
+  width:38px;
+  height:38px;
+  float:left;
+  outline: 0;
+  border: 0;
+  margin: 0px 2px;
+  padding: 0;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e0dad3;
+}
+
+button:active {
+  background-color: #cecac4;
+}
+
+button:disabled {
+  color: #b3ada7;
+  cursor: auto;
+}

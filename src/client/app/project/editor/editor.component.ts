@@ -3,8 +3,9 @@ import { Component, Input } from '@angular/core';
 import { Sfile } from '../../shared/models';
 
 @Component({
+  moduleId: module.id,
   selector: 'editor',
-  template: `<div [froalaEditor]='options' [(froalaModel)]="file.text"></div>`,
+  templateUrl: 'editor.component.html',
 })
 export class EditorComponent {
   @Input() file: Sfile;

@@ -1,4 +1,3 @@
-
 export enum noteStatus {
   Cancelled = -1,
   Todo,

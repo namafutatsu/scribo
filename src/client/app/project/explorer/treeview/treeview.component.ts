@@ -7,23 +7,10 @@ import { Project, Sitem, Sfolder } from '../../../shared/models';
 import { Node } from '../explorer.models';
 
 @Component({
+  moduleId: module.id,
   selector: 'treeview',
-  template: 
-    `<tree [tree]="tree"
-          (nodeRenamed)="onNodeRenamed($event)"
-          (nodeSelected)="onNodeSelected($event)"
-          (nodeMoved)="onNodeMoved($event)"
-          (nodeCreated)="onNodeCreated($event)"></tree>`,
-  styles: [
-    `input {
-      height:25px;
-      width:130px;
-      margin: 0;
-      padding: 0;
-      border:0;
-      float:left;
-    }`
-  ]
+  templateUrl: 'treeview.component.html',
+  styleUrls: ['treeview.component.css']
 })
 export class TreeviewComponent {
   @Input() project: Project;

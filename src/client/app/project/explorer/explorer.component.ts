@@ -4,66 +4,10 @@ import { Project, Sitem, Sfile, Sfolder } from '../../shared/models';
 import { Node } from './explorer.models'
 
 @Component({
+  moduleId: module.id,
   selector: 'explorer',
-  template: 
-    `<div id="toolbar">
-      <button (click)="this.save()" [disabled]="loading">
-        <i class="fa fa-floppy-o" aria-hidden="true"></i>
-      </button>
-      <button (click)="treeview.create(true)" [disabled]="!selectedItem">
-        <i class="fa fa-folder-o" aria-hidden="true"></i>
-      </button>
-      <button (click)="treeview.create(false)" [disabled]="!selectedItem">
-        <i class="fa fa-file-text-o" aria-hidden="true"></i>
-      </button>
-      <button (click)="treeview.rename()" [disabled]="!selectedItem">
-        <i class="fa fa-i-cursor" aria-hidden="true"></i>
-      </button>
-      <button (click)="treeview.delete()" [disabled]="!selectedItem || selectedItem == project">
-        <i class="fa fa-trash-o" aria-hidden="true"></i>
-      </button>   
-    </div>
-    <br/><br/>
-    <treeview #treeview [project]="project"
-            (onSelected)="onSelected($event)"
-            (onCreated)="onCreated($event)"
-            (onRenamed)="onRenamed($event)"
-            (onDeleted)="onDeleted($event)"
-            (onMoved)="onMoved($event)"></treeview>
-            `,
-  styles: [
-    `treeview {
-      float:left;
-    }
-    
-    button {
-      color: #4f4f51;
-      background-color: #f2eae1;
-      transition: background-color 0.2s ease 0s;
-      font-size: 14px;
-      width:38px;
-      height:38px;
-      float:left;
-      outline: 0;
-      border: 0;
-      margin: 0px 2px;
-      padding: 0;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #e0dad3;
-    }
-
-    button:active {
-      background-color: #cecac4;
-    }
-
-    button:disabled {
-      color: #b3ada7;
-      cursor: auto;
-    }`
-  ]
+  templateUrl: 'explorer.component.html',
+  styleUrls: ['explorer.component.css']
 })
 export class ExplorerComponent {
   @Input() project: Project;
