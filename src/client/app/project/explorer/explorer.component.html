@@ -1,0 +1,24 @@
+<div id="toolbar">
+  <button (click)="this.save()" [disabled]="loading">
+    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+  </button>
+  <button (click)="treeview.create(true)" [disabled]="!selectedItem">
+    <i class="fa fa-folder-o" aria-hidden="true"></i>
+  </button>
+  <button (click)="treeview.create(false)" [disabled]="!selectedItem">
+    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+  </button>
+  <button (click)="treeview.rename()" [disabled]="!selectedItem">
+    <i class="fa fa-i-cursor" aria-hidden="true"></i>
+  </button>
+  <button (click)="treeview.delete()" [disabled]="!selectedItem || selectedItem == project">
+    <i class="fa fa-trash-o" aria-hidden="true"></i>
+  </button>   
+</div>
+<br/><br/>
+<s-treeview #treeview [project]="project"
+  (onSelected)="onSelected($event)"
+  (onCreated)="onCreated($event)"
+  (onRenamed)="onRenamed($event)"
+  (onDeleted)="onDeleted()"
+  (onMoved)="onMoved($event)"></s-treeview>
