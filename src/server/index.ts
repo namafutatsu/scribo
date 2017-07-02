@@ -23,7 +23,7 @@ export function init(port: number, mode: string) {
    * Dev Mode.
    * @note Dev server will only give for you middleware.
    */
-  if (mode == 'dev') {
+  if (mode === 'dev') {
 
     app.all('/*', function(req, res, next) {
       res.header('Access-Control-Allow-Origin', '*');
@@ -47,8 +47,7 @@ export function init(port: number, mode: string) {
     /**
      * Api Routes for `Development`.
      */
-  }
-  else {
+  } else {
     /**
      * Prod Mode.
      * @note Prod mod will give you static + middleware.
@@ -96,4 +95,4 @@ export function init(port: number, mode: string) {
       resolve(server);
     });
   });
-};
+}
