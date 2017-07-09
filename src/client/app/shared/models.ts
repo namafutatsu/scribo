@@ -32,7 +32,14 @@ export class Sfile extends Sitem {
 
 export class Project extends Sfolder {
   discriminator: number = 0;
+  _id: string;
   id: string;
   key: string;
   name: string;
+}
+
+export class User {
+  username: string;
+  email: string;
+  password: string;
 }

@@ -114,3 +114,9 @@ button {
 button:hover {
   background-color: #707e8f;
 }
+
+.btn-primary {
+    color: #fff;
+    background-color: #707e8f;
+    border-color: #707e8f;
+}

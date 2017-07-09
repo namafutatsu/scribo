@@ -26,6 +26,7 @@ export class ProjectConfig extends SeedConfig {
       { src: 'froala-editor/js/froala_editor.pkgd.min.js', inject: 'libs' },
       { src: 'font-awesome/css/font-awesome.min.css', inject: true },
       { src: 'froala-editor/css/froala_editor.pkgd.min.css', inject: true },
+      { src: `bootstrap/dist/css/bootstrap.min.css`, inject: true }
     ];
 
     // Add `local` third-party libraries to be injected/bundled.
@@ -69,6 +70,14 @@ export class ProjectConfig extends SeedConfig {
       {
         name:'angular2-uuid',
         path:'node_modules/angular2-uuid/index.js'
+      },
+      {
+        name:'bcryptjs',
+        path:'node_modules/bcryptjs/dist/bcrypt.js'
+      },
+      {
+        name:'angular2-jwt',
+        path:'node_modules/angular2-jwt/angular2-jwt.js'
       }
       // {
       //   name:'angular-in-memory-web-api',

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router }            from '@angular/router';
+import { Router } from '@angular/router';
 
-import { Project }                from '../shared/models';
-import { ProjectService }         from '../shared/services/project.service';
+import { Project } from '../shared/models';
+import { ProjectService } from '../services/project.service';
 
 @Component({
   moduleId: module.id,
@@ -23,8 +23,8 @@ export class ProjectsComponent implements OnInit {
 
   getProjects(): void {
     this.projectService
-        .getProjects()
-        .then(projects => this.projects = projects);
+      .getProjects()
+      .then(projects => this.projects = projects);
   }
 
   select(project: Project): void {

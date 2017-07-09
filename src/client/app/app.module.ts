@@ -5,31 +5,41 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-// import { InMemoryDataService }  from './shared/mock.service';
-
 import { AboutModule } from './about/about.module';
 import { ProjectsModule } from './projects/projects.module';
 import { ProjectModule } from './project/project.module';
 import { HomeModule } from './home/home.module';
+import { RegisterModule } from './register/register.module';
+import { LoginModule } from './login/login.module';
+import { LogoutModule } from './logout/logout.module';
 import { SharedModule } from './shared/shared.module';
+import { ProjectService } from './services/project.service';
+import { UserService } from './services/user.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
-    // InMemoryWebApiModule.forRoot(InMemoryDataService),
     AboutModule,
     HomeModule,
     ProjectsModule,
     ProjectModule,
+    RegisterModule,
+    LoginModule,
+    LogoutModule,
     SharedModule.forRoot()],
   declarations: [AppComponent],
-  providers: [{
-    provide: APP_BASE_HREF,
-    useValue: '<%= APP_BASE %>'
-  }],
+  providers: [
+    ProjectService,
+    UserService,
+    AuthService,
+    {
+      provide: APP_BASE_HREF,
+      useValue: '<%= APP_BASE %>'
+    }
+  ],
   bootstrap: [AppComponent]
 
 })

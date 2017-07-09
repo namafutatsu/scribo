@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
-import { Config } from '../config/env.config';
-import { Project } from '../models';
+import { Config } from '../shared/config/env.config';
+import { Project } from '../shared/models';
 
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ProjectService {
-  projectsUrl = `${Config.API}/api/projects`;
-  headers = new Headers({'Content-Type': 'application/json'});
+  private url = `${Config.API}/api/projects`;
+  private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) { }
 
   getProjects(): Promise<Project[]> {
-    return this.http.get(this.projectsUrl)
+    return this.http.get(this.url)
       .toPromise()
       .then(response => response.json() as Project[])
       .catch(this.handleError);
   }
 
   getProject(key: string): Promise<Project> {
-    const url = `${this.projectsUrl}/${key}`;
+    const url = `${this.url}/${key}`;
     return this.http.get(url)
       .toPromise()
       .then(response => response.json() as Project)
@@ -29,7 +29,7 @@ export class ProjectService {
   }
 
   update(project: Project): Promise<Project> {
-    const url = `${this.projectsUrl}/put`;
+    const url = `${this.url}/${project._id}`;
     return this.http
       .put(url, JSON.stringify(project), {headers: this.headers})
       .toPromise()

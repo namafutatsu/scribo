@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { ProjectService } from './services/project.service';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -32,9 +31,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [
-        ProjectService
-      ]
+      providers: []
     };
   }
 }

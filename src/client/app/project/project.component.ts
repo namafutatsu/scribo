@@ -4,7 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Project, Note, Sitem, Sfile, Sfolder } from '../shared/models';
-import { ProjectService } from '../shared/services/project.service';
+import { ProjectService } from '../services/project.service';
 
 @Component({
   moduleId: module.id,

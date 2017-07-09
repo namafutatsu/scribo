@@ -3,6 +3,8 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import * as compression from 'compression';
+import * as mongoose from 'mongoose';
+
 import * as routes from './routes';
 
 /**
@@ -18,6 +20,13 @@ export function init(port: number, mode: string) {
   app.use(bodyParser.json({limit:'10mb'}));
   app.use(bodyParser.text());
   app.use(compression());
+
+  // app.set('dbUrl', 'mongodb://localhost:27017/Scribo');
+  app.set('dbUrl', 'mongodb://dev:dev@ds123662.mlab.com:23662/scribs');
+
+  mongoose.connect(app.get('dbUrl'));
+  const db = mongoose.connection;
+  (<any>mongoose).Promise = global.Promise;
 
   /**
    * Dev Mode.
@@ -39,10 +48,10 @@ export function init(port: number, mode: string) {
     app.use(express.static(root));
     app.use(express.static(clientRoot));
 
-    var renderIndex = (req: express.Request, res: express.Response) => {
+    var devRenderIndex = (req: express.Request, res: express.Response) => {
       res.sendFile(path.resolve(__dirname, _clientDir + '/index.html'));
     };
-    app.get('/*', renderIndex);
+    app.get('/*', devRenderIndex);
 
     /**
      * Api Routes for `Development`.
@@ -75,14 +84,14 @@ export function init(port: number, mode: string) {
      * @param req {any}
      * @param res {any}
      */
-    var renderIndex = function (req: express.Request, res: express.Response) {
+    var prodRenderIndex = function (req: express.Request, res: express.Response) {
       res.sendFile(path.resolve(__dirname, _clientDir + '/index.html'));
     };
 
     /**
      * Prevent server routing and use @ng2-router.
      */
-    app.get('/*', renderIndex);
+    app.get('/*', prodRenderIndex);
   }
 
   /**
