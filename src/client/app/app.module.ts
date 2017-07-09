@@ -12,6 +12,7 @@ import { HomeModule } from './home/home.module';
 import { RegisterModule } from './register/register.module';
 import { LoginModule } from './login/login.module';
 import { LogoutModule } from './logout/logout.module';
+import { NotFoundModule } from './notfound/notfound.module';
 import { SharedModule } from './shared/shared.module';
 import { ProjectService } from './services/project.service';
 import { UserService } from './services/user.service';
@@ -29,7 +30,8 @@ import { AuthService } from './services/auth.service';
     RegisterModule,
     LoginModule,
     LogoutModule,
-    SharedModule.forRoot()],
+    SharedModule.forRoot(),
+    NotFoundModule],
   declarations: [AppComponent],
   providers: [
     ProjectService,
@@ -40,6 +42,7 @@ import { AuthService } from './services/auth.service';
       useValue: '<%= APP_BASE %>'
     }
   ],
+  // schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 
 })
