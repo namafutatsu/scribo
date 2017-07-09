@@ -120,3 +120,7 @@ button:hover {
     background-color: #707e8f;
     border-color: #707e8f;
 }
+
+.card {
+  background-color: #f2eae1;
+}

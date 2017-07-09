@@ -12,6 +12,7 @@ import { ProjectService } from '../services/project.service';
 })
 export class ProjectsComponent implements OnInit {
   projects: Project[];
+  isLoading = true;
 
   constructor(
     private projectService: ProjectService,
@@ -24,7 +25,10 @@ export class ProjectsComponent implements OnInit {
   getProjects(): void {
     this.projectService
       .getProjects()
-      .then(projects => this.projects = projects);
+      .then(projects => {
+        this.projects = projects;
+        this.isLoading = false;
+      });
   }
 
   select(project: Project): void {

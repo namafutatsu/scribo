@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ToastComponent } from './toast/toast.component';
+import { LoadingComponent } from './loading/loading.component';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -17,21 +19,29 @@ import { NavbarComponent } from './navbar/navbar.component';
   ],
   declarations: [
     ToolbarComponent,
-    NavbarComponent
+    NavbarComponent,
+    ToastComponent,
+    LoadingComponent
   ],
   exports: [
-    ToolbarComponent,
-    NavbarComponent,
+    // Shared Modules
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    // Shared Components
+    ToolbarComponent,
+    NavbarComponent,
+    ToastComponent,
+    LoadingComponent
   ]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: []
+      providers: [
+        ToastComponent
+      ]
     };
   }
 }

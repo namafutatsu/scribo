@@ -15,6 +15,7 @@ import { ProjectService } from '../services/project.service';
 export class ProjectComponent implements OnInit {
   project: Project;
   file: Sfile;
+  isLoading = true;
 
   constructor(
     private projectService: ProjectService,
@@ -27,6 +28,7 @@ export class ProjectComponent implements OnInit {
     .switchMap((params: Params) => this.projectService.getProject(params['key']))
     .subscribe(project => {
       this.project = project;
+      this.isLoading = false;
     });
   }
 

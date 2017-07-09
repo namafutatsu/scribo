@@ -1,3 +1,5 @@
+<sd-loading [condition]="isLoading"></sd-loading>
+
 <s-explorer [project]="project" *ngIf="project"
   (onFileSelected)="onFileSelected($event)"
   (onFolderSelected)="onFolderSelected($event)"

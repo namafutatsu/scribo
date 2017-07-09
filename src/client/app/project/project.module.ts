@@ -6,6 +6,7 @@ import { ProjectComponent } from './project.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { EditorModule } from './editor/editor.module';
 import { ExplorerModule } from './explorer/explorer.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { ExplorerModule } from './explorer/explorer.module';
     FormsModule,
     ProjectRoutingModule,
     EditorModule,
-    ExplorerModule
+    ExplorerModule,
+    SharedModule
   ],
   declarations: [ProjectComponent],
   exports: [ProjectComponent]
