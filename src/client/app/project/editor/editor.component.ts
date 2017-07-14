@@ -4,7 +4,7 @@ import { Sfile } from '../../shared/models';
 
 @Component({
   moduleId: module.id,
-  selector: 's-editor',
+  selector: 'sd-editor',
   templateUrl: 'editor.component.html',
 })
 export class EditorComponent {

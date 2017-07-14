@@ -9,12 +9,12 @@ td {
   padding: 16px 0px;
 }
 
-s-explorer {
+sd-explorer {
   width: 250px;
   float:left;
 }
 
-s-editor {
+sd-editor {
   float:left;
   left: 250px;
   right: 20px;

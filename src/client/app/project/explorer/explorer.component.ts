@@ -5,7 +5,7 @@ import { Node } from './explorer.models';
 
 @Component({
   moduleId: module.id,
-  selector: 's-explorer',
+  selector: 'sd-explorer',
   templateUrl: 'explorer.component.html',
   styleUrls: ['explorer.component.css']
 })

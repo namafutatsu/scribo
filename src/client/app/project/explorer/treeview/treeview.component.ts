@@ -8,7 +8,7 @@ import { Node } from '../explorer.models';
 
 @Component({
   moduleId: module.id,
-  selector: 's-treeview',
+  selector: 'sd-treeview',
   templateUrl: 'treeview.component.html',
   styleUrls: ['treeview.component.css']
 })

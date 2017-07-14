@@ -1,6 +1,7 @@
 <sd-toast [message]="toast.message"></sd-toast>
 
 <div class="card">
+  <div class="card-header"><h1>Sign in</h1></div>
   <div class="card-block">
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="input-group" [ngClass]="setClassEmail()">
@@ -13,5 +14,8 @@
       </div>
       <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid"><i class="fa fa-sign-in"></i> Login</button>
     </form>
+  </div>
+  <div class="card-footer">
+    New to Scribo?&nbsp;&nbsp;<a [routerLink]="['/register']">Create an account!</a>
   </div>
 </div>

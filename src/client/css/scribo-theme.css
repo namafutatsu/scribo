@@ -33,7 +33,7 @@
   height: 32px;
   width: 32px;
   background: #f2eae1;
-  color: #1e88e5;
+  color: #a53b2b;
   -webkit-transition: background 0.2s ease 0s, color 0.2s ease 0s, transform 0.2s ease 0s;
   -moz-transition: background 0.2s ease 0s, color 0.2s ease 0s, transform 0.2s ease 0s;
   -ms-transition: background 0.2s ease 0s, color 0.2s ease 0s, transform 0.2s ease 0s;
@@ -48,7 +48,7 @@
   -moz-transition: transform 0.2s ease 0s;
   -ms-transition: transform 0.2s ease 0s;
   -o-transition: transform 0.2s ease 0s;
-  fill: #1e88e5;
+  fill: #a53b2b;
 }
 .scribo-theme.fr-box a.fr-floating-btn i {
   font-size: 14px;
@@ -58,7 +58,7 @@
   background: #e0dad3;
 }
 .scribo-theme.fr-box a.fr-floating-btn:hover svg {
-  fill: #1e88e5;
+  fill: #a53b2b;
 }
 .scribo-theme .fr-wrapper .fr-placeholder {
   font-size: 12px;
@@ -176,19 +176,19 @@
 }
 .scribo-theme.fr-popup .fr-colors-tabs .fr-colors-tab:hover,
 .scribo-theme.fr-popup .fr-colors-tabs .fr-colors-tab:focus {
-  color: #1e88e5;
+  color: #a53b2b;
 }
 .scribo-theme.fr-popup .fr-colors-tabs .fr-colors-tab[data-param1="background"]::after {
   bottom: 0;
   left: 0;
-  background: #1e88e5;
+  background: #a53b2b;
   -webkit-transition: transform 0.2s ease 0s;
   -moz-transition: transform 0.2s ease 0s;
   -ms-transition: transform 0.2s ease 0s;
   -o-transition: transform 0.2s ease 0s;
 }
 .scribo-theme.fr-popup .fr-colors-tabs .fr-colors-tab.fr-selected-tab {
-  color: #1e88e5;
+  color: #a53b2b;
 }
 .scribo-theme.fr-popup .fr-color-set {
   line-height: 0;
@@ -210,7 +210,7 @@
   outline: 1px solid #4f4f51;
 }
 .scribo-theme .fr-drag-helper {
-  background: #1e88e5;
+  background: #a53b2b;
 }
 .scribo-theme.fr-popup .fr-link:focus {
   background: #e0dad3;
@@ -224,7 +224,7 @@
 }
 .scribo-theme .fr-file-upload-layer.fr-drop {
   background: #e0dad3;
-  border-color: #1e88e5;
+  border-color: #a53b2b;
 }
 .scribo-theme .fr-file-upload-layer .fr-form {
   top: 0;
@@ -239,7 +239,7 @@
   background: #b2cde2;
 }
 .scribo-theme .fr-file-progress-bar-layer > div.fr-loader span {
-  background: #1e88e5;
+  background: #a53b2b;
   -webkit-transition: width 0.2s ease 0s;
   -moz-transition: width 0.2s ease 0s;
   -ms-transition: width 0.2s ease 0s;
@@ -264,10 +264,10 @@
   color: #807e7c;
 }
 .scribo-theme .fr-image-resizer {
-  border: solid 1px #1e88e5;
+  border: solid 1px #a53b2b;
 }
 .scribo-theme .fr-image-resizer .fr-handler {
-  background: #1e88e5;
+  background: #a53b2b;
   border: solid 1px #f2eae1;
 }
 .scribo-theme .fr-image-resizer .fr-handler {
@@ -327,7 +327,7 @@
 }
 .scribo-theme .fr-image-upload-layer.fr-drop {
   background: #e0dad3;
-  border-color: #1e88e5;
+  border-color: #a53b2b;
 }
 .scribo-theme .fr-image-upload-layer .fr-form {
   top: 0;
@@ -342,7 +342,7 @@
   background: #b2cde2;
 }
 .scribo-theme .fr-image-progress-bar-layer > div.fr-loader span {
-  background: #1e88e5;
+  background: #a53b2b;
   -webkit-transition: width 0.2s ease 0s;
   -moz-transition: width 0.2s ease 0s;
   -ms-transition: width 0.2s ease 0s;
@@ -370,7 +370,7 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  color: #1e88e5;
+  color: #a53b2b;
   -webkit-transition: opacity 0.2s ease 0s, background 0.2s ease 0s;
   -moz-transition: opacity 0.2s ease 0s, background 0.2s ease 0s;
   -ms-transition: opacity 0.2s ease 0s, background 0.2s ease 0s;
@@ -448,7 +448,7 @@
 }
 .scribo-themediv.fr-modal-body div.fr-image-list div.fr-image-container .fr-insert-img {
   background: #f2eae1;
-  color: #1e88e5;
+  color: #a53b2b;
 }
 .scribo-theme.scribo-theme.fr-desktop .fr-modal-wrapper .fr-modal-head .fr-modal-tags a:hover {
   background: #e0dad3;
@@ -464,7 +464,7 @@
   background: #e0dad3;
 }
 .scribo-theme .fr-line-breaker {
-  border-top: 1px solid #1e88e5;
+  border-top: 1px solid #a53b2b;
 }
 .scribo-theme .fr-line-breaker a.fr-floating-btn {
   left: calc(34%);
@@ -481,10 +481,10 @@
 }
 .scribo-theme .fr-element table td.fr-selected-cell,
 .scribo-theme .fr-element table th.fr-selected-cell {
-  border: 1px double #1e88e5;
+  border: 1px double #a53b2b;
 }
 .scribo-theme .fr-table-resizer div {
-  border-right: 1px solid #1e88e5;
+  border-right: 1px solid #a53b2b;
 }
 .scribo-theme.fr-popup .fr-table-size .fr-select-table-size {
   line-height: 0;
@@ -497,7 +497,7 @@
 }
 .scribo-theme.fr-popup .fr-table-size .fr-select-table-size > span.hover > span {
   background: rgba(30, 136, 229, 0.3);
-  border: solid 1px #1e88e5;
+  border: solid 1px #a53b2b;
 }
 .scribo-theme.fr-popup .fr-table-colors {
   line-height: 0;
@@ -516,10 +516,10 @@
   bottom: 0;
 }
 .scribo-theme.fr-box .fr-video-resizer {
-  border: solid 1px #1e88e5;
+  border: solid 1px #a53b2b;
 }
 .scribo-theme.fr-box .fr-video-resizer .fr-handler {
-  background: #1e88e5;
+  background: #a53b2b;
   border: solid 1px #f2eae1;
 }
 .scribo-theme.fr-box .fr-video-resizer .fr-handler {
@@ -573,7 +573,7 @@
 }
 .scribo-theme .fr-video-upload-layer.fr-drop {
   background: #e0dad3;
-  border-color: #1e88e5;
+  border-color: #a53b2b;
 }
 .scribo-theme .fr-video-upload-layer .fr-form {
   top: 0;
@@ -588,7 +588,7 @@
   background: #b2cde2;
 }
 .scribo-theme .fr-video-progress-bar-layer > div.fr-loader span {
-  background: #1e88e5;
+  background: #a53b2b;
   -webkit-transition: width 0.2s ease 0s;
   -moz-transition: width 0.2s ease 0s;
   -ms-transition: width 0.2s ease 0s;
@@ -714,7 +714,7 @@
 }
 .scribo-theme.fr-toolbar .fr-command.fr-btn.fr-active,
 .scribo-theme.fr-popup .fr-command.fr-btn.fr-active {
-  color: #1e88e5;
+  color: #a53b2b;
   background: transparent;
 }
 .scribo-theme.fr-toolbar .fr-command.fr-btn.fr-dropdown.fr-selection,
@@ -793,11 +793,11 @@
 }
 .scribo-theme.fr-desktop .fr-command.fr-active:hover,
 .scribo-theme.fr-desktop .fr-command.fr-active:focus {
-  color: #1e88e5;
+  color: #a53b2b;
   background: #e0dad3;
 }
 .scribo-theme.fr-desktop .fr-command.fr-active.fr-selected {
-  color: #1e88e5;
+  color: #a53b2b;
   background: #cecac4;
 }
 .scribo-theme.fr-toolbar.fr-mobile .fr-command.fr-blink,
@@ -975,7 +975,7 @@
 }
 .scribo-theme.fr-popup .fr-input-line input[type="text"]:focus,
 .scribo-theme.fr-popup .fr-input-line textarea:focus {
-  border-bottom: solid 2px #1e88e5;
+  border-bottom: solid 2px #a53b2b;
 }
 .scribo-theme.fr-popup .fr-input-line input + label,
 .scribo-theme.fr-popup .fr-input-line textarea + label {
@@ -989,7 +989,7 @@
 }
 .scribo-theme.fr-popup .fr-input-line input.fr-not-empty:focus + label,
 .scribo-theme.fr-popup .fr-input-line textarea.fr-not-empty:focus + label {
-  color: #1e88e5;
+  color: #a53b2b;
 }
 .scribo-theme.fr-popup .fr-input-line input.fr-not-empty + label,
 .scribo-theme.fr-popup .fr-input-line textarea.fr-not-empty + label {
@@ -1012,7 +1012,7 @@
   }
 }
 .scribo-theme.fr-popup .fr-action-buttons button.fr-command {
-  color: #1e88e5;
+  color: #a53b2b;
   -webkit-transition: background 0.2s ease 0s;
   -moz-transition: background 0.2s ease 0s;
   -ms-transition: background 0.2s ease 0s;
@@ -1021,11 +1021,11 @@
 .scribo-theme.fr-popup .fr-action-buttons button.fr-command:hover,
 .scribo-theme.fr-popup .fr-action-buttons button.fr-command:focus {
   background: #e0dad3;
-  color: #1e88e5;
+  color: #a53b2b;
 }
 .scribo-theme.fr-popup .fr-action-buttons button.fr-command:active {
   background: #cecac4;
-  color: #1e88e5;
+  color: #a53b2b;
 }
 .scribo-theme.fr-popup .fr-action-buttons button::-moz-focus-inner {
   border: 0;
@@ -1048,11 +1048,11 @@
   padding: 0;
 }
 .scribo-theme.fr-popup .fr-checkbox input:checked + span {
-  background: #1e88e5;
-  border-color: #1e88e5;
+  background: #a53b2b;
+  border-color: #a53b2b;
 }
 .scribo-theme.fr-popup .fr-checkbox input:focus + span {
-  border-color: #1e88e5;
+  border-color: #a53b2b;
 }
 .scribo-theme.fr-popup.fr-rtl .fr-input-line input + label,
 .scribo-theme.fr-popup.fr-rtl .fr-input-line textarea + label {
