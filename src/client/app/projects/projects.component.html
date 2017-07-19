@@ -1,9 +1,14 @@
-<sd-loading [condition]="isLoading"></sd-loading>
+<sd-login *ngIf="!auth.loggedIn; else logged"></sd-login>
+<ng-template #logged>
 
-<ul class="projects">
-  <li *ngFor="let project of projects">
-    <!--<span class="border-gray-dark">-->
-      <button (click)="select(project)">{{project.name}}</button>
-    <!--</span>-->
-  </li>
-</ul>
+  <sd-loading [condition]="isLoading"></sd-loading>
+
+  <ul class="projects">
+    <li *ngFor="let project of projects">
+      <!--<span class="border-gray-dark">-->
+        <button (click)="select(project)">{{project.name}}</button>
+      <!--</span>-->
+    </li>
+  </ul>
+
+</ng-template>

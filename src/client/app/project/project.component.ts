@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { AuthService } from '../services/auth.service';
 import { Project, Note, Sitem, Sfile, Sfolder } from '../shared/models';
 import { ProjectService } from '../services/project.service';
 
@@ -20,7 +21,8 @@ export class ProjectComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private auth: AuthService
   ) {}
 
   ngOnInit(): void {

@@ -12,10 +12,10 @@ export function init(app: express.Application) {
   const projectCtrl = new ProjectCtrl();
   router.route('/projects').get(projectCtrl.getAll);
   router.route('/projects/count').get(projectCtrl.count);
-  router.route('/projects').post(projectCtrl.insert);
-  router.route('/projects/:key').get(projectCtrl.getByKey);
-  router.route('/projects/:id').put(projectCtrl.update);
-  router.route('/projects/:id').delete(projectCtrl.delete);
+  router.route('/project').post(projectCtrl.insert);
+  router.route('/project/:key').get(projectCtrl.getByKey);
+  router.route('/project/:id').put(projectCtrl.update);
+  router.route('/project/:id').delete(projectCtrl.delete);
 
   const userCtrl = new UserCtrl();
   router.route('/login').post(userCtrl.login);

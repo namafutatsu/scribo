@@ -1,21 +1,26 @@
-<sd-loading [condition]="isLoading"></sd-loading>
+<sd-login *ngIf="!auth.loggedIn; else logged"></sd-login>
+<ng-template #logged>
 
-<sd-explorer [project]="project" *ngIf="project"
-  (onFileSelected)="onFileSelected($event)"
-  (onFolderSelected)="onFolderSelected($event)"
-  (onSaving)="onSaving($event)"></sd-explorer>
+  <sd-loading [condition]="isLoading"></sd-loading>
 
-<sd-editor [file]="file" *ngIf="file"></sd-editor>
+  <sd-explorer [project]="project" *ngIf="project"
+    (onFileSelected)="onFileSelected($event)"
+    (onFolderSelected)="onFolderSelected($event)"
+    (onSaving)="onSaving($event)"></sd-explorer>
 
-<div id="annexe" *ngIf="file">
-  <div id="notes" *ngIf="file.notes?.length > 0">
-    Todo:
-    <li *ngFor="let note of file.notes" [class.cancelled]="note.status < 0">
-      <i class="fa fa-check-square-o" aria-hidden="true" *ngIf="note.status == 1" (click)="clickNote(note)"></i>
-      <i class="fa fa-square-o" aria-hidden="true" *ngIf="note.status == 0" (click)="clickNote(note)"></i>
-      <i class="fa fa-times" aria-hidden="true" *ngIf="note.status == -1" (click)="clickNote(note)"></i>
-      <input [(ngModel)]="note.text"  [class.cancelled]="note.status < 0"/>
-      <!--<div *ngIf="note.status < 0">{{node.text}}</div>-->
-    </li>
+  <sd-editor [file]="file" *ngIf="file"></sd-editor>
+
+  <div id="annexe" *ngIf="file">
+    <div id="notes" *ngIf="file.notes?.length > 0">
+      Todo:
+      <li *ngFor="let note of file.notes" [class.cancelled]="note.status < 0">
+        <i class="fa fa-check-square-o" aria-hidden="true" *ngIf="note.status == 1" (click)="clickNote(note)"></i>
+        <i class="fa fa-square-o" aria-hidden="true" *ngIf="note.status == 0" (click)="clickNote(note)"></i>
+        <i class="fa fa-times" aria-hidden="true" *ngIf="note.status == -1" (click)="clickNote(note)"></i>
+        <input [(ngModel)]="note.text"  [class.cancelled]="note.status < 0"/>
+        <!--<div *ngIf="note.status < 0">{{node.text}}</div>-->
+      </li>
+    </div>
   </div>
-</div>
+
+</ng-template>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { AuthService } from '../services/auth.service';
 import { Project } from '../shared/models';
 import { ProjectService } from '../services/project.service';
 
@@ -16,7 +17,9 @@ export class ProjectsComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-    private router: Router) { }
+    private router: Router,
+    private auth: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.getProjects();

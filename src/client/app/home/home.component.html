@@ -1,1 +1,4 @@
-<sd-login></sd-login>
+<sd-login *ngIf="!auth.loggedIn; else logged"></sd-login>
+<ng-template #logged>
+  <p>Welcome <strong>{{auth.user.username}}</strong>.</p>
+</ng-template>

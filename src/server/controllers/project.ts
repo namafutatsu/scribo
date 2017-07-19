@@ -10,4 +10,11 @@ export default class ProjectCtrl extends BaseCtrl {
       res.json(obj);
     });
   }
+
+  getByUser = (req: any, res: any) => {
+    this.model.find({ userId: req.params.userId }, (err: any, docs: any) => {
+      if (err) { return console.error(err); }
+      res.json(docs);
+    });
+  }
 }
