@@ -10,7 +10,7 @@ export function init(app: express.Application) {
   const router = express.Router();
 
   const projectCtrl = new ProjectCtrl();
-  router.route('/projects').get(projectCtrl.getAll);
+  router.route('/projects').get(projectCtrl.getByUser);
   router.route('/projects/count').get(projectCtrl.count);
   router.route('/project').post(projectCtrl.insert);
   router.route('/project/:key').get(projectCtrl.getByKey);
