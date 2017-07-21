@@ -47,19 +47,24 @@ abstract class BaseCtrl {
     });
   }
 
-/*   insertAuth = (req: any, res: any) => {
-    const obj = new this.model(req.body);
-    obj.save((err: any, item: any) => {
-      // 11000 is the code for duplicate key error
-      if (err && err.code === 11000) {
-        res.sendStatus(400);
-      }
-      if (err) {
-        return console.error(err);
-      }
-      res.status(200).json(item);
-    });
-  } */
+  insertAuth = (req: any, res: any) => {
+    this.tokenAuth(req, res, () =>
+      User.findOne(req.user).exec((err: any, user: any) => {
+        req.body.userId = user._id;
+        const obj = new this.model(req.body);
+        obj.save((err: any, item: any) => {
+          // 11000 is the code for duplicate key error
+          if (err && err.code === 11000) {
+            res.sendStatus(400);
+          }
+          if (err) {
+            return console.error(err);
+          }
+          res.status(200).json(item);
+        });
+      })
+    );
+  } 
 
   // Get by id
   get = (req: any, res: any) => {

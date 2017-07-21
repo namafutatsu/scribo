@@ -29,8 +29,6 @@ export class RegisterComponent implements OnInit {
     Validators.minLength(6)
   ]);
 
-  role = new FormControl('', [Validators.required]);
-
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -42,8 +40,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       username: this.username,
       email: this.email,
-      password: this.password,
-      role: this.role
+      password: this.password
     });
   }
 
@@ -62,10 +59,10 @@ export class RegisterComponent implements OnInit {
   register() {
     this.userService.register(this.registerForm.value).subscribe(
       res => {
-        this.toast.setMessage('you successfully registered!', 'success');
+        this.toast.setMessage('You successfully registered!', 'success');
         this.router.navigate(['/login']);
       },
-      error => this.toast.setMessage('email already exists', 'danger')
+      error => this.toast.setMessage('Username or email already exists', 'danger')
     );
   }
 }

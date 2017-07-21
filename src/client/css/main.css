@@ -124,13 +124,13 @@ button {
 }
 
 button:hover {
-  background-color: #707e8f;
+  background-color: #afb1b3;
 }
 
 .btn-primary {
   color: #fff;
-  background-color: #707e8f;
-  border-color: #707e8f;
+  background-color: #74777b;
+  border-color: #74777b;
 }
 
 .card {

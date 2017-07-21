@@ -1,5 +1,6 @@
 <sd-login *ngIf="!auth.loggedIn; else logged"></sd-login>
 <ng-template #logged>
+  <sd-toast [message]="toast.message"></sd-toast>
 
   <sd-loading [condition]="isLoading"></sd-loading>
 

@@ -12,10 +12,31 @@ button {
   color: #f2eae1;
 }
 
-/*.border-gray-dark {
-  display: flex;
-  width: 359px;
-  border: 1px #e1e4e8 solid;
-  border-color: #d1d5da;
-  border-radius: 3px;
-}*/
+#newProject {
+  background-color: #74777b ;
+}
+
+#newProject:hover {
+  background-color: #afb1b3;
+}
+
+.btn-primary {
+  background-color: #a53b2b;
+  border-color: #a53b2b;
+  width:120px;
+  margin-left:10px;
+  height:35px;
+}
+
+input {
+  background-color: #24292f;
+  border-style: none;
+  color: rgba(255, 255, 255, 0.87);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  height: 40px;
+  padding: 8px 18px;
+  text-decoration: none;
+  text-align: center;
+}

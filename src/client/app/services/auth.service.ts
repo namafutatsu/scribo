@@ -30,8 +30,8 @@ export class AuthService {
     this.putOptions = new RequestOptions({ headers: putHeader });
   }
 
-  login(emailAndPassword: any) {
-    return this.userService.login(emailAndPassword).map(res => res.json()).map(
+  login(credentials: any) {
+    return this.userService.login(credentials).map(res => res.json()).map(
       res => {
         this.token = res.token;
         localStorage.setItem('token', res.token);
@@ -59,8 +59,8 @@ export class AuthService {
     this.user = new User();
     this.user._id = decodedUser._id;
     this.user.username = decodedUser.username;
-    decodedUser.role === 'admin' ? this.isAdmin = true : this.isAdmin = false;
-    delete decodedUser.role;
+/*     decodedUser.role === 'admin' ? this.isAdmin = true : this.isAdmin = false;
+    delete decodedUser.role; */
   }
 
 }

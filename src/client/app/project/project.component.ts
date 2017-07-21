@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { Project, Note, Sitem, Sfile, Sfolder } from '../shared/models';
 import { ProjectService } from '../services/project.service';
+import { ToastComponent } from '../shared/toast/toast.component';
 
 @Component({
   moduleId: module.id,
@@ -22,16 +23,19 @@ export class ProjectComponent implements OnInit {
     private projectService: ProjectService,
     private route: ActivatedRoute,
     private location: Location,
-    private auth: AuthService
+    private auth: AuthService,
+    public toast: ToastComponent
   ) {}
 
   ngOnInit(): void {
-    this.route.params
-    .switchMap((params: Params) => this.projectService.getProject(params['key']))
-    .subscribe(project => {
-      this.project = project;
-      this.isLoading = false;
-    });
+    if (this.auth.loggedIn) {
+      this.route.params
+      .switchMap((params: Params) => this.projectService.getProject(params['key']))
+      .subscribe(project => {
+        this.project = project;
+        this.isLoading = false;
+      });
+    }
   }
 
   onFolderSelected(folder: Sfolder) {
@@ -44,7 +48,9 @@ export class ProjectComponent implements OnInit {
 
   onSaving(): void {
     if (this.project !== undefined) {
-      this.projectService.update(this.project);
+      this.projectService.update(this.project).then(res => {
+        this.toast.setMessage('Saved', 'success');
+      });
     }
   }
 

@@ -1,4 +1,4 @@
 <sd-login *ngIf="!auth.loggedIn; else logged"></sd-login>
 <ng-template #logged>
-  <p>Welcome <strong>{{auth.user.username}}</strong>.</p>
+  <p>Welcome <strong>{{auth.user.username}}</strong>. <a [routerLink]="['/projects']"><strong>Ready to write?</strong></a></p>
 </ng-template>

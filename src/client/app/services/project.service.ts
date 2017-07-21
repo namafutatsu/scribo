@@ -38,6 +38,15 @@ export class ProjectService {
       .catch(this.handleError);
   }
 
+  insert(project: Project): Promise<Project> {
+    const url = `${this.urlProject}`;
+    return this.http
+      .post(url, JSON.stringify(project), this.auth.putOptions)
+      .toPromise()
+      .then(() => project)
+      .catch(this.handleError);
+  }
+
   handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);

@@ -14,7 +14,7 @@ import { ToastComponent } from '../shared/toast/toast.component';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  email = new FormControl('', [
+  username = new FormControl('', [
     Validators.required,
     Validators.minLength(3),
     Validators.maxLength(100)
@@ -34,13 +34,13 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/']);
     }
     this.loginForm = this.formBuilder.group({
-      email: this.email,
+      username: this.username,
       password: this.password
     });
   }
 
-  setClassEmail() {
-    return { 'has-danger': !this.email.pristine && !this.email.valid };
+  setClassUsername() {
+    return { 'has-danger': !this.username.pristine && !this.username.valid };
   }
   setClassPassword() {
     return { 'has-danger': !this.password.pristine && !this.password.valid };
@@ -48,8 +48,8 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.auth.login(this.loginForm.value).subscribe(
-      res => this.router.navigate(['/projects']),
-      error => this.toast.setMessage('invalid email or password!', 'danger')
+      res => this.router.navigate(['/'], {  skipLocationChange: true }),
+      error => this.toast.setMessage('invalid login or password!', 'danger')
     );
   }
 

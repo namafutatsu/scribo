@@ -23,6 +23,7 @@ const schema = new mongoose.Schema({
   key: String,
   name: String,
   open: Boolean,
+  userId: mongoose.Schema.Types.ObjectId,
   sitems: [item]
 });
 

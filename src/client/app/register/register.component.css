@@ -1,3 +1,27 @@
+.card {
+  width:400px;
+  position: fixed;
+  top: 300px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform: -webkit-translate(-50%, -50%);
+  transform: -moz-translate(-50%, -50%);
+  transform: -ms-translate(-50%, -50%);
+}
+
+.input-group {
+  width: 300px;
+  margin-bottom: 5px;
+}
+
+.input-group-addon {
+  width:40px;
+}
+
+.btn-primary {
+  margin-top: 10px;
+}
+
 .input-group {
   width: 300px;
   margin-bottom: 5px;

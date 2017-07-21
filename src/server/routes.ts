@@ -11,7 +11,7 @@ export function init(app: express.Application) {
 
   const projectCtrl = new ProjectCtrl();
   router.route('/projects').get(projectCtrl.getAllAuth);
-  router.route('/project').post(projectCtrl.insert);
+  router.route('/project').post(projectCtrl.insertAuth);
   router.route('/project/:key').get(projectCtrl.getByKeyAuth);
   router.route('/project/:id').put(projectCtrl.updateAuth);
   router.route('/project/:id').delete(projectCtrl.delete);
