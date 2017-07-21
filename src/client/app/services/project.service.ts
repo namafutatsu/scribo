@@ -9,17 +9,13 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ProjectService {
-  private urlProjects = `${Config.API}/api/projects`;
   private urlProject = `${Config.API}/api/project`;
-  private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http, public auth: AuthService) { }
 
   getProjects(): Promise<Project[]> {
-    let headers = new Headers({ 'Authorization': 'Bearer ' + this.auth.token });
-    let options = new RequestOptions({ headers: headers });
-    const url = `${this.urlProjects}`;
-    return this.http.get(url, options)
+    const url = `${this.urlProject}s`;
+    return this.http.get(url, this.auth.options)
       .toPromise()
       .then(response => response.json() as Project[])
       .catch(this.handleError);
@@ -27,7 +23,7 @@ export class ProjectService {
 
   getProject(key: string): Promise<Project> {
     const url = `${this.urlProject}/${key}`;
-    return this.http.get(url)
+    return this.http.get(url, this.auth.options)
       .toPromise()
       .then(response => response.json() as Project)
       .catch(this.handleError);
@@ -36,7 +32,7 @@ export class ProjectService {
   update(project: Project): Promise<Project> {
     const url = `${this.urlProject}/${project._id}`;
     return this.http
-      .put(url, JSON.stringify(project), {headers: this.headers})
+      .put(url, JSON.stringify(project), this.auth.putOptions)
       .toPromise()
       .then(() => project)
       .catch(this.handleError);
