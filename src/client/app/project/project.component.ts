@@ -29,10 +29,10 @@ export class ProjectComponent implements OnInit {
     public toast: ToastComponent,
     private hotkeysService: HotkeysService
   ) {
-        this.hotkeysService.add(new Hotkey('ctrl+s', (event: KeyboardEvent): boolean => {
-        event.preventDefault();
-        this.onSaving();
-        return false; // Prevent bubbling
+      this.hotkeysService.add(new Hotkey('ctrl+s', (event: KeyboardEvent): boolean => {
+      event.preventDefault();
+      this.onSaving();
+      return false; // Prevent bubbling
     }));
   }
 

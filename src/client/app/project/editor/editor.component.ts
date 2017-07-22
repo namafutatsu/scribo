@@ -1,15 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { Sfile } from '../../shared/models';
+
+declare var $ :any;
 
 @Component({
   moduleId: module.id,
   selector: 'sd-editor',
   templateUrl: 'editor.component.html',
 })
-export class EditorComponent {
+export class EditorComponent implements OnInit {
   @Input() file: Sfile;
+  @Output() onSaving = new EventEmitter();
   buttons = [
+    'save',
     'bold',
     'italic',
     'underline',
@@ -51,7 +55,7 @@ export class EditorComponent {
       'paragraphStyle',
       // 'quickInsert',
       // 'quote',
-      // 'save',
+      'save',
       // 'table',
       // 'url',
       // 'video',
@@ -60,22 +64,30 @@ export class EditorComponent {
       'wordPaste',
       'print'
     ],
-    shortcutsEnabled: [
-      'show',
-      'bold',
-      'italic',
-      'underline',
-      // 'strikeThrough',
-      'indent',
-      'outdent',
-      'undo',
-      'redo',
-      // 'insertImage',
-      'createLink'
-    ],
+    // shortcutsEnabled: [
+    //   'show',
+    //   'bold',
+    //   'italic',
+    //   'underline',
+    //   // 'strikeThrough',
+    //   'indent',
+    //   'outdent',
+    //   'undo',
+    //   'redo',
+    //   // 'insertImage',
+    //   'createLink','paragraphFormat'
+    // ],
     toolbarButtons: this.buttons,
     toolbarButtonsSM: this.buttons,
     toolbarButtonsMD: this.buttons,
     toolbarButtonsXS: this.buttons,
+    events : {
+      'froalaEditor.save.before' : (e: any, editor: any) =>
+        this.onSaving.emit()
+    }
   };
+
+  ngOnInit(): void {
+    $.FroalaEditor.RegisterShortcut(83, 'save');
+  }
 }

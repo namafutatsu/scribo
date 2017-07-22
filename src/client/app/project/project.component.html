@@ -9,7 +9,8 @@
     (onFolderSelected)="onFolderSelected($event)"
     (onSaving)="onSaving($event)"></sd-explorer>
 
-  <sd-editor [file]="file" *ngIf="file"></sd-editor>
+  <sd-editor [file]="file" *ngIf="file"
+    (onSaving)="onSaving($event)"></sd-editor>
 
   <div id="annexe" *ngIf="file">
     <div id="notes" *ngIf="file.notes?.length > 0">
