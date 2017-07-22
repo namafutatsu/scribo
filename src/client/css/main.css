@@ -69,6 +69,10 @@ a {
   color: #a53b2b;
 }
 
+a:hover {
+  color: #4f4f51;
+}
+
 blockquote {
   font-family: 'Lato', sans-serif;
 	font-size: 21px;
@@ -111,40 +115,40 @@ input {
   padding: 8px;
 }
 
-button {
+.btn-default {
   background-color: #24292f;
+  border-color: #24292f;
   border-style: none;
-  color: rgba(255, 255, 255, 0.87);
-  cursor: pointer;
-  display: inline-block;
+  color: #f2eae1;
   font-size: 14px;
   height: 40px;
   padding: 8px 18px;
   text-decoration: none;
+  cursor: pointer;
 }
 
-button:hover {
+.btn-default:hover {
   background-color: #afb1b3;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #74777b;
-  border-color: #74777b;
+  background-color: #a53b2b;
+  border-color: #a53b2b;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #68251b;
+  border-color: #68251b;
+}
+
+.btn-primary:disabled {
+  background-color: #a8665c;
+  border-color: #a8665c;
 }
 
 .card {
   background-color: #f2eae1;
-}
-
-.card-block .btn-primary {
-  background-color: #a53b2b;
-  border-color: #a53b2b;
-}
-
-.card-block .btn-primary:disabled {
-  background-color: #a8665c;
-  border-color: #a8665c;
 }
 
 .card-header {

@@ -78,6 +78,14 @@ export class ProjectConfig extends SeedConfig {
       {
         name:'angular2-jwt',
         path:'node_modules/angular2-jwt/angular2-jwt.js'
+      },
+      {
+        name:'angular2-hotkeys',
+        path:'node_modules/angular2-hotkeys/index.js'
+      },
+      {
+        name:'mousetrap',
+        path:'node_modules/mousetrap/mousetrap.js'
       }
       // {
       //   name:'angular-in-memory-web-api',

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { HotkeyModule } from 'angular2-hotkeys';
+
 import { ProjectComponent } from './project.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { EditorModule } from './editor/editor.module';
@@ -17,7 +19,8 @@ import { LoginModule } from '../login/login.module';
     EditorModule,
     ExplorerModule,
     SharedModule,
-    LoginModule
+    LoginModule,
+    HotkeyModule
   ],
   declarations: [ProjectComponent],
   exports: [ProjectComponent]

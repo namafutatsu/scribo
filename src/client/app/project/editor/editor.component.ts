@@ -60,7 +60,19 @@ export class EditorComponent {
       'wordPaste',
       'print'
     ],
-
+    shortcutsEnabled: [
+      'show',
+      'bold',
+      'italic',
+      'underline',
+      // 'strikeThrough',
+      'indent',
+      'outdent',
+      'undo',
+      'redo',
+      // 'insertImage',
+      'createLink'
+    ],
     toolbarButtons: this.buttons,
     toolbarButtonsSM: this.buttons,
     toolbarButtonsMD: this.buttons,

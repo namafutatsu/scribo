@@ -3,9 +3,9 @@
   <sd-toast [message]="toast.message"></sd-toast>
   <sd-loading [condition]="isLoading"></sd-loading>
 
-  <ul class="projects" *ngIf="projects">
+  <ul *ngIf="projects">
     <li *ngFor="let project of projects">
-      <button (click)="select(project)">
+      <button class="btn btn-default" (click)="select(project)">
         {{project.name}}
       </button>
     </li>
@@ -16,7 +16,7 @@
       </button>
     </li>
     <li *ngIf="!creation">
-      <button (click)="create()" id="newProject">
+      <button class="btn btn-default" id="new" (click)="create()">
         <i class="fa fa-plus" aria-hidden="true"></i>
         <span style="padding-left:10px">New Project</span>
       </button>

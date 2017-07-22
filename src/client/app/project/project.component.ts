@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { HotkeyModule, HotkeysService, Hotkey } from 'angular2-hotkeys';
+
 import { AuthService } from '../services/auth.service';
 import { Project, Note, Sitem, Sfile, Sfolder } from '../shared/models';
 import { ProjectService } from '../services/project.service';
@@ -24,8 +26,15 @@ export class ProjectComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private auth: AuthService,
-    public toast: ToastComponent
-  ) {}
+    public toast: ToastComponent,
+    private hotkeysService: HotkeysService
+  ) {
+        this.hotkeysService.add(new Hotkey('ctrl+s', (event: KeyboardEvent): boolean => {
+        event.preventDefault();
+        this.onSaving();
+        return false; // Prevent bubbling
+    }));
+  }
 
   ngOnInit(): void {
     if (this.auth.loggedIn) {

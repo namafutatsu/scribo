@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { HotkeyModule } from 'angular2-hotkeys';
+
 import { AboutModule } from './about/about.module';
 import { ProjectsModule } from './projects/projects.module';
 import { ProjectModule } from './project/project.module';
@@ -31,6 +33,7 @@ import { AuthService } from './services/auth.service';
     LoginModule,
     LogoutModule,
     SharedModule.forRoot(),
+    HotkeyModule.forRoot(),
     NotFoundModule],
   declarations: [AppComponent],
   providers: [
