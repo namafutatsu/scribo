@@ -25,7 +25,7 @@ export class ProjectComponent implements OnInit {
     private projectService: ProjectService,
     private route: ActivatedRoute,
     private location: Location,
-    private auth: AuthService,
+    public auth: AuthService,
     public toast: ToastComponent,
     private hotkeysService: HotkeysService
   ) {

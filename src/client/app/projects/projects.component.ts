@@ -23,7 +23,7 @@ export class ProjectsComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private router: Router,
-    private auth: AuthService,
+    public auth: AuthService,
     public toast: ToastComponent
   ) { }
 
@@ -57,7 +57,7 @@ export class ProjectsComponent implements OnInit {
     file.name = 'New file';
     file.index = 0;
     file.notes = [];
-    file.text = "";
+    file.text = '';
     let project = new Project();
     project.name = this.name;
     project.id = UUID.UUID();
@@ -65,7 +65,7 @@ export class ProjectsComponent implements OnInit {
     project.notes = [];
     project.sitems = [ file ];
     project.open = false;
-    project.key = this.name.replace(" ", "");
+    project.key = this.name.replace(' ', '');
     project.discriminator = 0;
     this.projectService.insert(project).then(res => {
         this.toast.setMessage('New project created', 'success');

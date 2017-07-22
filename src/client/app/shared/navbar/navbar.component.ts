@@ -12,9 +12,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['navbar.component.css'],
 })
 export class NavbarComponent {
-  
   constructor(
-    private auth: AuthService
+    public auth: AuthService
   ) {}
-  
 }
