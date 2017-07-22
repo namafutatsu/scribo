@@ -23,23 +23,28 @@ export class AuthService {
     if (this.token) {
       const decodedUser = this.decodeUserFromToken(this.token);
       this.setUser(decodedUser);
+      this.setHeaders();
     }
-    let header = new Headers({ 'Authorization': 'Bearer ' + this.token });
-    this.options = new RequestOptions({ headers: header });
-    let putHeader = new Headers({ 'Authorization': 'Bearer ' + this.token, 'Content-Type': 'application/json' });
-    this.putOptions = new RequestOptions({ headers: putHeader });
   }
 
   login(credentials: any) {
     return this.userService.login(credentials).map(res => res.json()).map(
       res => {
         this.token = res.token;
+        this.setHeaders();
         localStorage.setItem('token', res.token);
         const decodedUser = this.decodeUserFromToken(res.token);
         this.setUser(decodedUser);
         return this.loggedIn;
       }
     );
+  }
+
+  setHeaders() {
+    let header = new Headers({ 'Authorization': 'Bearer ' + this.token });
+    this.options = new RequestOptions({ headers: header });
+    let putHeader = new Headers({ 'Authorization': 'Bearer ' + this.token, 'Content-Type': 'application/json' });
+    this.putOptions = new RequestOptions({ headers: putHeader });
   }
 
   logout() {

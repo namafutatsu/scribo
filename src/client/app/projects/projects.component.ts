@@ -68,7 +68,7 @@ export class ProjectsComponent implements OnInit {
     project.key = this.name.replace(' ', '');
     project.discriminator = 0;
     this.projectService.insert(project).then(res => {
-        this.toast.setMessage('New project created', 'success');
+      this.toast.setMessage('New project created', 'success');
     });
     this.router.navigate(['/project', project.key]);
   }
