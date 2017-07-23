@@ -29,7 +29,7 @@ export class ExplorerComponent implements OnInit {
     this.items[item.id] = item;
     if (item.discriminator === 0) {
       let folder = item as Sfolder;
-      folder.sitems.forEach(o => {
+      folder.sitems.sort(o => o.index).forEach(o => {
         this.loadItems(o);
         this.parents[o.id] = folder;
       });

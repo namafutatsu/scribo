@@ -99,19 +99,18 @@ export class TreeviewComponent implements OnInit {
   }
 
   getStructure(tree: Tree): Node {
-    let root = this.getRoot(tree);
     let node = new Node();
     node.id = tree.node.id as string;
     node.name = tree.value as string;
     node.nodes = [];
-    if (tree.children !== undefined) {
+    if (tree.children !== null) {
       tree.children.forEach(o => node.nodes.push(this.getStructure(o)));
     }
     return node;
   }
 
   onNodeMoved(e: NodeEvent): void {
-    this.onMoved.emit(this.getStructure(e.node));
+    this.onMoved.emit(this.getStructure(this.getRoot(e.node)));
 
   }
 
