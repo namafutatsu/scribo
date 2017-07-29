@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { HotkeyModule } from 'angular2-hotkeys';
+import { MaterialModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ProjectComponent } from './project.component';
 import { ProjectRoutingModule } from './project-routing.module';
@@ -20,7 +22,9 @@ import { LoginModule } from '../login/login.module';
     ExplorerModule,
     SharedModule,
     LoginModule,
-    HotkeyModule
+    HotkeyModule,
+    MaterialModule,
+    BrowserAnimationsModule,
   ],
   declarations: [ProjectComponent],
   exports: [ProjectComponent]

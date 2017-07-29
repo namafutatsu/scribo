@@ -1,7 +1,74 @@
 :host {
-  display: block;
+  /* display: block; */
   padding: 0 16px;
 }
+
+
+md-sidenav-container {
+  background-color: #f2eae1;
+  width: 100%;
+  min-height: 100vh;
+  /* calc(100vh- 50px); */
+}
+md-sidenav-container md-sidenav {
+  max-width: 340px;
+}
+md-sidenav-container .mat-sidenav-content,
+md-sidenav-container md-sidenav {
+  background-color: #f2eae1;
+  display: flex;
+  overflow: visible;
+  height:100%;
+}
+.example-scrolling-content {
+  overflow: auto;
+}
+.mat-sidenav {
+  background-color: #f2eae1;
+}
+/* .fab {
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+} */
+.toggler {
+  min-width: 38px;
+  outline: 0;
+}
+
+button {
+  color: #4f4f51;
+  background-color: #f2eae1;
+  transition: background-color 0.2s ease 0s;
+  font-size: 14px;
+  width:38px;
+  height:38px;
+  float:left;
+  outline: 0;
+  outline-color: #a53b2b;
+  border: 0;
+  margin: 0px 2px;
+  padding: 0;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e0dad3;
+}
+
+button:active {
+  background-color: #cecac4;
+}
+
+button:disabled {
+  color: #b3ada7;
+  cursor: auto;
+}
+
+
+
+
+
 
 td {
   vertical-align: top;
@@ -10,15 +77,14 @@ td {
 }
 
 sd-explorer {
-  width: 230px;
-  float:left;
+  /* width: 230px; */
+  /* float:left; */
 }
 
 sd-editor {
-  float:left;
-  left: 250px;
-  right: 20px;
-  max-width: 640px;
+  /* left: 250px; */
+  /* right: 20px; */
+  /* max-width: 640px; */
 }
 
 #annexe {

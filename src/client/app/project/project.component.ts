@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -14,7 +14,8 @@ import { ToastComponent } from '../shared/toast/toast.component';
   moduleId: module.id,
   selector: 'sd-project',
   templateUrl: 'project.component.html',
-  styleUrls: ['project.component.css']
+  styleUrls: ['project.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProjectComponent implements OnInit {
   project: Project;

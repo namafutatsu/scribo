@@ -26,7 +26,8 @@ export class ProjectConfig extends SeedConfig {
       { src: 'froala-editor/js/froala_editor.pkgd.min.js', inject: 'libs' },
       { src: 'font-awesome/css/font-awesome.min.css', inject: true },
       { src: 'froala-editor/css/froala_editor.pkgd.min.css', inject: true },
-      { src: `bootstrap/dist/css/bootstrap.min.css`, inject: true }
+      { src: `bootstrap/dist/css/bootstrap.min.css`, inject: true },
+      { src: `@angular/material/prebuilt-themes/indigo-pink.css`, inject: true }
     ];
 
     // Add `local` third-party libraries to be injected/bundled.
@@ -86,11 +87,15 @@ export class ProjectConfig extends SeedConfig {
       {
         name:'mousetrap',
         path:'node_modules/mousetrap/mousetrap.js'
+      },
+      {
+        name:'@angular/material',
+        path:'node_modules/@angular/material/bundles/material.umd.min.js'
+      },
+      {
+        name:'@angular/cdk',
+        path:'node_modules/@angular/cdk/bundles/cdk.umd.min.js'
       }
-      // {
-      //   name:'angular-in-memory-web-api',
-      //   path:'node_modules/angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
-      // }
     ];
 
     this.addPackagesBundles(additionalPackages);

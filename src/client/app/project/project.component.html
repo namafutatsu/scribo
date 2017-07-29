@@ -4,13 +4,28 @@
 
   <sd-loading [condition]="isLoading"></sd-loading>
 
-  <sd-explorer [project]="project" *ngIf="project"
-    (onFileSelected)="onFileSelected($event)"
-    (onFolderSelected)="onFolderSelected($event)"
-    (onSaving)="onSaving($event)"></sd-explorer>
+<md-sidenav-container class="example-sidenav-fab-container">
 
-  <sd-editor [file]="file" *ngIf="file"
+  <md-sidenav #sidenav mode="side" opened="true">
+    <!-- <button md-mini-fab class="example-fab" (click)="sidenav.toggle()">
+      <md-icon>add</md-icon>
+    </button> -->
+    <sd-explorer [project]="project" *ngIf="project"
+      (onFileSelected)="onFileSelected($event)"
+      (onFolderSelected)="onFolderSelected($event)"
+      (onSaving)="onSaving($event)"></sd-explorer>
+  </md-sidenav>
+
+    <button class="toggler" (click)="sidenav.toggle()" *ngIf="project">
+      <i class="fa fa-caret-square-o-left" *ngIf="sidenav._opened"></i>
+      <i class="fa fa-caret-square-o-right" *ngIf="!sidenav._opened"></i>
+       <!-- aria-hidden="true" -->
+    </button>
+
+ <sd-editor [file]="file" *ngIf="file"
     (onSaving)="onSaving($event)"></sd-editor>
+
+</md-sidenav-container>
 
   <div id="annexe" *ngIf="file">
     <div id="notes" *ngIf="file.notes?.length > 0">
@@ -24,5 +39,4 @@
       </li>
     </div>
   </div>
-
 </ng-template>

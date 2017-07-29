@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HotkeyModule } from 'angular2-hotkeys';
+// import { MaterialModule } from '@angular/material';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AboutModule } from './about/about.module';
 import { ProjectsModule } from './projects/projects.module';
@@ -34,7 +36,10 @@ import { AuthService } from './services/auth.service';
     LogoutModule,
     SharedModule.forRoot(),
     HotkeyModule.forRoot(),
-    NotFoundModule],
+    NotFoundModule,
+    // MaterialModule,
+    // BrowserAnimationsModule
+  ],
   declarations: [AppComponent],
   providers: [
     ProjectService,
