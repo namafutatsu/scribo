@@ -65,7 +65,7 @@ export class ProjectsComponent implements OnInit {
     project.notes = [];
     project.sitems = [ file ];
     project.open = false;
-    project.key = this.name.replace(' ', '');
+    project.key = this.name.replace(/[^0-9a-z]/gi, '');
     project.discriminator = 0;
     this.projectService.insert(project).then(res => {
       this.toast.setMessage('New project created', 'success');

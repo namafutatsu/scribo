@@ -41,6 +41,10 @@ sd-explorer {
 
 sd-showhide {
   position:absolute;
+  transform: translateX(-500%);
+  -webkit-transform: translateX(-500%);
+  animation: slide-in 0.5s forwards;
+  -webkit-animation: slide-in 0.5s forwards;
 }
 
 sd-editor {

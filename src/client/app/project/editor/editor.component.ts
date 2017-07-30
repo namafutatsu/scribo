@@ -22,7 +22,7 @@ export class EditorComponent implements OnInit {
     'paragraphFormat',
     'align',
     'print',
-    'fullscreen',
+    // 'fullscreen',
     'undo',
     'redo',
     'alert'
@@ -45,7 +45,7 @@ export class EditorComponent implements OnInit {
       // 'file',
       // 'fontFamily',
       'fontSize',
-      'fullscreen',
+      // 'fullscreen',
       // 'image',
       // 'imageManager',
       'inlineStyle',
