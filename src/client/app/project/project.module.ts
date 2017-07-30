@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { HotkeyModule } from 'angular2-hotkeys';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProjectComponent } from './project.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { EditorModule } from './editor/editor.module';
 import { ExplorerModule } from './explorer/explorer.module';
 import { SharedModule } from '../shared/shared.module';
 import { LoginModule } from '../login/login.module';
+import { ShowhideModule } from './showhide/showhide.module';
 
 @NgModule({
   imports: [
@@ -18,9 +19,11 @@ import { LoginModule } from '../login/login.module';
     ProjectRoutingModule,
     EditorModule,
     ExplorerModule,
+    ShowhideModule,
     SharedModule,
     LoginModule,
-    HotkeyModule
+    HotkeyModule,
+    BrowserAnimationsModule
   ],
   declarations: [ProjectComponent],
   exports: [ProjectComponent]

@@ -1,24 +1,25 @@
 :host {
-  display: block;
+   display: inline-block; 
   padding: 0 16px;
 }
 
-td {
-  vertical-align: top;
-  border: 0 solid #e1e1e1;
-  padding: 16px 0px;
-}
-
 sd-explorer {
+  position:absolute;
   width: 230px;
   float:left;
+  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+}
+
+sd-showhide {
+  position:absolute;
 }
 
 sd-editor {
-  float:left;
-  left: 250px;
+  float:right;
+  /* left: 250px; */
   right: 20px;
-  max-width: 640px;
+  /* max-width: 640px; */
 }
 
 #annexe {
@@ -69,3 +70,60 @@ input {
   border:0;
   float:left;
 }
+
+.slide-in {
+   /* width: 230px;  */
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
+   /* -webkit-transition: width 0.5s; 
+   transition: width 0.5s;  */
+}
+
+.slide-out {
+    /* width: 38px;  */
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+   /* -webkit-transition: width 0.5s; 
+   transition: width 0.5s;  */
+}
+
+@keyframes slide-in {
+    100% { transform: translateX(0%); }
+}
+
+@-webkit-keyframes slide-in {
+    100% { -webkit-transform: translateX(0%); }
+}
+
+@keyframes slide-out {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-300px); }
+}
+
+@-webkit-keyframes slide-out {
+    0% { -webkit-transform: translateX(0%); }
+    100% { -webkit-transform: translateX(-300px); }
+}
+
+.extand {
+  width:800px;
+  max-width:95%;
+  text-align: center;
+  -webkit-transition: width 0.5s;
+  transition: width 0.5s;
+}
+
+.squeeze {
+  width:640px;
+  -webkit-transition: width 0.5s;
+  transition: width 0.5s;
+}
+
+
+
+
+
+
+
+
+

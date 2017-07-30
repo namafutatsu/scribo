@@ -4,13 +4,19 @@
 
   <sd-loading [condition]="isLoading"></sd-loading>
 
-  <sd-explorer [project]="project" *ngIf="project"
+  <sd-explorer [className]="togglename"
+    [project]="project" *ngIf="project"
+    (onToggling)="onToggling($event)"
     (onFileSelected)="onFileSelected($event)"
     (onFolderSelected)="onFolderSelected($event)"
     (onSaving)="onSaving($event)"></sd-explorer>
 
+  <sd-showhide  *ngIf="project"
+    (onToggling)="onToggling($event)"></sd-showhide>
+
   <sd-editor [file]="file" *ngIf="file"
-    (onSaving)="onSaving($event)"></sd-editor>
+    (onSaving)="onSaving($event)"
+    [className]="middleClass"></sd-editor>
 
   <div id="annexe" *ngIf="file">
     <div id="notes" *ngIf="file.notes?.length > 0">

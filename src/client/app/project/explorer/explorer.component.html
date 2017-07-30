@@ -1,6 +1,9 @@
 <div id="toolbar">
-  <button (click)="this.save()" [disabled]="loading">
+  <!-- <button (click)="this.save()" [disabled]="loading">
     <i class="fa fa-floppy-o" aria-hidden="true"></i>
+  </button> -->
+  <button (click)="toggle()">
+    <!-- <i class="fa fa-caret-square-o-right" aria-hidden="true"></i> -->
   </button>
   <button (click)="treeview.create(true)" [disabled]="!selectedItem">
     <i class="fa fa-folder-o" aria-hidden="true"></i>
@@ -13,7 +16,7 @@
   </button>
   <button (click)="treeview.delete()" [disabled]="!selectedItem || selectedItem == project">
     <i class="fa fa-trash-o" aria-hidden="true"></i>
-  </button>   
+  </button>
 </div>
 <br/><br/>
 <sd-treeview #treeview [project]="project"

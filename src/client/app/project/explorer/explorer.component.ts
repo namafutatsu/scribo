@@ -14,6 +14,7 @@ export class ExplorerComponent implements OnInit {
   @Output() onFileSelected = new EventEmitter<Sfile>();
   @Output() onFolderSelected = new EventEmitter<Sfolder>();
   @Output() onSaving = new EventEmitter();
+  @Output() onToggling = new EventEmitter();
 
   loading = false;
   selectedItem: Sitem;
@@ -109,4 +110,8 @@ export class ExplorerComponent implements OnInit {
     this.onSaving.emit();
   }
 
+
+  toggle(): void {
+    this.onToggling.emit();
+  }
 }
