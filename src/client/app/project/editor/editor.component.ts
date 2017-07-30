@@ -8,6 +8,7 @@ declare var $ :any;
   moduleId: module.id,
   selector: 'sd-editor',
   templateUrl: 'editor.component.html',
+  styleUrls: ['editor.component.css']
 })
 export class EditorComponent implements OnInit {
   @Input() file: Sfile;

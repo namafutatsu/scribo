@@ -1,25 +1,69 @@
 :host {
-  display: block;
+  display: inline-block; 
   padding: 0 16px;
 }
 
-td {
-  vertical-align: top;
-  border: 0 solid #e1e1e1;
-  padding: 16px 0px;
-}
-
 sd-explorer {
+  position:absolute;
   width: 230px;
   float:left;
+  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+}
+
+.show {
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
+}
+
+.hide {
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+}
+
+@keyframes slide-in {
+    100% { transform: translateX(0%); }
+}
+
+@-webkit-keyframes slide-in {
+    100% { -webkit-transform: translateX(0%); }
+}
+
+@keyframes slide-out {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-300px); }
+}
+
+@-webkit-keyframes slide-out {
+    0% { -webkit-transform: translateX(0%); }
+    100% { -webkit-transform: translateX(-300px); }
+}
+
+sd-showhide {
+  position:absolute;
 }
 
 sd-editor {
-  float:left;
-  left: 250px;
-  right: 20px;
-  max-width: 640px;
+  position: absolute;
+  -webkit-transition: left 0.5s;
+  transition: left 0.5s;
 }
+
+.expand {
+  left: 60px;
+  right: 20px;
+}
+
+.shrink {
+    left: 250px;
+    right: 20px;
+}
+
+
+/* @media screen and (max-width: 1000px) {
+
+}
+*/
 
 #annexe {
   float:left;
@@ -59,13 +103,4 @@ sd-editor {
 
 #annexe li.done {
   color: #8f8f8f;
-}
-
-input {
-  height:25px;
-  width:130px;
-  margin: 0;
-  padding: 0;
-  border:0;
-  float:left;
 }

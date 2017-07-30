@@ -1,5 +1,6 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
+import {style, state, animate, transition, trigger} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -14,12 +15,28 @@ import { ToastComponent } from '../shared/toast/toast.component';
   moduleId: module.id,
   selector: 'sd-project',
   templateUrl: 'project.component.html',
-  styleUrls: ['project.component.css']
+  styleUrls: ['project.component.css'],
+  animations: [
+  trigger('fadeInOut', [
+    transition(':enter', [   // :enter is alias to 'void => *'
+      style({opacity:0}),
+      animate(500, style({opacity:1})) 
+    ]),
+    transition(':leave', [   // :leave is alias to '* => void'
+      animate(500, style({opacity:0})) 
+    ])
+  ])
+]
 })
 export class ProjectComponent implements OnInit {
   project: Project;
   file: Sfile;
   isLoading = true;
+  toggle = true;
+  explorerClasses = ["show", "hide"];
+  explorerClass = 0;
+  editorClasses = ["shrink", "expand"];
+  editorClass = 0;
 
   constructor(
     private projectService: ProjectService,
@@ -45,6 +62,12 @@ export class ProjectComponent implements OnInit {
         this.isLoading = false;
       });
     }
+  }
+
+  onToggling(): void {
+    this.explorerClass = (this.explorerClass + 1) % 2;
+    this.editorClass = (this.editorClass + 1) % 2;
+    this.toggle = !this.toggle;
   }
 
   onFolderSelected(folder: Sfolder) {
