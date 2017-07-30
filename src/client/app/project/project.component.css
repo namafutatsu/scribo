@@ -1,5 +1,5 @@
 :host {
-   display: inline-block; 
+  display: inline-block; 
   padding: 0 16px;
 }
 
@@ -11,16 +11,59 @@ sd-explorer {
   -webkit-transform: translateX(-100%);
 }
 
+.show {
+    animation: slide-in 0.5s forwards;
+    -webkit-animation: slide-in 0.5s forwards;
+}
+
+.hide {
+    animation: slide-out 0.5s forwards;
+    -webkit-animation: slide-out 0.5s forwards;
+}
+
+@keyframes slide-in {
+    100% { transform: translateX(0%); }
+}
+
+@-webkit-keyframes slide-in {
+    100% { -webkit-transform: translateX(0%); }
+}
+
+@keyframes slide-out {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-300px); }
+}
+
+@-webkit-keyframes slide-out {
+    0% { -webkit-transform: translateX(0%); }
+    100% { -webkit-transform: translateX(-300px); }
+}
+
 sd-showhide {
   position:absolute;
 }
 
 sd-editor {
-  float:right;
-  /* left: 250px; */
-  right: 20px;
-  /* max-width: 640px; */
+  position: absolute;
+  -webkit-transition: left 0.5s;
+  transition: left 0.5s;
 }
+
+.expand {
+  left: 60px;
+  right: 20px;
+}
+
+.shrink {
+    left: 250px;
+    right: 20px;
+}
+
+
+/* @media screen and (max-width: 1000px) {
+
+}
+*/
 
 #annexe {
   float:left;
@@ -61,69 +104,3 @@ sd-editor {
 #annexe li.done {
   color: #8f8f8f;
 }
-
-input {
-  height:25px;
-  width:130px;
-  margin: 0;
-  padding: 0;
-  border:0;
-  float:left;
-}
-
-.slide-in {
-   /* width: 230px;  */
-    animation: slide-in 0.5s forwards;
-    -webkit-animation: slide-in 0.5s forwards;
-   /* -webkit-transition: width 0.5s; 
-   transition: width 0.5s;  */
-}
-
-.slide-out {
-    /* width: 38px;  */
-    animation: slide-out 0.5s forwards;
-    -webkit-animation: slide-out 0.5s forwards;
-   /* -webkit-transition: width 0.5s; 
-   transition: width 0.5s;  */
-}
-
-@keyframes slide-in {
-    100% { transform: translateX(0%); }
-}
-
-@-webkit-keyframes slide-in {
-    100% { -webkit-transform: translateX(0%); }
-}
-
-@keyframes slide-out {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-300px); }
-}
-
-@-webkit-keyframes slide-out {
-    0% { -webkit-transform: translateX(0%); }
-    100% { -webkit-transform: translateX(-300px); }
-}
-
-.extand {
-  width:800px;
-  max-width:95%;
-  text-align: center;
-  -webkit-transition: width 0.5s;
-  transition: width 0.5s;
-}
-
-.squeeze {
-  width:640px;
-  -webkit-transition: width 0.5s;
-  transition: width 0.5s;
-}
-
-
-
-
-
-
-
-
-

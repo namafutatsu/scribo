@@ -33,9 +33,10 @@ export class ProjectComponent implements OnInit {
   file: Sfile;
   isLoading = true;
   toggle = true;
-  togglename = "slide-in";
-  middleClass = "squeeze";
-  nav = "";
+  explorerClasses = ["show", "hide"];
+  explorerClass = 0;
+  editorClasses = ["shrink", "expand"];
+  editorClass = 0;
 
   constructor(
     private projectService: ProjectService,
@@ -64,15 +65,8 @@ export class ProjectComponent implements OnInit {
   }
 
   onToggling(): void {
-    if (this.toggle) {
-      this.togglename = "slide-out";
-      this.middleClass = "extand";
-    }
-    else {
-      this.togglename = "slide-in";
-      this.middleClass = "squeeze";
-      this.nav = "show-nav";
-    }
+    this.explorerClass = (this.explorerClass + 1) % 2;
+    this.editorClass = (this.editorClass + 1) % 2;
     this.toggle = !this.toggle;
   }
 

@@ -1,24 +1,6 @@
-.tada {
-   /* display: inline-block; */
-}
-
-
-.toggle {
-     /* display: inline-flex;   */
-   float:left; 
-   /* position:absolute;  */
-  width:40px;
-  /* height: 100%; */
-}
-
 .editor {
-    /* display: inline-flex;  */
-    float:left;  
-  /* width:90%; */
-   /* float:right;  */
-  /* position:absolute; */
+  max-width: 800px;
 }
-
 
 button {
   color: #4f4f51;
