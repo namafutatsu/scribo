@@ -6,6 +6,14 @@
   padding: 0 16px;
 }
 
+.wrap {
+  display: inline-block;
+}
+
+.decor {
+  display: block;
+}
+
 nav a {
   color: #8f8f8f;
   font-size: 14px;
@@ -20,3 +28,92 @@ nav a {
 nav a.router-link-active {
   color: #24292f;
 }
+
+
+
+/* 
+a {
+  text-decoration: none;
+  color: #d9d2ca;
+  display: block;
+}
+
+ul {
+  list-style: none;
+  position: relative;
+  text-align: left;
+}
+
+ul a {
+  line-height: 35px;
+}
+
+li {
+  float: left;
+}
+
+ul:after {
+  clear: both;
+}
+
+ul:before,
+ul:after {
+  content: " ";
+  display: table;
+} 
+
+ul.primary li a {
+  display: block;
+  padding: 0px 30px;
+}
+
+ul.primary li:last-child a {
+  border-right: none;
+}
+
+ul.primary li a:hover {
+  color: #000;
+}
+
+ul.sub {
+  position: absolute;
+  z-index: 200;
+  width: 250px;
+  display:none;
+  box-shadow: 2px 2px 0 #BEBEBE;
+}
+
+ul.sub li {
+  float: none;
+  margin: 0;
+}
+
+ul.sub li a {
+  border-bottom: 1px dotted #ccc;
+  border-right: none;
+  color: #000;
+  padding: 0px 30px;
+}
+
+ul.sub li:last-child a {
+  border-bottom: none;
+}
+
+ul.sub li a:hover {
+  color: #000;
+  background: #eeeeee;
+}
+
+ul.primary li:hover ul {
+  display: block;
+  background: #d9d2ca;
+}
+
+ul.primary li:hover a {
+  background: #d9d2ca;
+  color: #666;
+}
+
+ul.primary li:hover > a {
+  color: #000;
+} */

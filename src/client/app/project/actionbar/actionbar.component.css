@@ -1,6 +1,13 @@
+:host {
+  background: #24292f;
+  position:fixed;
+  left: 0; 
+  height: 100%; 
+}
+
 button {
-  color: #4f4f51;
-  background-color: #f2eae1;
+  color: #f2eae1;
+  background-color: #24292f;
   transition: background-color 0.2s ease 0s;
   font-size: 14px;
   width:38px;
@@ -8,17 +15,17 @@ button {
   float:left;
   outline: 0;
   border: 0;
-  margin: 0px 2px;
+  margin: 0;
   padding: 0;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #e0dad3;
+  background-color: #4F5358;
 }
 
 button:active {
-  background-color: #cecac4;
+  background-color: #7B7E82;
 }
 
 button:disabled {

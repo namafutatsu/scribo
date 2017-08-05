@@ -11,8 +11,9 @@
     (onFolderSelected)="onFolderSelected($event)"
     (onSaving)="onSaving($event)"></sd-explorer>
 
-  <sd-showhide  *ngIf="project"
-    (onToggling)="onToggling($event)"></sd-showhide>
+  <sd-actionbar *ngIf="project"
+    (onSaving)="onSaving($event)"
+    (onActionbarToggling)="onActionbarToggling($event)"></sd-actionbar>
 
   <sd-editor [file]="file" *ngIf="file"
     (onSaving)="onSaving($event)"

@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
-import {style, state, animate, transition, trigger} from '@angular/core';
+import { style, state, animate, transition, trigger } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -64,7 +64,7 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  onToggling(): void {
+  onActionbarToggling(): void {
     this.explorerClass = (this.explorerClass + 1) % 2;
     this.editorClass = (this.editorClass + 1) % 2;
     this.toggle = !this.toggle;

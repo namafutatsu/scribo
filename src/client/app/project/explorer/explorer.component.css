@@ -1,5 +1,10 @@
-treeview {
-  float:left;
+:host {
+  position: fixed;
+  left: 40px;
+  width: 300px;
+  float: left;
+  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
 }
 
 button {

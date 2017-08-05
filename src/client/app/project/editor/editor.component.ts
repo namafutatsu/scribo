@@ -14,7 +14,6 @@ export class EditorComponent implements OnInit {
   @Input() file: Sfile;
   @Output() onSaving = new EventEmitter();
   buttons = [
-    'save',
     'bold',
     'italic',
     'underline',
@@ -25,7 +24,8 @@ export class EditorComponent implements OnInit {
     // 'fullscreen',
     'undo',
     'redo',
-    'alert'
+    'alert',
+    'save'
   ];
   options: Object = {
     charCounterCount: true,
@@ -85,7 +85,8 @@ export class EditorComponent implements OnInit {
     events : {
       'froalaEditor.save.before' : (e: any, editor: any) =>
         this.onSaving.emit()
-    }
+    },
+    toolbarStickyOffset: 48
   };
 
   ngOnInit(): void {

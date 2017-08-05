@@ -10,7 +10,7 @@ import { EditorModule } from './editor/editor.module';
 import { ExplorerModule } from './explorer/explorer.module';
 import { SharedModule } from '../shared/shared.module';
 import { LoginModule } from '../login/login.module';
-import { ShowhideModule } from './showhide/showhide.module';
+import { ActionbarModule } from './actionbar/actionbar.module';
 
 @NgModule({
   imports: [
@@ -19,7 +19,7 @@ import { ShowhideModule } from './showhide/showhide.module';
     ProjectRoutingModule,
     EditorModule,
     ExplorerModule,
-    ShowhideModule,
+    ActionbarModule,
     SharedModule,
     LoginModule,
     HotkeyModule,

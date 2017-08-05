@@ -3,14 +3,6 @@
   padding: 0 16px;
 }
 
-sd-explorer {
-  position:absolute;
-  width: 230px;
-  float:left;
-  transform: translateX(-100%);
-  -webkit-transform: translateX(-100%);
-}
-
 .show {
     animation: slide-in 0.5s forwards;
     -webkit-animation: slide-in 0.5s forwards;
@@ -39,18 +31,11 @@ sd-explorer {
     100% { -webkit-transform: translateX(-300px); }
 }
 
-sd-showhide {
-  position:absolute;
+sd-actionbar {
   transform: translateX(-500%);
   -webkit-transform: translateX(-500%);
   animation: slide-in 0.5s forwards;
   -webkit-animation: slide-in 0.5s forwards;
-}
-
-sd-editor {
-  position: absolute;
-  -webkit-transition: left 0.5s;
-  transition: left 0.5s;
 }
 
 .expand {
@@ -59,8 +44,8 @@ sd-editor {
 }
 
 .shrink {
-    left: 250px;
-    right: 20px;
+  left: 270px;
+  right: 20px;
 }
 
 

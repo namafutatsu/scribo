@@ -1,6 +1,5 @@
-<nav *ngIf="auth.loggedIn">
+ <nav *ngIf="auth.loggedIn">
   <a [routerLink]="['/']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">HOME</a>
   <a [routerLink]="['/projects']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">PROJECTS</a>
-  <!-- <a [routerLink]="['/about']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">ABOUT</a> -->
   <a [routerLink]="['/logout']" [routerLinkActive]="['router-link-active']" [routerLinkActiveOptions]="{exact:true}">LOG OUT</a>
-</nav>
+</nav> 
