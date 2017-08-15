@@ -11,6 +11,7 @@ import { ExplorerModule } from './explorer/explorer.module';
 import { SharedModule } from '../shared/shared.module';
 import { LoginModule } from '../login/login.module';
 import { ActionbarModule } from './actionbar/actionbar.module';
+import { ExportModule } from './export/export.module';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { ActionbarModule } from './actionbar/actionbar.module';
     SharedModule,
     LoginModule,
     HotkeyModule,
+    ExportModule,
     BrowserAnimationsModule
   ],
   declarations: [ProjectComponent],

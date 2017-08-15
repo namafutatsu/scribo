@@ -86,6 +86,10 @@ export class ProjectConfig extends SeedConfig {
       {
         name:'mousetrap',
         path:'node_modules/mousetrap/mousetrap.js'
+      },
+      {
+        name:'file-saver',
+        path:'node_modules/file-saver/FileSaver.min.js'
       }
       // {
       //   name:'angular-in-memory-web-api',

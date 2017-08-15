@@ -13,6 +13,7 @@
 
   <sd-actionbar *ngIf="project"
     (onSaving)="onSaving($event)"
+    (onExporting)="onExporting($event)"
     (onActionbarToggling)="onActionbarToggling($event)"></sd-actionbar>
 
   <sd-editor [file]="file" *ngIf="file"

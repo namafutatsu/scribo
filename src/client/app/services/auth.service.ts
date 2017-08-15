@@ -13,6 +13,7 @@ export class AuthService {
   isAdmin = false;
   user: User;
   token: string;
+  header: Headers;
   options: RequestOptions;
   putOptions: RequestOptions;
   jwtHelper: JwtHelper = new JwtHelper();
@@ -41,8 +42,8 @@ export class AuthService {
   }
 
   setHeaders() {
-    let header = new Headers({ 'Authorization': 'Bearer ' + this.token });
-    this.options = new RequestOptions({ headers: header });
+    this.header = new Headers({ 'Authorization': 'Bearer ' + this.token });
+    this.options = new RequestOptions({ headers: this.header });
     let putHeader = new Headers({ 'Authorization': 'Bearer ' + this.token, 'Content-Type': 'application/json' });
     this.putOptions = new RequestOptions({ headers: putHeader });
   }

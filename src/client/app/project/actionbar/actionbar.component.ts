@@ -9,6 +9,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class ActionbarComponent {
   @Output() onActionbarToggling = new EventEmitter();
   @Output() onSaving = new EventEmitter();
+  @Output() onExporting = new EventEmitter();
   hide = false;
 
   toggleActionbar(): void {
@@ -24,5 +25,9 @@ export class ActionbarComponent {
   
   save(): void {
     this.onSaving.emit();
+  }
+
+  showExport(): void {
+    this.onExporting.emit();
   }
 }

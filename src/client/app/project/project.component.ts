@@ -15,18 +15,7 @@ import { ToastComponent } from '../shared/toast/toast.component';
   moduleId: module.id,
   selector: 'sd-project',
   templateUrl: 'project.component.html',
-  styleUrls: ['project.component.css'],
-  animations: [
-  trigger('fadeInOut', [
-    transition(':enter', [   // :enter is alias to 'void => *'
-      style({opacity:0}),
-      animate(500, style({opacity:1})) 
-    ]),
-    transition(':leave', [   // :leave is alias to '* => void'
-      animate(500, style({opacity:0})) 
-    ])
-  ])
-]
+  styleUrls: ['project.component.css']
 })
 export class ProjectComponent implements OnInit {
   project: Project;
@@ -82,6 +71,13 @@ export class ProjectComponent implements OnInit {
     if (this.project !== undefined) {
       this.projectService.update(this.project).then(res => {
         this.toast.setMessage('Saved', 'success');
+      });
+    }
+  }
+
+  onExporting(): void {
+    if (this.project !== undefined) {
+      this.projectService.export(this.project).then(res => {
       });
     }
   }
