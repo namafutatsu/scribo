@@ -69,6 +69,6 @@ function serializeItem(dir: string, item: any) {
       serializeItem(subdir, child);
     });
   } else {
-    fs.writeFileSync(dir + '/' + item.name + '.md', item.text);
+    fs.writeFileSync(dir + '/' + item.name + '.html', item.text);
   }
 }

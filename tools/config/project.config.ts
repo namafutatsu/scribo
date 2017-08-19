@@ -90,6 +90,14 @@ export class ProjectConfig extends SeedConfig {
       {
         name:'file-saver',
         path:'node_modules/file-saver/FileSaver.min.js'
+      },
+      {
+        name:'ng2-bootstrap-modal',
+        path:'node_modules/ng2-bootstrap-modal/dist/index.js'
+      },
+      {
+        name:'rxjs',
+        path:'node_modules/rxjs/Rx.js'
       }
       // {
       //   name:'angular-in-memory-web-api',

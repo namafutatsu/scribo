@@ -5,7 +5,9 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { HotkeyModule, HotkeysService, Hotkey } from 'angular2-hotkeys';
+import { DialogService } from 'ng2-bootstrap-modal';
 
+import { ExporterComponent } from './exporter/exporter.component';
 import { AuthService } from '../services/auth.service';
 import { Project, Note, Sitem, Sfile, Sfolder } from '../shared/models';
 import { ProjectService } from '../services/project.service';
@@ -22,9 +24,9 @@ export class ProjectComponent implements OnInit {
   file: Sfile;
   isLoading = true;
   toggle = true;
-  explorerClasses = ["show", "hide"];
+  explorerClasses = ['show', 'hide'];
   explorerClass = 0;
-  editorClasses = ["shrink", "expand"];
+  editorClasses = ['shrink', 'expand'];
   editorClass = 0;
 
   constructor(
@@ -33,7 +35,8 @@ export class ProjectComponent implements OnInit {
     private location: Location,
     public auth: AuthService,
     public toast: ToastComponent,
-    private hotkeysService: HotkeysService
+    private hotkeysService: HotkeysService,
+    private dialogService: DialogService
   ) {
       this.hotkeysService.add(new Hotkey('ctrl+s', (event: KeyboardEvent): boolean => {
       event.preventDefault();
@@ -77,7 +80,11 @@ export class ProjectComponent implements OnInit {
 
   onExporting(): void {
     if (this.project !== undefined) {
-      this.projectService.export(this.project).then(res => {
+      let disposable = this.dialogService.addDialog(ExporterComponent)//, {}, { backdropColor: '#24292f' })
+      .subscribe((isConfirmed) => {
+          if(isConfirmed) {
+            this.projectService.export(this.project);
+          }
       });
     }
   }

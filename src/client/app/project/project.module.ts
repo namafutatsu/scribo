@@ -1,22 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { HotkeyModule } from 'angular2-hotkeys';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ProjectComponent } from './project.component';
-import { ProjectRoutingModule } from './project-routing.module';
+
+import { ActionbarModule } from './actionbar/actionbar.module';
 import { EditorModule } from './editor/editor.module';
 import { ExplorerModule } from './explorer/explorer.module';
-import { SharedModule } from '../shared/shared.module';
+import { ExporterComponent } from './exporter/exporter.component';
 import { LoginModule } from '../login/login.module';
-import { ActionbarModule } from './actionbar/actionbar.module';
-import { ExportModule } from './export/export.module';
+import { ProjectComponent } from './project.component';
+import { ProjectRoutingModule } from './project-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
+    // FormsModule,
+    // ReactiveFormsModule,
     ProjectRoutingModule,
     EditorModule,
     ExplorerModule,
@@ -24,10 +26,15 @@ import { ExportModule } from './export/export.module';
     SharedModule,
     LoginModule,
     HotkeyModule,
-    ExportModule,
-    BrowserAnimationsModule
+    BootstrapModalModule
   ],
-  declarations: [ProjectComponent],
+  entryComponents: [
+    ExporterComponent
+  ],
+  declarations: [
+    ExporterComponent,
+    ProjectComponent
+  ],
   exports: [ProjectComponent]
 })
 export class ProjectModule { }

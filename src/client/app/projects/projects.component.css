@@ -7,10 +7,6 @@ ul {
   list-style-type: none;
 }
 
-.btn-default {
-  width:200px;
-}
-
 #new {
   background-color: #74777b ;
 }
@@ -19,8 +15,8 @@ ul {
   background-color: #afb1b3;
 }
 
-.btn-primary {
-  width:120px;
+.btn-basic {
+  width:200px;
   margin-left:10px;
   height:35px;
 }

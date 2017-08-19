@@ -1,5 +1,5 @@
 .card {
-  width:400px;
+  width:340px;
   position: fixed;
   top: 300px;
   left: 50%;
@@ -11,7 +11,8 @@
 
 .input-group {
   width: 300px;
-  margin-bottom: 5px;
+  padding-top: 10px;
+  margin: 0 auto;
 }
 
 .input-group-addon {
@@ -20,4 +21,6 @@
 
 .btn-primary {
   margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 20px;
 }

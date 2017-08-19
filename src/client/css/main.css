@@ -23,6 +23,7 @@ body {
   background-color: #f2eae1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  border: 0;
 }
 
 h1 {
@@ -111,11 +112,15 @@ input {
   border: 1px solid #24292f;
   font-size: 14px;
   height: 40px;
-  outline: none;
+  outline: none !important;
   padding: 8px;
 }
 
-.btn-default {
+button {
+  outline: none !important;
+}
+
+.btn-basic {
   background-color: #24292f;
   border-color: #24292f;
   border-style: none;
@@ -125,16 +130,23 @@ input {
   padding: 8px 18px;
   text-decoration: none;
   cursor: pointer;
+  outline-style: none;
 }
 
-.btn-default:hover {
+.btn-basic:hover {
   background-color: #afb1b3;
+}
+
+.btn-default {
+  cursor: pointer;
+  outline-style: none;
 }
 
 .btn-primary {
   background-color: #a53b2b;
   border-color: #a53b2b;
   cursor: pointer;
+  outline-style: none;
 }
 
 .btn-primary:hover {
@@ -148,7 +160,7 @@ input {
 }
 
 .card {
-  background-color: #f2eae1;
+  background-color: #f8f4f0;
 }
 
 .card-header {
@@ -167,5 +179,38 @@ input {
 }
 
 .card-footer a {
+  color: #ba1f07;
+}
+
+.modal-body {
+  background-color: #f8f4f0;
+}
+
+.modal-header {
+  border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+  background-color: #24292f;
+  color: #f2eae1;
+  padding: 10px;
+}
+
+.modal-header button.close {
+  color: #f2eae1;
+  cursor: pointer;
+}
+
+.modal-header h1 {
+  color: #f2eae1;
+  text-align: center;
+  padding : 0 0 0 0;
+}
+
+.modal-footer {
+  border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);
+  background-color: #24292f;
+  color: #f2eae1;
+  padding: 10px;
+}
+
+.modal-footer a {
   color: #ba1f07;
 }
