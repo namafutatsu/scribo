@@ -3,6 +3,10 @@
   position:fixed;
   left: 0; 
   height: 100%; 
+  transform: translateX(-500%);
+  -webkit-transform: translateX(-500%);
+  animation: slide-in 0.5s forwards;
+  -webkit-animation: slide-in 0.5s forwards;
 }
 
 button {

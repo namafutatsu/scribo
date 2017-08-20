@@ -8,21 +8,26 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class ActionbarComponent {
   @Output() onActionbarToggling = new EventEmitter();
+  @Output() onNotesToggling = new EventEmitter();
   @Output() onSaving = new EventEmitter();
   @Output() onExporting = new EventEmitter();
-  hide = false;
+  // hide = false;
 
   toggleActionbar(): void {
     this.onActionbarToggling.emit();
-    this.hide = !this.hide;
+    // this.hide = !this.hide;
   }
 
-  showExplorer(): void {
-    if (this.hide) {
-      this.toggleActionbar();
-    }
+  toggleNotes(): void {
+    this.onNotesToggling.emit();
   }
-  
+
+  // showExplorer(): void {
+  //   if (this.hide) {
+  //     this.toggleActionbar();
+  //   }
+  // }
+
   save(): void {
     this.onSaving.emit();
   }

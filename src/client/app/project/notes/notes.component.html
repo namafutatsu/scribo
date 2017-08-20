@@ -1,0 +1,9 @@
+<div id="notes" *ngIf="file.notes?.length > 0">
+  Todo:
+  <li *ngFor="let note of file.notes" [class.cancelled]="note.status < 0">
+    <i class="fa fa-check-square-o" aria-hidden="true" *ngIf="note.status == 1" (click)="clickNote(note)"></i>
+    <i class="fa fa-square-o" aria-hidden="true" *ngIf="note.status == 0" (click)="clickNote(note)"></i>
+    <i class="fa fa-times" aria-hidden="true" *ngIf="note.status == -1" (click)="clickNote(note)"></i>
+    <input [(ngModel)]="note.text"  [class.cancelled]="note.status < 0"/>
+  </li>
+</div>    <!--<div *ngIf="note.status < 0">{{node.text}}</div>-->

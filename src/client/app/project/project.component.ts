@@ -1,6 +1,5 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
-import { style, state, animate, transition, trigger } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -23,11 +22,14 @@ export class ProjectComponent implements OnInit {
   project: Project;
   file: Sfile;
   isLoading = true;
-  toggle = true;
-  explorerClasses = ['show', 'hide'];
-  explorerClass = 0;
-  editorClasses = ['shrink', 'expand'];
-  editorClass = 0;
+  // toggle = true;
+  explorerClasses = ['hide', 'show'];
+  explorerMode = 1;
+  editorClasses = ['full', 'explorer', 'notes', 'explorer-notes'];
+  editorMode = 1;
+  notesClasses = ['hide-right', 'show-right'];
+  notesMode = 0;
+  initToggleNotes = false;
 
   constructor(
     private projectService: ProjectService,
@@ -57,9 +59,17 @@ export class ProjectComponent implements OnInit {
   }
 
   onActionbarToggling(): void {
-    this.explorerClass = (this.explorerClass + 1) % 2;
-    this.editorClass = (this.editorClass + 1) % 2;
-    this.toggle = !this.toggle;
+    this.explorerMode = (this.explorerMode + 1) % 2;
+    this.editorMode = this.explorerMode + this.notesMode * 2;
+    // this.toggle = !this.toggle;
+  }
+
+  onNotesToggling(): void {
+    // this.explorerMode = (this.explorerMode + 1) % 2;
+    this.notesMode = (this.notesMode + 1) % 2;
+    this.editorMode = this.explorerMode + this.notesMode * 2;
+    this.initToggleNotes = true;
+    // this.toggle = !this.toggle;
   }
 
   onFolderSelected(folder: Sfolder) {

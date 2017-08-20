@@ -13,6 +13,7 @@ import { LoginModule } from '../login/login.module';
 import { ProjectComponent } from './project.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { NotesModule } from './notes/notes.module';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { SharedModule } from '../shared/shared.module';
     EditorModule,
     ExplorerModule,
     ActionbarModule,
+    NotesModule,
     SharedModule,
     LoginModule,
     HotkeyModule,

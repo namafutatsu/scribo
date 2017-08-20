@@ -1,7 +1,7 @@
 :host {
   position: absolute;
-  -webkit-transition: left 0.5s;
-  transition: left 0.5s;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 .editor {
