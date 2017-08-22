@@ -7,14 +7,14 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrls: ['actionbar.component.css']
 })
 export class ActionbarComponent {
-  @Output() onActionbarToggling = new EventEmitter();
+  @Output() onExplorerToggling = new EventEmitter();
   @Output() onNotesToggling = new EventEmitter();
   @Output() onSaving = new EventEmitter();
   @Output() onExporting = new EventEmitter();
   // hide = false;
 
-  toggleActionbar(): void {
-    this.onActionbarToggling.emit();
+  toggleExplorer(): void {
+    this.onExplorerToggling.emit();
     // this.hide = !this.hide;
   }
 

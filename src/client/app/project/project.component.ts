@@ -12,6 +12,8 @@ import { Project, Note, Sitem, Sfile, Sfolder } from '../shared/models';
 import { ProjectService } from '../services/project.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 
+interface CssClass { name: string; value: string; }
+
 @Component({
   moduleId: module.id,
   selector: 'sd-project',
@@ -22,14 +24,14 @@ export class ProjectComponent implements OnInit {
   project: Project;
   file: Sfile;
   isLoading = true;
-  // toggle = true;
-  explorerClasses = ['hide', 'show'];
-  explorerMode = 1;
-  editorClasses = ['full', 'explorer', 'notes', 'explorer-notes'];
-  editorMode = 1;
-  notesClasses = ['hide-right', 'show-right'];
-  notesMode = 0;
-  initToggleNotes = false;
+  showExplorer = true;
+  initShowNotes = false;
+  showNotes = false;
+  cssColumns = [
+    { name: 'explorer', value: 'explorer-ab' },
+    { name: 'editor', value: 'editor-ab' },
+    { name: 'notes', value: 'notes-ab' }
+  ];
 
   constructor(
     private projectService: ProjectService,
@@ -43,11 +45,12 @@ export class ProjectComponent implements OnInit {
       this.hotkeysService.add(new Hotkey('ctrl+s', (event: KeyboardEvent): boolean => {
       event.preventDefault();
       this.onSaving();
-      return false; // Prevent bubbling
+      return false;
     }));
   }
 
   ngOnInit(): void {
+    this.updateClasses();
     if (this.auth.loggedIn) {
       this.route.params
       .switchMap((params: Params) => this.projectService.getProject(params['key']))
@@ -58,18 +61,23 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  onActionbarToggling(): void {
-    this.explorerMode = (this.explorerMode + 1) % 2;
-    this.editorMode = this.explorerMode + this.notesMode * 2;
-    // this.toggle = !this.toggle;
+  onExplorerToggling(): void {
+    this.showExplorer = !this.showExplorer;
+    this.updateClasses();
   }
 
   onNotesToggling(): void {
-    // this.explorerMode = (this.explorerMode + 1) % 2;
-    this.notesMode = (this.notesMode + 1) % 2;
-    this.editorMode = this.explorerMode + this.notesMode * 2;
-    this.initToggleNotes = true;
-    // this.toggle = !this.toggle;
+    this.initShowNotes = true;
+    this.showNotes = !this.showNotes;
+    this.updateClasses();
+  }
+
+  updateClasses() {
+    this.cssColumns.forEach(column => {
+      column.value = column.name + '-' +
+        (this.showExplorer === true ? '0' : '') + '1' +
+        (this.showNotes === true ? '2' : '');
+    });
   }
 
   onFolderSelected(folder: Sfolder) {
@@ -97,9 +105,5 @@ export class ProjectComponent implements OnInit {
           }
       });
     }
-  }
-
-  clickNote(note: Note): void {
-    note.status = (note.status + 2) % 3 - 1;
   }
 }

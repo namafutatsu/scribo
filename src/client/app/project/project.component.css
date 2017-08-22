@@ -3,24 +3,6 @@
   padding: 0 16px;
 }
 
-.show {
-  animation: slide-in 0.5s forwards;
-  -webkit-animation: slide-in 0.5s forwards;
-}
-.show-right {
-  animation: slide-in-right 0.5s forwards;
-  -webkit-animation: slide-in-right 0.5s forwards;
-}
-.hide {
-  animation: slide-out 0.5s forwards;
-  -webkit-animation: slide-out 0.5s forwards;
-}
-
-.hide-right {
-  animation: slide-out-right 0.5s forwards;
-  -webkit-animation: slide-out-right 0.5s forwards;
-}
-
 @keyframes slide-in {
   100% { transform: translateX(0%); }
 }
@@ -59,27 +41,66 @@
   100% { -webkit-transform: translateX(400px); }
 }
 
-.full {
-  left: 60px;
-  right: 20px;
+.explorer-01 {
+  animation: slide-in 0.5s forwards;
+  -webkit-animation: slide-in 0.5s forwards;
 }
 
-.explorer {
+.explorer-012 {
+  animation: slide-in 0.5s forwards;
+  -webkit-animation: slide-in 0.5s forwards;
+}
+
+.explorer-1 {
+  animation: slide-out 0.5s forwards;
+  -webkit-animation: slide-out 0.5s forwards;
+}
+
+.explorer-12 {
+  animation: slide-out 0.5s forwards;
+  -webkit-animation: slide-out 0.5s forwards;
+}
+
+.editor-01 {
   left: 270px;
   right: 20px;
 }
 
-.notes {
-  left: 60px;
-  right: 200px;
-}
-
-.explorer-notes {
+.editor-012 {
   left: 270px;
   right: 200px;
 }
 
-/* @media screen and (max-width: 1000px) {
+.editor-1 {
+  left: 60px;
+  right: 20px;
+}
+
+.editor-12 {
+  left: 60px;
+  right: 200px;
+}
+
+.notes-01 {
+  animation: slide-out-right 0.5s forwards;
+  -webkit-animation: slide-out-right 0.5s forwards;
+}
+
+.notes-012 {
+  animation: slide-in-right 0.5s forwards;
+  -webkit-animation: slide-in-right 0.5s forwards;
+}
+
+.notes-1 {
+  animation: slide-out-right 0.5s forwards;
+  -webkit-animation: slide-out-right 0.5s forwards;
+}
+
+.notes-12 {
+  animation: slide-in-right 0.5s forwards;
+  -webkit-animation: slide-in-right 0.5s forwards;
+}
+
+@media screen and (max-width: 1600px) {
 
 }
-*/
