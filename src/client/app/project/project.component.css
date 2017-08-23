@@ -68,7 +68,7 @@
 
 .editor-012 {
   left: 270px;
-  right: 200px;
+  right: 600px;
 }
 
 .editor-1 {
@@ -78,7 +78,7 @@
 
 .editor-12 {
   left: 60px;
-  right: 200px;
+  right: 700px;
 }
 
 .notes-01 {
@@ -103,4 +103,33 @@
 
 @media screen and (max-width: 1600px) {
 
+  .editor-012 {
+    left: 270px;
+    right: 200px;
+  }
+
+  .editor-12 {
+    left: 60px;
+    right: 200px;
+  }
+
+  .notes-01 {
+    animation: slide-out-right 0.5s forwards;
+    -webkit-animation: slide-out-right 0.5s forwards;
+  }
+
+  .notes-012 {
+    animation: slide-in-right 0.5s forwards;
+    -webkit-animation: slide-in-right 0.5s forwards;
+  }
+
+  .notes-1 {
+    animation: slide-out-right 0.5s forwards;
+    -webkit-animation: slide-out-right 0.5s forwards;
+  }
+
+  .notes-12 {
+    animation: slide-in-right 0.5s forwards;
+    -webkit-animation: slide-in-right 0.5s forwards;
+  }
 }
