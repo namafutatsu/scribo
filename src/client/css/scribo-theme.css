@@ -1116,6 +1116,7 @@
   border-top-width: 5px;
 }
 .scribo-theme.fr-toolbar.fr-top {
+  width: 800px !important;
   top: 0;
   border-radius: 0 0 0 0;
   -moz-border-radius: 0 0 0 0;

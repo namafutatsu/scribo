@@ -4,7 +4,7 @@
 
   <sd-loading [condition]="isLoading"></sd-loading>
 
-  <sd-explorer [className]="cssColumns[0].value"
+  <sd-explorer [ngClass]="cssColumns[0].value"
     [project]="project" *ngIf="project"
     (onToggling)="onToggling($event)"
     (onFileSelected)="onFileSelected($event)"
@@ -17,12 +17,12 @@
     (onExplorerToggling)="onExplorerToggling($event)"
     (onNotesToggling)="onNotesToggling($event)"></sd-actionbar>
 
-  <sd-editor [className]="cssColumns[1].value"
+  <sd-editor [ngClass]="cssColumns[1].value"
     [file]="file" *ngIf="file"
     (onSaving)="onSaving($event)"></sd-editor>
 
-  <sd-notes [className]="cssColumns[2].value"
+  <sd-notes [ngClass]="['notes', cssColumns[2].value]"
     [file]="file" *ngIf="file && initShowNotes">
   </sd-notes>
-    
+
 </ng-template>

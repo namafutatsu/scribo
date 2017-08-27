@@ -22,23 +22,24 @@
 }
 
 @keyframes slide-in-right {
-  0% { transform: translateX(400px); }
-  100% { transform: translateX(0px); }
+  0% { transform: translateX(1200px); }
+  100% { transform: translateX(0%); }
 }
 
 @-webkit-keyframes slide-in-right {
-  0% { transform: translateX(400px); }
-  100% { -webkit-transform: translateX(0px); }
+  0% { transform: translateX(1200px); }
+  100% { -webkit-transform: translateX(0%); }
 }
 
 @keyframes slide-out-right {
-  0% { transform: translateX(0px); }
-  100% { transform: translateX(400px); }
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(1200px); }
 }
 
 @-webkit-keyframes slide-out-right {
-  0% { -webkit-transform: translateX(0px); }
-  100% { -webkit-transform: translateX(400px); }
+  0% { -webkit-transform: translateX(0%); }
+  100% { -webkit-transform: translateX(1200px); }
+
 }
 
 .explorer-01 {
@@ -101,35 +102,32 @@
   -webkit-animation: slide-in-right 0.5s forwards;
 }
 
-@media screen and (max-width: 1600px) {
+@media screen and (max-width: 1500px) {
 
   .editor-012 {
-    left: 270px;
-    right: 200px;
+     right:33%; 
   }
 
   .editor-12 {
-    left: 60px;
-    right: 200px;
+     right:33%; 
   }
 
-  .notes-01 {
-    animation: slide-out-right 0.5s forwards;
-    -webkit-animation: slide-out-right 0.5s forwards;
-  }
-
-  .notes-012 {
-    animation: slide-in-right 0.5s forwards;
-    -webkit-animation: slide-in-right 0.5s forwards;
-  }
-
-  .notes-1 {
-    animation: slide-out-right 0.5s forwards;
-    -webkit-animation: slide-out-right 0.5s forwards;
-  }
-
-  .notes-12 {
-    animation: slide-in-right 0.5s forwards;
-    -webkit-animation: slide-in-right 0.5s forwards;
+  .notes {
+    width: 30%;
   }
 }
+ 
+@media screen and (max-width: 1200px) {
+
+  .editor-012 {
+    right:23%;
+  }
+
+  .editor-12 {
+    right:23%;
+  }
+
+  .notes {
+    width: 20%;
+  }
+} 

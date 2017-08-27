@@ -1,5 +1,5 @@
 :host {
-  position: relative;
+  position: absolute;
   left: 40px;
   width: 300px;
   float: left;

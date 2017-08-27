@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
+import { Location, NgClass } from '@angular/common';
 
 import { HotkeyModule, HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { DialogService } from 'ng2-bootstrap-modal';
@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth.service';
 import { Project, Note, Sitem, Sfile, Sfolder } from '../shared/models';
 import { ProjectService } from '../services/project.service';
 import { ToastComponent } from '../shared/toast/toast.component';
+import { Observable } from 'rxjs/Observable';
 
 interface CssClass { name: string; value: string; }
 
@@ -26,6 +27,7 @@ export class ProjectComponent implements OnInit {
   isLoading = true;
   showExplorer = true;
   initShowNotes = false;
+  lockNotes = false;
   showNotes = false;
   cssColumns = [
     { name: 'explorer', value: 'explorer-ab' },
@@ -67,8 +69,21 @@ export class ProjectComponent implements OnInit {
   }
 
   onNotesToggling(): void {
-    this.initShowNotes = true;
-    this.showNotes = !this.showNotes;
+    if (this.lockNotes)
+      return;
+    if (this.showNotes) {
+      this.showNotes = false;
+      this.lockNotes = true;
+      setTimeout(() => {
+        this.initShowNotes = false;
+        this.lockNotes = false;
+      }, 500);
+    } else {
+      this.initShowNotes = true;
+      this.showNotes = true;
+    }
+    // this.initShowNotes = true;
+    // this.showNotes = !this.showNotes;
     this.updateClasses();
   }
 
