@@ -6,8 +6,8 @@ import { EditorComponent }        from './editor.component';
 
 @NgModule({
   imports: [
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot(),
+    FroalaEditorModule,
+    FroalaViewModule,
   ],
   declarations: [EditorComponent],
   exports: [EditorComponent]
