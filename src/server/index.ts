@@ -24,7 +24,7 @@ export function init(port: number, mode: string) {
   // app.set('dbUrl', 'mongodb://localhost:27017/Scribo');
   app.set('dbUrl', 'mongodb://dev:dev@ds123662.mlab.com:23662/scribs');
 
-  mongoose.connect(app.get('dbUrl'));
+  mongoose.connect(app.get('dbUrl'), { useMongoClient: true });
   const db = mongoose.connection;
   (<any>mongoose).Promise = global.Promise;
 

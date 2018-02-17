@@ -5,7 +5,6 @@ abstract class BaseCtrl {
 
   abstract model: any;
 
-  // Get all
   getAll = (req: any, res: any) => {
     this.model.find({}, (err: any, docs: any) => {
       if (err) { return console.error(err); }
@@ -24,7 +23,6 @@ abstract class BaseCtrl {
     );
   }
 
-  // Count all
   count = (req: any, res: any) => {
     this.model.count((err: any, count: any) => {
       if (err) { return console.error(err); }
@@ -32,7 +30,6 @@ abstract class BaseCtrl {
     });
   }
 
-  // Insert
   insert = (req: any, res: any) => {
     const obj = new this.model(req.body);
     obj.save((err: any, item: any) => {
@@ -85,7 +82,6 @@ abstract class BaseCtrl {
     );
   }
 
-  // Get by key
   getByKey = (req: any, res: any) => {
     this.model.findOne({ key: req.params.key }, (err: any, obj: any) => {
       if (err) { return console.error(err); }
