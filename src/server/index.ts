@@ -11,13 +11,13 @@ import * as routes from './routes';
  * Client Dir
  * @note `dev` default.
  */
-var _clientDir = '../../client/dev';
-var app = express();
+let _clientDir = '../../client/dev';
+const app = express();
 
 export function init(port: number, mode: string) {
 
   app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json({limit:'10mb'}));
+  app.use(bodyParser.json({limit: '10mb'}));
   app.use(bodyParser.text());
   app.use(compression());
 
@@ -43,12 +43,12 @@ export function init(port: number, mode: string) {
 
     routes.init(app);
 
-    let root = path.resolve(process.cwd());
-    let clientRoot = path.resolve(process.cwd(), './dist/client/dev');
+    const root = path.resolve(process.cwd());
+    const clientRoot = path.resolve(process.cwd(), './dist/client/dev');
     app.use(express.static(root));
     app.use(express.static(clientRoot));
 
-    var devRenderIndex = (req: express.Request, res: express.Response) => {
+    const devRenderIndex = (req: express.Request, res: express.Response) => {
       res.sendFile(path.resolve(__dirname, _clientDir + '/index.html'));
     };
     app.get('/*', devRenderIndex);
@@ -84,7 +84,7 @@ export function init(port: number, mode: string) {
      * @param req {any}
      * @param res {any}
      */
-    var prodRenderIndex = function (req: express.Request, res: express.Response) {
+    const prodRenderIndex = function (req: express.Request, res: express.Response) {
       res.sendFile(path.resolve(__dirname, _clientDir + '/index.html'));
     };
 
@@ -98,8 +98,8 @@ export function init(port: number, mode: string) {
    * Server with gzip compression.
    */
   return new Promise<http.Server>((resolve, reject) => {
-    let server = app.listen(port, () => {
-      var port = server.address().port;
+    const server = app.listen(port, () => {
+      // var port = server.address().port;
       console.log('App is listening on port:' + port);
       resolve(server);
     });

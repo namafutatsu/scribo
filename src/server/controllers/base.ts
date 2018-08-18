@@ -12,7 +12,7 @@ abstract class BaseCtrl {
       res.json(docs);
     });
   }
-  
+
   getAllAuth = (req: any, res: any) => {
     this.tokenAuth(req, res, () =>
       User.findOne(req.user).exec((err: any, user: any) => {
@@ -64,7 +64,7 @@ abstract class BaseCtrl {
         });
       })
     );
-  } 
+  }
 
   // Get by id
   get = (req: any, res: any) => {
@@ -92,7 +92,7 @@ abstract class BaseCtrl {
       res.json(obj);
     });
   }
-  
+
   getByKeyAuth = (req: any, res: any) => {
     this.tokenAuth(req, res, () =>
       User.findOne(req.user).exec((err: any, user: any) => {
@@ -132,11 +132,11 @@ abstract class BaseCtrl {
   }
 
   tokenAuth = function(req: any, res: any, next: any) {
-    var token;
+    let token;
     if (req.headers && req.headers.authorization) {
-      var parts = req.headers.authorization.split(' ');
+      const parts = req.headers.authorization.split(' ');
       if (parts.length === 2) {
-        var scheme = parts[0],
+        const scheme = parts[0],
         credentials = parts[1];
         if (/^Bearer$/i.test(scheme)) {
           token = credentials;

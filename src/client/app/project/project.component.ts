@@ -1,10 +1,9 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
-import { style, state, animate, transition, trigger } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { HotkeyModule, HotkeysService, Hotkey } from 'angular2-hotkeys';
+import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { DialogService } from 'ng2-bootstrap-modal';
 
 import { ExporterComponent } from './exporter/exporter.component';
@@ -80,9 +79,9 @@ export class ProjectComponent implements OnInit {
 
   onExporting(): void {
     if (this.project !== undefined) {
-      let disposable = this.dialogService.addDialog(ExporterComponent)//, {}, { backdropColor: '#24292f' })
+      const disposable = this.dialogService.addDialog(ExporterComponent)//, {}, { backdropColor: '#24292f' })
       .subscribe((isConfirmed) => {
-          if(isConfirmed) {
+          if (isConfirmed) {
             this.projectService.export(this.project);
           }
       });

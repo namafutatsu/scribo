@@ -34,7 +34,8 @@ import { AuthService } from './services/auth.service';
     LogoutModule,
     SharedModule.forRoot(),
     HotkeyModule.forRoot(),
-    NotFoundModule],
+    NotFoundModule
+  ],
   declarations: [AppComponent],
   providers: [
     ProjectService,

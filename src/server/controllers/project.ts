@@ -1,7 +1,7 @@
 import fs = require('fs');
 import path = require('path');
-var archiver = require('archiver');
-var tmp = require('tmp');
+const archiver = require('archiver');
+const tmp = require('tmp');
 
 import BaseCtrl from './base';
 import Project from '../models/project';
@@ -31,11 +31,11 @@ export default class ProjectCtrl extends BaseCtrl {
       User.findOne(req.user).exec((err: any, user: any) => {
         this.model.findOne({ _id: req.params.id }, (err: any, obj: any) => {
           if (err) { return console.error(err); }
-          let dir = tmp.dirSync().name;
+          const dir = tmp.dirSync().name;
           console.log('Dir: ', dir);
           serializeItem(dir, obj);
           console.log('Serialization complete');
-          let archive = archiver('zip', {
+          const archive = archiver('zip', {
               zlib: { level: 9 }
           });
           archive.on('warning', function(err: any) {
@@ -63,7 +63,7 @@ export default class ProjectCtrl extends BaseCtrl {
 
 function serializeItem(dir: string, item: any) {
   if (item.discriminator === 0) {
-    let subdir = path.join(dir + '/' + item.name);
+    const subdir = path.join(dir + '/' + item.name);
     fs.mkdirSync(subdir);
     item.sitems.forEach((child: any) => {
       serializeItem(subdir, child);

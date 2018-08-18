@@ -44,15 +44,15 @@ export class TreeviewComponent implements OnInit {
   }
 
   loadNode(item: Sitem): TreeModel {
-    let node: TreeModel = {
+    const node: TreeModel = {
         value: item.name,
         id: item.id
     };
     // this.nodes[item.id] = node;
     if (item.discriminator === 0) {
-      var children: TreeModel[] = [];
+      const children: TreeModel[] = [];
       (item as Sfolder).sitems
-        .sort((a,b) => a.index - b.index)
+        .sort((a, b) => a.index - b.index)
         .forEach(o => children.push(this.loadNode(o)));
       node.children = children;
     }
@@ -69,18 +69,18 @@ export class TreeviewComponent implements OnInit {
     this.onSelected.emit(e.node.node.id as string);
   }
 
-  create(isFolder:boolean) {
-    let node = this.selectedNode;
-    let parent = node.isLeaf() ? node.parent : node;
-    let child = parent.createNode(isFolder);
+  create(isFolder: boolean) {
+    const node = this.selectedNode;
+    const parent = node.isLeaf() ? node.parent : node;
+    const child = parent.createNode(isFolder);
     child.node.settings = this.treeSettings;
   }
 
   onNodeCreated(e: NodeEvent): void {
-    let id = UUID.UUID();
+    const id = UUID.UUID();
     e.node.node.id = id;
     // this.nodes[id] = e.node.node;
-    let result = {
+    const result = {
       id: id,
       name: e.node.value,
       parentId: e.node.parent.node.id,
@@ -99,7 +99,7 @@ export class TreeviewComponent implements OnInit {
   }
 
   getStructure(tree: Tree): Node {
-    let node = new Node();
+    const node = new Node();
     node.id = tree.node.id as string;
     node.name = tree.value as string;
     node.nodes = [];
@@ -119,9 +119,9 @@ export class TreeviewComponent implements OnInit {
   }
 
   delete(): void {
-    let node = this.selectedNode;
+    const node = this.selectedNode;
     this.selectedNode = null;
-    let id = node.node.id;
+    // let id = node.node.id;
     // delete this.nodes[id];
     node.parent.removeChild(node);
     this.onDeleted.emit();

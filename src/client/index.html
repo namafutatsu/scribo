@@ -8,9 +8,8 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="<%= APP_BASE %>assets/favicon/favicon-<%= ENV_CONFIG.ENV %>.ico" type="image/x-icon">
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Vollkorn|Lato" />
+
   <!-- inject:css -->
-  
   <!-- endinject -->
 </head>
 <body>
@@ -35,7 +34,7 @@
   <!-- endinject -->
 
   <% if (BUILD_TYPE === 'dev') { %>
-  <script src="<%= APP_BASE %>app/system-config.js"></script>
+  <script src="<%= APP_BASE %>system-config.js"></script>
   <% } %>
 
   <!-- libs:js -->
@@ -48,7 +47,8 @@
   <script>
   System.import('<%= BOOTSTRAP_MODULE %>')
     .catch(function (e) {
-      console.error(e.stack || e,
+      // console.error(e.stack || e,
+      console.error(e,
         'Not expecting this error? Report it at https://github.com/mgechev/angular-seed/issues');
     });
   </script>

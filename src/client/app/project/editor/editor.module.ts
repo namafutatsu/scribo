@@ -1,8 +1,6 @@
-import { NgModule }               from '@angular/core';
-
-import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
-
-import { EditorComponent }        from './editor.component';
+import { NgModule } from '@angular/core';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { EditorComponent } from './editor.component';
 
 @NgModule({
   imports: [

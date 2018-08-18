@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Headers, Http, RequestOptions } from '@angular/http';
 
-import { JwtHelper } from 'angular2-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { UserService } from './user.service';
 import { User } from '../shared/models';
@@ -16,7 +16,7 @@ export class AuthService {
   header: Headers;
   options: RequestOptions;
   putOptions: RequestOptions;
-  jwtHelper: JwtHelper = new JwtHelper();
+  jwtHelperService: JwtHelperService = new JwtHelperService();
 
   constructor(private userService: UserService,
               private router: Router) {
@@ -44,7 +44,7 @@ export class AuthService {
   setHeaders() {
     this.header = new Headers({ 'Authorization': 'Bearer ' + this.token });
     this.options = new RequestOptions({ headers: this.header });
-    let putHeader = new Headers({ 'Authorization': 'Bearer ' + this.token, 'Content-Type': 'application/json' });
+    const putHeader = new Headers({ 'Authorization': 'Bearer ' + this.token, 'Content-Type': 'application/json' });
     this.putOptions = new RequestOptions({ headers: putHeader });
   }
 
@@ -57,7 +57,7 @@ export class AuthService {
   }
 
   decodeUserFromToken(token: any) {
-    return this.jwtHelper.decodeToken(token).user;
+    return this.jwtHelperService.decodeToken(token).user;
   }
 
   setUser(decodedUser: any) {
