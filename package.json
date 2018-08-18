@@ -175,6 +175,7 @@
     "popper.js": "^1.14.4",
     "rxjs": "^6.2.2",
     "rxjs-compat": "^6.2.2",
+    "simple-git": "^1.96.0",
     "systemjs": "0.21.4",
     "zone.js": "~0.8.26"
   },

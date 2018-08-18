@@ -53,7 +53,8 @@ export class ExporterComponent {
   }
 
   confirm() {
-    this.projectService.export(this.project);
-    this.ngxSmartModalService.getModal('modal').close();
+    this.projectService.export(this.project).then(
+      () => this.ngxSmartModalService.getModal('modal').close()
+    );
   }
 }
