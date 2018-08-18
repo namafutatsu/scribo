@@ -109,12 +109,8 @@ export class ProjectConfig extends SeedConfig {
         path: 'node_modules/file-saver/FileSaver.min.js'
       },
       {
-        name: 'ng2-bootstrap-modal',
-        path: 'node_modules/ng2-bootstrap-modal',
-        packageMeta: {
-          defaultExtension: 'js',
-          main: 'index'
-        }
+        name: 'ngx-smart-modal',
+        path: 'node_modules/ngx-smart-modal/bundles/ngx-smart-modal.umd.js',
       },
       {
         name: 'rxjs',

@@ -6,18 +6,18 @@
 
   <sd-explorer [className]="explorerClasses[explorerClass]"
     [project]="project" *ngIf="project"
-    (onToggling)="onToggling($event)"
-    (onFileSelected)="onFileSelected($event)"
-    (onFolderSelected)="onFolderSelected($event)"
-    (onSaving)="onSaving($event)"></sd-explorer>
+    (toggling)="onToggling($event)"
+    (fileSelected)="onFileSelected($event)"
+    (folderSelected)="onFolderSelected($event)"
+    (saving)="onSaving($event)"></sd-explorer>
 
   <sd-actionbar *ngIf="project"
-    (onSaving)="onSaving($event)"
-    (onExporting)="onExporting($event)"
-    (onActionbarToggling)="onActionbarToggling($event)"></sd-actionbar>
+    (saving)="onSaving($event)"
+    (actionbarToggling)="onActionbarToggling($event)"
+    [exporter]="exporter"></sd-actionbar>
 
   <sd-editor [file]="file" *ngIf="file"
-    (onSaving)="onSaving($event)"
+    (saving)="onSaving($event)"
     [className]="editorClasses[editorClass]"></sd-editor>
 
   <div id="annexe" *ngIf="file">
@@ -32,5 +32,7 @@
       </li>
     </div>
   </div>
+
+  <sd-exporter #exporter [project]="project" [projectService]="projectService"></sd-exporter>
 
 </ng-template>

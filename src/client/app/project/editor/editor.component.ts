@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { Sfile } from '../../shared/models';
 
-declare var $ :any;
+declare var $: any;
 
 @Component({
   moduleId: module.id,
@@ -12,7 +12,7 @@ declare var $ :any;
 })
 export class EditorComponent implements OnInit {
   @Input() file: Sfile;
-  @Output() onSaving = new EventEmitter();
+  @Output() saving = new EventEmitter();
   buttons = [
     'bold',
     'italic',
@@ -29,10 +29,10 @@ export class EditorComponent implements OnInit {
   ];
   options: Object = {
     charCounterCount: true,
-    theme:'scribo',
+    theme: 'scribo',
     tooltips: false,
     // height:'750',
-    inlineMode:false,
+    inlineMode: false,
     pluginsEnabled: [
       'align',
       // 'charCounter',
@@ -84,7 +84,7 @@ export class EditorComponent implements OnInit {
     toolbarButtonsXS: this.buttons,
     events : {
       'froalaEditor.save.before' : (e: any, editor: any) =>
-        this.onSaving.emit()
+        this.saving.emit()
     },
     toolbarStickyOffset: 48
   };

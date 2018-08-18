@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions, ResponseContentType } from '@angular/http';
+import { Http, RequestOptions, ResponseContentType } from '@angular/http';
 
 import { AuthService } from './auth.service';
 import { Config } from '../shared/config/env.config';
@@ -7,7 +7,7 @@ import { Project } from '../shared/models';
 
 import 'rxjs/add/operator/toPromise';
 
-var saveAs = require('file-saver');
+const saveAs = require('file-saver');
 
 @Injectable()
 export class ProjectService {
@@ -51,15 +51,15 @@ export class ProjectService {
 
   export(project: Project): Promise<Project> {
     const url = `${Config.API}/api/export/${project._id}`;
-    let options = new RequestOptions({
+    const options = new RequestOptions({
       headers: this.auth.header,
       responseType: ResponseContentType.Blob
     });
     return this.http.post(url, {}, options)
       .toPromise()
       .then((response: any) => {
-        let blob = new Blob([response.blob()], { type: 'application/zip' });
-        let filename = project.key + '.zip';
+        const blob = new Blob([response.blob()], { type: 'application/zip' });
+        const filename = project.key + '.zip';
         saveAs(blob, filename);
       }
     ).catch(this.handleError);

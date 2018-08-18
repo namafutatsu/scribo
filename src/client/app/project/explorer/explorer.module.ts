@@ -1,6 +1,6 @@
-import { NgModule }               from '@angular/core';
+import { NgModule } from '@angular/core';
 
-import { ExplorerComponent }        from './explorer.component';
+import { ExplorerComponent } from './explorer.component';
 import { TreeviewModule } from './treeview/treeview.module';
 
 @NgModule({

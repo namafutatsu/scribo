@@ -51,14 +51,14 @@ export class ProjectsComponent implements OnInit {
   }
 
   save(): void {
-    let file = new Sfile();
+    const file = new Sfile();
     file.id = UUID.UUID();
     file.discriminator = 1;
     file.name = 'New file';
     file.index = 0;
     file.notes = [];
     file.text = '';
-    let project = new Project();
+    const project = new Project();
     project.name = this.name;
     project.id = UUID.UUID();
     project.index = this.projects.length;

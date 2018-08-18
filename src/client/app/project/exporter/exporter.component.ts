@@ -1,12 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { Component, Input } from '@angular/core';
 
-import { Project, Sitem, Sfile, Sfolder } from '../../shared/models';
+import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
+import { FormGroup } from '@angular/forms';
+
+import { Project } from '../../shared/models';
+import { ProjectService } from '../../services/project.service';
 
 export interface ConfirmModel {
-  title:string;
-  message:string;
+  title: string;
+  message: string;
 }
 
 @Component({
@@ -15,8 +17,13 @@ export interface ConfirmModel {
   templateUrl: 'exporter.component.html',
   styleUrls: ['exporter.component.css']
 })
-export class ExporterComponent extends DialogComponent<ConfirmModel, boolean> implements ConfirmModel, OnInit {
+
+export class ExporterComponent {
+  @Input() project: Project;
+  @Input() projectService: ProjectService;
+
   exporterForm: FormGroup;
+  modal: NgxSmartModalComponent;
   title = 'Download';
   message = 'Export your project';
   public formats: string[] = [
@@ -32,15 +39,13 @@ export class ExporterComponent extends DialogComponent<ConfirmModel, boolean> im
     'folder',
     'project'
   ];
-  public selectedFormat: string = 'html';
+  public selectedFormat = 'html';
 
-  @Input() project: Project;
-
-  constructor(dialogService: DialogService) {
-    super(dialogService);
+  constructor(public ngxSmartModalService: NgxSmartModalService) {
   }
 
-  ngOnInit(): void {
+  open() {
+    this.ngxSmartModalService.getModal('modal').open();
   }
 
   setFormat(format: string) {
@@ -48,7 +53,7 @@ export class ExporterComponent extends DialogComponent<ConfirmModel, boolean> im
   }
 
   confirm() {
-    this.result = true;
-    this.close();
+    this.projectService.export(this.project);
+    this.ngxSmartModalService.getModal('modal').close();
   }
 }

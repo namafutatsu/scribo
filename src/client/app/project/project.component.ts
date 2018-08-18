@@ -1,12 +1,10 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import { DialogService } from 'ng2-bootstrap-modal';
 
-import { ExporterComponent } from './exporter/exporter.component';
 import { AuthService } from '../services/auth.service';
 import { Project, Note, Sitem, Sfile, Sfolder } from '../shared/models';
 import { ProjectService } from '../services/project.service';
@@ -29,13 +27,12 @@ export class ProjectComponent implements OnInit {
   editorClass = 0;
 
   constructor(
-    private projectService: ProjectService,
+    public projectService: ProjectService,
     private route: ActivatedRoute,
     private location: Location,
     public auth: AuthService,
     public toast: ToastComponent,
-    private hotkeysService: HotkeysService,
-    private dialogService: DialogService
+    private hotkeysService: HotkeysService
   ) {
       this.hotkeysService.add(new Hotkey('ctrl+s', (event: KeyboardEvent): boolean => {
       event.preventDefault();
@@ -73,17 +70,6 @@ export class ProjectComponent implements OnInit {
     if (this.project !== undefined) {
       this.projectService.update(this.project).then(res => {
         this.toast.setMessage('Saved', 'success');
-      });
-    }
-  }
-
-  onExporting(): void {
-    if (this.project !== undefined) {
-      const disposable = this.dialogService.addDialog(ExporterComponent)//, {}, { backdropColor: '#24292f' })
-      .subscribe((isConfirmed) => {
-          if (isConfirmed) {
-            this.projectService.export(this.project);
-          }
       });
     }
   }

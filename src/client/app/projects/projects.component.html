@@ -6,7 +6,7 @@
   <ul *ngIf="projects">
     <li *ngFor="let project of projects">
       <button class="btn btn-basic" (click)="select(project)">
-        {{project.name}}
+        {{ project.name }}
       </button>
     </li>
     <li *ngIf="creation">

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HotkeyModule } from 'angular2-hotkeys';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 
 import { AboutModule } from './about/about.module';
 import { ProjectsModule } from './projects/projects.module';
@@ -34,6 +35,7 @@ import { AuthService } from './services/auth.service';
     LogoutModule,
     SharedModule.forRoot(),
     HotkeyModule.forRoot(),
+    NgxSmartModalModule.forRoot(),
     NotFoundModule
   ],
   declarations: [AppComponent],

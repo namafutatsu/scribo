@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ExporterComponent } from '../exporter/exporter.component';
 
 @Component({
   moduleId: module.id,
@@ -7,13 +8,14 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrls: ['actionbar.component.css']
 })
 export class ActionbarComponent {
-  @Output() onActionbarToggling = new EventEmitter();
-  @Output() onSaving = new EventEmitter();
-  @Output() onExporting = new EventEmitter();
+  @Input() exporter: ExporterComponent;
+  @Output() actionbarToggling = new EventEmitter();
+  @Output() saving = new EventEmitter();
+  // @Output() onExporting = new EventEmitter();
   hide = false;
 
   toggleActionbar(): void {
-    this.onActionbarToggling.emit();
+    this.actionbarToggling.emit();
     this.hide = !this.hide;
   }
 
@@ -22,12 +24,13 @@ export class ActionbarComponent {
       this.toggleActionbar();
     }
   }
-  
+
   save(): void {
-    this.onSaving.emit();
+    this.saving.emit();
   }
 
   showExport(): void {
-    this.onExporting.emit();
+    this.exporter.open();
+    // this.onExporting.emit();
   }
 }

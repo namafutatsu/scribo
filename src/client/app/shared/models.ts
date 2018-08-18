@@ -20,18 +20,18 @@ export abstract class Sitem {
 }
 
 export class Sfolder extends Sitem {
-  discriminator: number = 0;
+  discriminator = 0;
   sitems: Sitem[];
-  open: boolean = false;
+  open = false;
 }
 
 export class Sfile extends Sitem {
-  discriminator: number = 1;
+  discriminator = 1;
   text: string;
 }
 
 export class Project extends Sfolder {
-  discriminator: number = 0;
+  discriminator = 0;
   _id: string;
   id: string;
   key: string;

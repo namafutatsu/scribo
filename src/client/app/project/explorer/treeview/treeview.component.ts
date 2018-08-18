@@ -14,11 +14,11 @@ import { Node } from '../explorer.models';
 })
 export class TreeviewComponent implements OnInit {
   @Input() project: Project;
-  @Output() onSelected = new EventEmitter<string>();
-  @Output() onCreated = new EventEmitter<any>();
-  @Output() onRenamed = new EventEmitter<string>();
-  @Output() onDeleted = new EventEmitter();
-  @Output() onMoved = new EventEmitter<Node>();
+  @Output() selected = new EventEmitter<string>();
+  @Output() created = new EventEmitter<any>();
+  @Output() renamed = new EventEmitter<string>();
+  @Output() deleted = new EventEmitter();
+  @Output() moved = new EventEmitter<Node>();
 
   selectedNode: Tree;
   treeSettings: TreeModelSettings = {
@@ -66,7 +66,7 @@ export class TreeviewComponent implements OnInit {
 
   onNodeSelected(e: NodeEvent): void {
     this.selectedNode = e.node;
-    this.onSelected.emit(e.node.node.id as string);
+    this.selected.emit(e.node.node.id as string);
   }
 
   create(isFolder: boolean) {
@@ -87,7 +87,7 @@ export class TreeviewComponent implements OnInit {
       index: e.node.positionInParent,
       isFolder: e.node.isBranch()
     };
-    this.onCreated.emit(result);
+    this.created.emit(result);
   }
 
   rename(): void {
@@ -110,12 +110,12 @@ export class TreeviewComponent implements OnInit {
   }
 
   onNodeMoved(e: NodeEvent): void {
-    this.onMoved.emit(this.getStructure(this.getRoot(e.node)));
+    this.moved.emit(this.getStructure(this.getRoot(e.node)));
 
   }
 
   onNodeRenamed(e: NodeEvent): void {
-    this.onRenamed.emit(e.node.value);
+    this.renamed.emit(e.node.value);
   }
 
   delete(): void {
@@ -124,6 +124,6 @@ export class TreeviewComponent implements OnInit {
     // let id = node.node.id;
     // delete this.nodes[id];
     node.parent.removeChild(node);
-    this.onDeleted.emit();
+    this.deleted.emit();
   }
 }

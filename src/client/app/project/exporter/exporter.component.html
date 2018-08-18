@@ -1,22 +1,24 @@
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" (click)="close()" >&times;</button>
-      <h4 class="modal-title">{{title}}</h4>
-    </div>
-    <div class="modal-body">
-      <div>
-        <label>Export format :</label>
+<ngx-smart-modal #modal identifier="modal" [closable]=false>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <button type="button" class="close" (click)="close()" >&times;</button> -->
+        <h4 class="modal-title">{{ title }}</h4>
       </div>
-      <div class="btn-group">
-        <button disabled="true" class="btn btn-default" [class.selected]="format === selectedFormat" (click)="setFormat(format)" *ngFor="let format of formats">
-          {{format}}
-        </button>
+      <div class="modal-body">
+        <div>
+          <label>Export format :</label>
+        </div>
+        <div class="btn-group">
+          <button disabled="true" class="btn btn-default" [class.selected]="format === selectedFormat" (click)="setFormat(format)" *ngFor="let format of formats">
+            {{ format }}
+          </button>
+        </div>
+      </div> 
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="confirm()">OK</button>
+        <button type="button" class="btn btn-basic" (click)="modal.close()" >Cancel</button>
       </div>
-    </div> 
-    <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="confirm()">OK</button>
-      <button type="button" class="btn btn-basic" (click)="close()" >Cancel</button>
     </div>
   </div>
-</div>
+</ngx-smart-modal>

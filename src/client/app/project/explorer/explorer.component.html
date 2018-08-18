@@ -20,8 +20,8 @@
 </div>
 <br/><br/>
 <sd-treeview #treeview [project]="project"
-  (onSelected)="onSelected($event)"
-  (onCreated)="onCreated($event)"
-  (onRenamed)="onRenamed($event)"
-  (onDeleted)="onDeleted()"
-  (onMoved)="onMoved($event)"></sd-treeview>
+  (selected)="onSelected($event)"
+  (created)="onCreated($event)"
+  (renamed)="onRenamed($event)"
+  (deleted)="onDeleted()"
+  (moved)="onMoved($event)"></sd-treeview>
