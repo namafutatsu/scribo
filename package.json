@@ -148,6 +148,7 @@
     "@angular/router": "^6.1.2",
     "@angular/service-worker": "^6.1.2",
     "@auth0/angular-jwt": "^2.0.0",
+    "@octokit/rest": "^15.10.0",
     "@types/bcryptjs": "^2.4.0",
     "@types/file-saver": "0.0.1",
     "@types/jsonwebtoken": "^7.2.2",

@@ -5,7 +5,12 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/app.server.dev.js"
+      "program": "${workspaceFolder}/app.server.dev.js",
+      "protocol": "inspector",
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
     },
     {
       "type": "chrome",

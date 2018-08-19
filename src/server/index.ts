@@ -4,8 +4,13 @@ import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import * as compression from 'compression';
 import * as mongoose from 'mongoose';
+import * as fs from 'fs';
 
 import * as routes from './routes';
+// import { gdrtfCredentials } from './gh-credentials';
+
+// const fs = require('fs');
+export const octokit = require('@octokit/rest')();
 
 /**
  * Client Dir
@@ -17,7 +22,7 @@ const app = express();
 export function init(port: number, mode: string) {
 
   app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json({limit: '10mb'}));
+  app.use(bodyParser.json({ limit: '10mb' }));
   app.use(bodyParser.text());
   app.use(compression());
 
@@ -27,6 +32,28 @@ export function init(port: number, mode: string) {
   mongoose.connect(app.get('dbUrl'));
   const db = mongoose.connection;
   (<any>mongoose).Promise = global.Promise;
+
+  function ghAuthenticate(err: any, data: any) {
+    if (err) {
+      console.error(err);
+      throw err;
+    }
+    const json = JSON.parse(data);
+    class GHCredentials {
+      USER: string;
+      PASS: string;
+      [key: string]: string;
+    }
+    const ghCredentials = new GHCredentials();
+    for (const prop in json)
+      ghCredentials[prop] = json[prop];
+    octokit.authenticate({
+      type: 'basic',
+      username: ghCredentials.USER,
+      password: ghCredentials.PASS
+    });
+  }
+  fs.readFile('./gh-credentials.json', ghAuthenticate);
 
   /**
    * Dev Mode.
