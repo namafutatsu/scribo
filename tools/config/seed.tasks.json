@@ -4,8 +4,6 @@
   "build.dev": [
     "initialize",
     "clean.once",
-    "build.server",
-    "copy.server.assets",
     "tslint",
     "build.assets.dev",
     "build.html_css",
@@ -21,8 +19,6 @@
     "check.tools",
     "clean.prod",
     "tslint",
-    "build.server",
-    "copy.server.assets",
     "build.assets.prod",
     "build.html_css",
     "copy.prod.rollup.aot",
@@ -34,7 +30,9 @@
     "minify.bundles",
     "build.index.prod",
     "sw.manifest.static",
-    "minify.index"
+    "minify.index",
+
+    "deprecate.notification"
   ],
 
   "build.test": [

@@ -1,4 +1,4 @@
-<sd-login *ngIf="!auth.loggedIn; else logged"></sd-login>
+<!-- <sd-login *ngIf="!auth.loggedIn; else logged"></sd-login>
 <ng-template #logged>
   <sd-toast [message]="toast.message"></sd-toast>
 
@@ -28,11 +28,10 @@
         <i class="fa fa-square-o" aria-hidden="true" *ngIf="note.status == 0" (click)="clickNote(note)"></i>
         <i class="fa fa-times" aria-hidden="true" *ngIf="note.status == -1" (click)="clickNote(note)"></i>
         <input [(ngModel)]="note.text"  [class.cancelled]="note.status < 0"/>
-        <!--<div *ngIf="note.status < 0">{{node.text}}</div>-->
       </li>
     </div>
   </div>
 
   <sd-exporter #exporter [project]="project" [projectService]="projectService"></sd-exporter>
 
-</ng-template>
+</ng-template> -->

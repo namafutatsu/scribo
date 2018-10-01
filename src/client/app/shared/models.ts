@@ -39,8 +39,8 @@ export class Project extends Sfolder {
 }
 
 export class User {
-  _id: string;
-  username: string;
-  email: string;
-  password: string;
+  Id: string;
+  Username: string;
+  Mail: string;
+  Password: string;
 }

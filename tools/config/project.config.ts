@@ -163,6 +163,35 @@ export class ProjectConfig extends SeedConfig {
         path: 'node_modules/@angular/http/bundles/http.umd.js',
       },
       // {
+      //   name: 'mongoose-materialized',
+      //   path: 'node_modules/mongoose-materialized',
+      //   packageMeta: {
+      //     defaultExtension: 'js'
+      //   }
+      // },
+      // {
+      //   name: 'mongodb-core',
+      //   path: 'node_modules/mongodb-core',
+      //   packageMeta: {
+      //     defaultExtension: 'js'
+      //   }
+      // },
+      {
+        name: 'require_optional',
+        path: 'node_modules/require_optional',
+        packageMeta: {
+          defaultExtension: 'js'
+        }
+      },
+      // {
+      //   name: ' require_optional',
+      //   path: 'node_modules/require_optional',
+      //   packageMeta: {
+      //     defaultExtension: 'js'
+      //     // main: 'Rx'
+      //   }
+      // },
+      // {
       //   name:'angular-in-memory-web-api',
       //   path:'node_modules/angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
       // }

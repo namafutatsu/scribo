@@ -65,11 +65,7 @@ function transformPath() {
     if (slice_after > -1) {
       slice_after++;
     } else {
-      /**
-       * For Express `4`
-       * @type {number}
-       */
-      slice_after = 4;
+      slice_after = 3;
     }
     arguments[0] =
       Config.APP_BASE + path.slice(slice_after, path.length).join(sep);

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Headers, Http, RequestOptions } from '@angular/http';
+import { Headers, RequestOptions } from '@angular/http';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -18,8 +18,7 @@ export class AuthService {
   putOptions: RequestOptions;
   jwtHelperService: JwtHelperService = new JwtHelperService();
 
-  constructor(private userService: UserService,
-              private router: Router) {
+  constructor(private userService: UserService, private router: Router) {
     this.token = localStorage.getItem('token');
     if (this.token) {
       const decodedUser = this.decodeUserFromToken(this.token);
@@ -29,12 +28,12 @@ export class AuthService {
   }
 
   login(credentials: any) {
-    return this.userService.login(credentials).map(res => res.json()).map(
-      res => {
-        this.token = res.token;
+    return this.userService.login(credentials).map(
+      (res: any) => {
+        this.token = res.Token;
         this.setHeaders();
-        localStorage.setItem('token', res.token);
-        const decodedUser = this.decodeUserFromToken(res.token);
+        localStorage.setItem('token', res.Token);
+        const decodedUser = this.decodeUserFromToken(res.Token);
         this.setUser(decodedUser);
         return this.loggedIn;
       }
@@ -57,14 +56,15 @@ export class AuthService {
   }
 
   decodeUserFromToken(token: any) {
-    return this.jwtHelperService.decodeToken(token).user;
+    return this.jwtHelperService.decodeToken(token);
   }
 
   setUser(decodedUser: any) {
     this.loggedIn = true;
     this.user = new User();
-    this.user._id = decodedUser._id;
-    this.user.username = decodedUser.username;
+    this.user.Id = decodedUser.nameid;
+    this.user.Username = decodedUser.unique_name;
+    this.user.Mail = decodedUser.email;
 /*     decodedUser.role === 'admin' ? this.isAdmin = true : this.isAdmin = false;
     delete decodedUser.role; */
   }

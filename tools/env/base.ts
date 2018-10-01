@@ -1,8 +1,8 @@
 import { EnvConfig } from './env-config.interface';
 
 const BaseConfig: EnvConfig = {
-  // API url
-  API: 'http://localhost:9001'
+  // Sample API url
+  API: 'http://localhost/Scribs'
 };
 
 export = BaseConfig;
