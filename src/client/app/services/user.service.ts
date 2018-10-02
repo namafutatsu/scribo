@@ -9,7 +9,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class UserService {
-  private url = `${Config.API}/api/User/`;
+  private url = `${Config.API}/api/User`;
   // private headers = new Headers({'Content-Type': 'application/json'});
   // private options = new RequestOptions({ headers: this.headers });
 
@@ -17,11 +17,11 @@ export class UserService {
 
   register(user: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.httpClient.post(`${this.url}SignUp`, user, { headers });
+    return this.httpClient.post(`${this.url}/SignUp`, user, { headers });
   }
 
   login(credentials: any): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.httpClient.post(`${this.url}SignIn`, credentials, { headers });
+    return this.httpClient.post(`${this.url}/SignIn`, credentials, { headers });
   }
 }

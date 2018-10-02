@@ -12,45 +12,48 @@ const saveAs = require('file-saver');
 
 @Injectable()
 export class ProjectService {
-  private urlProject = `${Config.API}/api/Project`;
+  private url = `${Config.API}/api/Project`;
 
   constructor(private http: Http, private httpClient: HttpClient, public auth: AuthService) { }
 
   getProjects(): Promise<Project[]> {
-    const url = `${this.urlProject}`;
-    const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.auth.token);
-
-    // const headerSettings: {[name: string]: string | string[]; } = {};
-    // headerSettings['Authorization'] = 'Bearer ' + this.auth.token;
-    // headerSettings['Content-Type'] = 'application/json';
-    // const newHeader = new HttpHeaders(headerSettings);
-    return this.httpClient.get(url + '/GetAll', {headers})
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'Bearer ' + this.auth.token);
+    return this.httpClient.get(`${this.url}/GetAll`, { headers })
       .toPromise()
       .then(response => response as Project[])
       .catch(this.handleError);
   }
 
   getProject(key: string): Promise<Project> {
-    const url = `${this.urlProject}/${key}`;
-    return this.http.get(url, this.auth.options)
+    const url = `${this.url}/${key}`;
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'Bearer ' + this.auth.token);
+    return this.httpClient.get(url, { headers })
       .toPromise()
-      .then(response => response.json() as Project)
+      .then(response => response as Project)
       .catch(this.handleError);
   }
 
-  update(project: Project): Promise<Project> {
-    const url = `${this.urlProject}/${project.Id}`;
-    return this.http
-      .put(url, JSON.stringify(project), this.auth.putOptions)
-      .toPromise()
-      .then(() => project)
-      .catch(this.handleError);
-  }
+  // update(project: Project): Promise<Project> {
+  //   const url = `${this.url}/${project.Id}`;
+  //   const headers = new HttpHeaders()
+  //     .set('Content-Type', 'application/json')
+  //     .set('Authorization', 'Bearer ' + this.auth.token);
+  //   return this.httpClient.put(url, project, { headers })
+  //     .toPromise()
+  //     .then(() => project)
+  //     .catch(this.handleError);
+  // }
 
   insert(project: Project): Promise<Project> {
-    const url = `${this.urlProject}`;
-    return this.http
-      .post(url, JSON.stringify(project), this.auth.putOptions)
+    const url = `${this.url}`;
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'Bearer ' + this.auth.token);
+    return this.httpClient.post(`${this.url}/Post`, project, { headers })
       .toPromise()
       .then(() => project)
       .catch(this.handleError);

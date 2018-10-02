@@ -50,26 +50,26 @@ export class ProjectsComponent implements OnInit {
     this.creation = true;
   }
 
-  // save(): void {
-  //   const file = new Sfile();
-  //   file.id = UUID.UUID();
-  //   file.Discriminator = 1;
-  //   file.Name = 'New file';
-  //   file.Index = 0;
-  //   file.notes = [];
-  //   file.Text = '';
-  //   const project = new Project();
-  //   project.Name = this.Name;
-  //   project.id = UUID.UUID();
-  //   project.Index = this.projects.length;
-  //   project.notes = [];
-  //   project.Items = [ file ];
-  //   project.open = false;
-  //   project.key = this.Name.replace(/[^0-9a-z]/gi, '');
-  //   project.Discriminator = 0;
-  //   this.projectService.insert(project).then(res => {
-  //     this.toast.setMessage('New project created', 'success');
-  //   });
-  //   this.router.navigate(['/project', project.key]);
-  // }
+  save(): void {
+    const file = new Sfile();
+    file.id = UUID.UUID();
+    file.Discriminator = 1;
+    file.Name = 'New file';
+    file.Index = 0;
+    file.notes = [];
+    file.Text = '';
+    const project = new Project();
+    project.Name = this.Name;
+    project.id = UUID.UUID();
+    project.Index = this.projects.length;
+    project.notes = [];
+    project.Items = [ file ];
+    project.open = false;
+    project.key = this.Name.replace(/[^0-9a-z]/gi, '');
+    project.Discriminator = 0;
+    this.projectService.insert(project).then(res => {
+      this.toast.setMessage('New project created', 'success');
+    });
+    this.router.navigate(['/project', project.key]);
+  }
 }
