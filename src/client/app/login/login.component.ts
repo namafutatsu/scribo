@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.auth.login(this.loginForm.value).subscribe(
-      (res: any) => this.router.navigate(['/projects'], {  skipLocationChange: true }),
+      (res: any) => this.router.navigate(['/project'], {  skipLocationChange: true }),
       (error: any) => this.toast.setMessage('invalid login or password!', 'danger')
     );
   }

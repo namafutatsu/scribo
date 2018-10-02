@@ -6,36 +6,35 @@ export enum noteStatus {
 
 export class Note {
   id: string;
-  index: number;
-  text: string;
+  Index: number;
+  Text: string;
   status: noteStatus;
 }
 
 export abstract class Sitem {
-  discriminator: number;
+  Discriminator: number;
   id: string;
-  index: number;
-  name: string;
+  Index: number;
+  Name: string;
   notes: Note[];
 }
 
 export class Sfolder extends Sitem {
-  discriminator = 0;
-  sitems: Sitem[];
+  Discriminator = 0;
+  Items: Sitem[];
   open = false;
 }
 
 export class Sfile extends Sitem {
-  discriminator = 1;
-  text: string;
+  Discriminator = 1;
+  Text: string;
 }
 
 export class Project extends Sfolder {
-  discriminator = 0;
-  _id: string;
-  id: string;
+  Discriminator = 0;
+  Id: string;
   key: string;
-  name: string;
+  Name: string;
 }
 
 export class User {

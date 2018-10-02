@@ -45,14 +45,14 @@
 
 //   loadNode(item: Sitem): TreeModel {
 //     const node: TreeModel = {
-//         value: item.name,
+//         value: item.Name,
 //         id: item.id
 //     };
 //     // this.nodes[item.id] = node;
-//     if (item.discriminator === 0) {
+//     if (item.Discriminator === 0) {
 //       const children: TreeModel[] = [];
-//       (item as Sfolder).sitems
-//         .sort((a, b) => a.index - b.index)
+//       (item as Sfolder).Items
+//         .sort((a, b) => a.Index - b.Index)
 //         .forEach(o => children.push(this.loadNode(o)));
 //       node.children = children;
 //     }
@@ -82,9 +82,9 @@
 //     // this.nodes[id] = e.node.node;
 //     const result = {
 //       id: id,
-//       name: e.node.value,
+//       Name: e.node.value,
 //       parentId: e.node.parent.node.id,
-//       index: e.node.positionInParent,
+//       Index: e.node.positionInParent,
 //       isFolder: e.node.isBranch()
 //     };
 //     this.created.emit(result);
@@ -101,7 +101,7 @@
 //   getStructure(tree: Tree): Node {
 //     const node = new Node();
 //     node.id = tree.node.id as string;
-//     node.name = tree.value as string;
+//     node.Name = tree.value as string;
 //     node.nodes = [];
 //     if (tree.children !== null) {
 //       tree.children.forEach(o => node.nodes.push(this.getStructure(o)));

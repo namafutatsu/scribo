@@ -1,5 +1,5 @@
 export class Node {
   id: string;
-  name: string;
+  Name: string;
   nodes: Node[];
 }

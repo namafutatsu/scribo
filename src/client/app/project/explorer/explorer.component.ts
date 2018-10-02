@@ -28,9 +28,9 @@
 
 //   loadItems(item: Sitem): void {
 //     this.items[item.id] = item;
-//     if (item.discriminator === 0) {
+//     if (item.Discriminator === 0) {
 //       const folder = item as Sfolder;
-//       folder.sitems.sort(o => o.index).forEach(o => {
+//       folder.Items.sort(o => o.Index).forEach(o => {
 //         this.loadItems(o);
 //         this.parents[o.id] = folder;
 //       });
@@ -40,7 +40,7 @@
 //   onSelected(id: string): void {
 //     const item = this.items[id];
 //     this.selectedItem = item;
-//     if (item.discriminator === 1) {
+//     if (item.Discriminator === 1) {
 //       const file = item as Sfile;
 //       this.selectedFile = file;
 //       this.fileSelected.emit(file);
@@ -55,35 +55,35 @@
 //     let item: Sitem;
 //     if (result.isFolder) {
 //       item = new Sfolder();
-//       (item as Sfolder).sitems = [];
+//       (item as Sfolder).Items = [];
 //     } else {
 //       item = new Sfile();
-//       (item as Sfile).text = '';
+//       (item as Sfile).Text = '';
 //     }
 //     item.id = result.id;
-//     item.name = result.name;
+//     item.Name = result.Name;
 //     item.notes = [];
 //     const parent = this.items[result.parentId] as Sfolder;
-//     parent.sitems.filter(o => o.index >= result.index).forEach(o => o.index++);
-//     parent.sitems.push(item);
-//     item.index = result.index;
+//     parent.Items.filter(o => o.Index >= result.Index).forEach(o => o.Index++);
+//     parent.Items.push(item);
+//     item.Index = result.Index;
 //     this.items[item.id] = item;
 //     this.parents[item.id] = parent;
 //   }
 
-//   onRenamed(name: string) {
-//     this.selectedItem.name = name;
+//   onRenamed(Name: string) {
+//     this.selectedItem.Name = Name;
 //   }
 
 //   setStructure(tree: Node): void {
 //     const folder = this.items[tree.id] as Sfolder;
-//     folder.sitems = [];
+//     folder.Items = [];
 //     let i = 0;
 //     tree.nodes.forEach(o => {
 //       const item = this.items[o.id];
-//       item.index = i++;
-//       folder.sitems.push(item);
-//       if (item.discriminator === 0) {
+//       item.Index = i++;
+//       folder.Items.push(item);
+//       if (item.Discriminator === 0) {
 //         this.setStructure(o);
 //       }
 //     });
@@ -96,9 +96,9 @@
 //   onDeleted() {
 //     const id = this.selectedItem.id;
 //     const parent = this.parents[id] as Sfolder;
-//     const index = this.selectedItem.index;
-//     parent.sitems.splice(parent.sitems.findIndex(o => o.id === id), 1);
-//     parent.sitems.filter(o => o.index > index).forEach(o => o.index--);
+//     const Index = this.selectedItem.Index;
+//     parent.Items.splice(parent.Items.findIndex(o => o.id === id), 1);
+//     parent.Items.filter(o => o.Index > Index).forEach(o => o.Index--);
 //     delete this.items[id];
 //     delete this.parents[id];
 //     this.selectedFile = null;

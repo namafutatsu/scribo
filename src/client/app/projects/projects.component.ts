@@ -18,7 +18,7 @@ export class ProjectsComponent implements OnInit {
   projects: Project[];
   isLoading = true;
   creation = false;
-  name: string;
+  Name: string;
 
   constructor(
     private projectService: ProjectService,
@@ -29,44 +29,44 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.loggedIn) {
-      // this.getProjects();
+      this.getProjects();
     }
   }
 
-  // getProjects(): void {
-  //   this.projectService
-  //     .getProjects()
-  //     .then(projects => {
-  //       this.projects = projects.sort(o => o.index);
-  //       this.isLoading = false;
-  //     });
-  // }
+  getProjects(): void {
+    this.projectService
+      .getProjects()
+      .then(projects => {
+        this.projects = projects.sort(o => o.Index);
+        this.isLoading = false;
+      });
+  }
 
-  // select(project: Project): void {
-  //   this.router.navigate(['/project', project.key]);
-  // }
+  select(project: Project): void {
+    this.router.navigate(['/project', project.Name]);
+  }
 
-  // create(): void {
-  //   this.creation = true;
-  // }
+  create(): void {
+    this.creation = true;
+  }
 
   // save(): void {
   //   const file = new Sfile();
   //   file.id = UUID.UUID();
-  //   file.discriminator = 1;
-  //   file.name = 'New file';
-  //   file.index = 0;
+  //   file.Discriminator = 1;
+  //   file.Name = 'New file';
+  //   file.Index = 0;
   //   file.notes = [];
-  //   file.text = '';
+  //   file.Text = '';
   //   const project = new Project();
-  //   project.name = this.name;
+  //   project.Name = this.Name;
   //   project.id = UUID.UUID();
-  //   project.index = this.projects.length;
+  //   project.Index = this.projects.length;
   //   project.notes = [];
-  //   project.sitems = [ file ];
+  //   project.Items = [ file ];
   //   project.open = false;
-  //   project.key = this.name.replace(/[^0-9a-z]/gi, '');
-  //   project.discriminator = 0;
+  //   project.key = this.Name.replace(/[^0-9a-z]/gi, '');
+  //   project.Discriminator = 0;
   //   this.projectService.insert(project).then(res => {
   //     this.toast.setMessage('New project created', 'success');
   //   });

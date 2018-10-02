@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, ResponseContentType } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AuthService } from './auth.service';
 import { Config } from '../shared/config/env.config';
@@ -11,15 +12,21 @@ const saveAs = require('file-saver');
 
 @Injectable()
 export class ProjectService {
-  private urlProject = `${Config.API}/api/project`;
+  private urlProject = `${Config.API}/api/Project`;
 
-  constructor(private http: Http, public auth: AuthService) { }
+  constructor(private http: Http, private httpClient: HttpClient, public auth: AuthService) { }
 
   getProjects(): Promise<Project[]> {
-    const url = `${this.urlProject}s`;
-    return this.http.get(url, this.auth.options)
+    const url = `${this.urlProject}`;
+    const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.auth.token);
+
+    // const headerSettings: {[name: string]: string | string[]; } = {};
+    // headerSettings['Authorization'] = 'Bearer ' + this.auth.token;
+    // headerSettings['Content-Type'] = 'application/json';
+    // const newHeader = new HttpHeaders(headerSettings);
+    return this.httpClient.get(url + '/GetAll', {headers})
       .toPromise()
-      .then(response => response.json() as Project[])
+      .then(response => response as Project[])
       .catch(this.handleError);
   }
 
@@ -32,7 +39,7 @@ export class ProjectService {
   }
 
   update(project: Project): Promise<Project> {
-    const url = `${this.urlProject}/${project._id}`;
+    const url = `${this.urlProject}/${project.Id}`;
     return this.http
       .put(url, JSON.stringify(project), this.auth.putOptions)
       .toPromise()
@@ -50,7 +57,7 @@ export class ProjectService {
   }
 
   export(project: Project): Promise<Project> {
-    const url = `${Config.API}/api/export/${project._id}`;
+    const url = `${Config.API}/api/export/${project.Id}`;
     const options = new RequestOptions({
       headers: this.auth.header,
       responseType: ResponseContentType.Blob
