@@ -12,7 +12,8 @@ const saveAs = require('file-saver');
 
 @Injectable()
 export class ProjectService {
-  private url = `${Config.API}/api/Project`;
+  private projectUrl = `${Config.API}/api/Project`;
+  private fileUrl = `${Config.API}/api/File`;
 
   constructor(private http: Http, private httpClient: HttpClient, public auth: AuthService) { }
 
@@ -20,14 +21,14 @@ export class ProjectService {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', 'Bearer ' + this.auth.token);
-    return this.httpClient.get(`${this.url}/GetAll`, { headers })
+    return this.httpClient.get(`${this.projectUrl}/GetAll`, { headers })
       .toPromise()
       .then(response => response as Project[])
       .catch(this.handleError);
   }
 
   getProject(key: string): Promise<Project> {
-    const url = `${this.url}/${key}`;
+    const url = `${this.projectUrl}/${key}`;
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', 'Bearer ' + this.auth.token);
@@ -49,11 +50,11 @@ export class ProjectService {
   // }
 
   insert(project: Project): Promise<Project> {
-    const url = `${this.url}`;
+    const url = `${this.projectUrl}`;
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', 'Bearer ' + this.auth.token);
-    return this.httpClient.post(`${this.url}/Post`, project, { headers })
+    return this.httpClient.post(`${this.projectUrl}/Post`, project, { headers })
       .toPromise()
       .then(() => project)
       .catch(this.handleError);

@@ -16,9 +16,7 @@ import { ToastComponent } from '../shared/toast/toast.component';
   templateUrl: 'project.component.html',
   styleUrls: ['project.component.css']
 })
-export class ProjectComponent 
-// implements OnInit 
-{
+export class ProjectComponent implements OnInit {
   project: Project;
   file: Sfile;
   isLoading = true;
@@ -29,54 +27,54 @@ export class ProjectComponent
   editorClass = 0;
 
   constructor(
-    // public projectService: ProjectService,
-    // private route: ActivatedRoute,
-    // private location: Location,
-    // public auth: AuthService,
-    // public toast: ToastComponent,
-    // private hotkeysService: HotkeysService
+    public projectService: ProjectService,
+    private route: ActivatedRoute,
+    private location: Location,
+    public auth: AuthService,
+    public toast: ToastComponent,
+    private hotkeysService: HotkeysService
   ) {
-    //   this.hotkeysService.add(new Hotkey('ctrl+s', (event: KeyboardEvent): boolean => {
-    //   event.preventDefault();
-    //   this.onSaving();
-    //   return false; // Prevent bubbling
-    // }));
+      this.hotkeysService.add(new Hotkey('ctrl+s', (event: KeyboardEvent): boolean => {
+      event.preventDefault();
+      this.onSaving();
+      return false; // Prevent bubbling
+    }));
   }
 
-  // ngOnInit(): void {
-  //   if (this.auth.loggedIn) {
-  //     this.route.params
-  //     .switchMap((params: Params) => this.projectService.getProject(params['key']))
-  //     .subscribe(project => {
-  //       this.project = project;
-  //       this.isLoading = false;
-  //     });
-  //   }
-  // }
+  ngOnInit(): void {
+    if (this.auth.loggedIn) {
+      this.route.params
+      .switchMap((params: Params) => this.projectService.getProject(params['key']))
+      .subscribe(project => {
+        this.project = project;
+        this.isLoading = false;
+      });
+    }
+  }
 
-  // onActionbarToggling(): void {
-  //   this.explorerClass = (this.explorerClass + 1) % 2;
-  //   this.editorClass = (this.editorClass + 1) % 2;
-  //   this.toggle = !this.toggle;
-  // }
+  onActionbarToggling(): void {
+    this.explorerClass = (this.explorerClass + 1) % 2;
+    this.editorClass = (this.editorClass + 1) % 2;
+    this.toggle = !this.toggle;
+  }
 
-  // onFolderSelected(folder: Sfolder) {
-  //   this.file = null;
-  // }
+  onFolderSelected(folder: Sfolder) {
+    this.file = null;
+  }
 
-  // onFileSelected(file: Sfile) {
-  //   this.file = file;
-  // }
+  onFileSelected(file: Sfile) {
+    this.file = file;
+  }
 
-  // onSaving(): void {
-  //   if (this.project !== undefined) {
-  //     this.projectService.update(this.project).then(res => {
-  //       this.toast.setMessage('Saved', 'success');
-  //     });
-  //   }
-  // }
+  onSaving(): void {
+    if (this.project !== undefined) {
+      this.projectService.update(this.project).then(res => {
+        this.toast.setMessage('Saved', 'success');
+      });
+    }
+  }
 
-  // clickNote(note: Note): void {
-  //   note.status = (note.status + 2) % 3 - 1;
-  // }
+  clickNote(note: Note): void {
+    note.status = (note.status + 2) % 3 - 1;
+  }
 }
