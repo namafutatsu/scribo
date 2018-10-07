@@ -13,7 +13,7 @@ export class Note {
 
 export abstract class Sitem {
   Discriminator: number;
-  id: string;
+  Key: string;
   Index: number;
   Name: string;
   notes: Note[];
@@ -32,7 +32,6 @@ export class Sfile extends Sitem {
 
 export class Project extends Sfolder {
   Discriminator = 0;
-  Id: string;
   key: string;
   Name: string;
 }

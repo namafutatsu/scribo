@@ -52,7 +52,7 @@ export class ProjectsComponent implements OnInit {
 
   save(): void {
     const file = new Sfile();
-    file.id = UUID.UUID();
+    file.Key = UUID.UUID();
     file.Discriminator = 1;
     file.Name = 'New file';
     file.Index = 0;
@@ -60,7 +60,7 @@ export class ProjectsComponent implements OnInit {
     file.Text = '';
     const project = new Project();
     project.Name = this.Name;
-    project.id = UUID.UUID();
+    project.Key = UUID.UUID();
     project.Index = this.projects.length;
     project.notes = [];
     project.Items = [ file ];

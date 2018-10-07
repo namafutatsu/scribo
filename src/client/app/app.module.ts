@@ -22,6 +22,7 @@ import { ProjectService } from './services/project.service';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
 
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 @NgModule({
   imports: [
     BrowserModule,
@@ -38,7 +39,9 @@ import { AuthService } from './services/auth.service';
     SharedModule.forRoot(),
     HotkeyModule.forRoot(),
     NgxSmartModalModule.forRoot(),
-    NotFoundModule
+    NotFoundModule,
+    // FroalaEditorModule.forRoot(),
+    // FroalaViewModule.forRoot()
   ],
   declarations: [AppComponent],
   providers: [

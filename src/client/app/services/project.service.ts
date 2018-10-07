@@ -14,6 +14,7 @@ const saveAs = require('file-saver');
 export class ProjectService {
   private projectUrl = `${Config.API}/api/Project`;
   private fileUrl = `${Config.API}/api/File`;
+  private directoryUrl = `${Config.API}/api/Directory`;
 
   constructor(private http: Http, private httpClient: HttpClient, public auth: AuthService) { }
 
@@ -28,11 +29,11 @@ export class ProjectService {
   }
 
   getProject(key: string): Promise<Project> {
-    const url = `${this.projectUrl}/${key}`;
+    const url = `${this.projectUrl}/Get`; ///${key}
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', 'Bearer ' + this.auth.token);
-    return this.httpClient.get(url, { headers })
+    return this.httpClient.post(url, { Name: key, Read: true }, { headers })
       .toPromise()
       .then(response => response as Project)
       .catch(this.handleError);
@@ -61,7 +62,7 @@ export class ProjectService {
   }
 
   export(project: Project): Promise<Project> {
-    const url = `${Config.API}/api/export/${project.Id}`;
+    const url = `${Config.API}/api/export/${project.Name}`;
     const options = new RequestOptions({
       headers: this.auth.header,
       responseType: ResponseContentType.Blob

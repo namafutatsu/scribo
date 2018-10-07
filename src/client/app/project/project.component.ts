@@ -67,11 +67,11 @@ export class ProjectComponent implements OnInit {
   }
 
   onSaving(): void {
-    if (this.project !== undefined) {
-      this.projectService.update(this.project).then(res => {
-        this.toast.setMessage('Saved', 'success');
-      });
-    }
+    // if (this.project !== undefined) {
+    //   this.projectService.update(this.project).then(res => {
+    //     this.toast.setMessage('Saved', 'success');
+    //   });
+    // }
   }
 
   clickNote(note: Note): void {
