@@ -1,39 +1,59 @@
-<mat-sidenav-container>
+<sd-login *ngIf="!auth.loggedIn; else logged"></sd-login>
+<ng-template #logged>
+  <sd-toast [message]="toast.message"></sd-toast>
+  <mat-sidenav-container>
 
-  <mat-sidenav mode="side" [(opened)]="showActionBar" class="actionbar-sidenav">
+    <mat-sidenav mode="side" [(opened)]="showActionBar" class="actionbar-sidenav">
 
-    <sd-actionbar *ngIf="project"
-      (saving)="onSaving($event)"
-      (actionbarToggling)="onActionbarToggling($event)"
-      [exporter]="exporter"></sd-actionbar>
+      <sd-actionbar *ngIf="project"
+        (saving)="onSaving($event)"
+        (actionbarToggling)="onActionbarToggling($event)"
+        [exporter]="exporter"></sd-actionbar>
 
-  </mat-sidenav>
+    </mat-sidenav>
 
-  <mat-sidenav-content>
-    
-    <mat-sidenav-container>
+    <mat-sidenav-content>
+      
+      <mat-sidenav-container>
 
-      <mat-sidenav mode="side" class="explorer-sidenav"
-        [(opened)]="showPanel">
+        <mat-sidenav mode="side" class="explorer-sidenav"
+          [(opened)]="showPanel">
 
-        <sd-explorer [className]="explorerClasses[explorerClass]"
-          [project]="project" *ngIf="project"
-          (toggling)="onToggling($event)"
-          (fileSelected)="onFileSelected($event)"
-          (folderSelected)="onFolderSelected($event)"
-          (saving)="onSaving($event)"></sd-explorer>
-      </mat-sidenav>
-      <mat-sidenav-content  class="editor-content">
+          <sd-explorer [className]="explorerClasses[explorerClass]"
+            [project]="project" *ngIf="project"
+            (toggling)="onToggling($event)"
+            (fileSelected)="onFileSelected($event)"
+            (folderSelected)="onFolderSelected($event)"
+            (saving)="onSaving($event)"></sd-explorer>
+        </mat-sidenav>
+        <mat-sidenav-content  class="editor-content">
 
-          <sd-loading [condition]="isLoading"></sd-loading>
+            <sd-loading [condition]="isLoading"></sd-loading>
 
-          <sd-editor [file]="file" *ngIf="file"
-            (saving)="onSaving($event)"
-            [className]="editorClasses[editorClass]"></sd-editor>
+            <sd-editor [file]="file" *ngIf="file"
+              (saving)="onSaving($event)"
+              [className]="editorClasses[editorClass]"></sd-editor>
 
-      </mat-sidenav-content>
-    
-    </mat-sidenav-container>
+        </mat-sidenav-content>
+      
+      </mat-sidenav-container>
 
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <!-- <div id="annexe" *ngIf="file">
+    <div id="notes" *ngIf="file.notes?.length > 0">
+      Todo:
+      <li *ngFor="let note of file.notes" [class.cancelled]="note.status < 0">
+        <i class="fa fa-check-square-o" aria-hidden="true" *ngIf="note.status == 1" (click)="clickNote(note)"></i>
+        <i class="fa fa-square-o" aria-hidden="true" *ngIf="note.status == 0" (click)="clickNote(note)"></i>
+        <i class="fa fa-times" aria-hidden="true" *ngIf="note.status == -1" (click)="clickNote(note)"></i>
+        <input [(ngModel)]="note.Text"  [class.cancelled]="note.status < 0"/>
+      </li>
+    </div>
+  </div>
+  
+  <sd-exporter #exporter [project]="project" [projectService]="projectService"></sd-exporter> -->
+  
+</ng-template>
+  
