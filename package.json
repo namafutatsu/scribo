@@ -142,12 +142,14 @@
   },
   "dependencies": {
     "@angular-devkit/build-optimizer": "^0.8.0",
-    "@angular/animations": "^6.1.3",
+    "@angular/animations": "^6.1.9",
+    "@angular/cdk": "^6.4.7",
     "@angular/common": "^6.1.3",
     "@angular/compiler": "^6.1.3",
     "@angular/core": "^6.1.3",
     "@angular/forms": "^6.1.3",
     "@angular/http": "^6.1.2",
+    "@angular/material": "^6.4.7",
     "@angular/platform-browser": "^6.1.3",
     "@angular/platform-browser-dynamic": "^6.1.3",
     "@angular/router": "^6.1.3",
@@ -159,14 +161,16 @@
     "angular2-uuid": "^1.1.1",
     "bootstrap": "^4.1.3",
     "core-js": "^2.5.7",
+    "file-saver": "^1.3.3",
+    "hammerjs": "^2.0.8",
     "intl": "^1.2.5",
     "jsonwebtoken": "^7.4.1",
-    "file-saver": "^1.3.3",
     "ng2-tree": "2.0.0-alpha.6",
     "ngx-smart-modal": "^7.0.3",
     "rxjs": "^6.2.2",
     "rxjs-compat": "^6.2.2",
     "systemjs": "0.21.5",
+    "web-animations-js": "^2.3.1",
     "zone.js": "~0.8.26"
   }
 }

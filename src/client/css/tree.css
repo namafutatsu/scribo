@@ -83,11 +83,13 @@ tree-internal .tree li {
 tree-internal .tree li div {
   display: inline-block;
   box-sizing: border-box;
+  margin-right: 5px;
 }
 
 tree-internal .tree .node-value {
   display: inline-block;
-  color: #4f4f51;
+  color: #f2eae1;
+  /* #4f4f51; #b3ada7;*/
 }
 
 tree-internal .tree .node-value:after {

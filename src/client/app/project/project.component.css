@@ -1,36 +1,45 @@
-:host {
-  display: inline-block; 
-  padding: 0 16px;
+
+mat-sidenav-container {
+  background-color: #f2eae1;
 }
 
-.show {
-    animation: slide-in 0.5s forwards;
-    -webkit-animation: slide-in 0.5s forwards;
+mat-sidenav {
+  background-color: #f2eae1;
 }
 
-.hide {
-    animation: slide-out 0.5s forwards;
-    -webkit-animation: slide-out 0.5s forwards;
+mat-sidenav-content {
+  background-color: #f2eae1;
 }
 
-@keyframes slide-in {
-    100% { transform: translateX(0%); }
+mat-drawer-container {
+  background-color: #f2eae1;
 }
 
-@-webkit-keyframes slide-in {
-    100% { -webkit-transform: translateX(0%); }
+mat-drawer {
+  background-color: #f2eae1;
 }
 
-@keyframes slide-out {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-300px); }
+mat-drawer-content {
+  background-color: #f2eae1;
 }
 
-@-webkit-keyframes slide-out {
-    0% { -webkit-transform: translateX(0%); }
-    100% { -webkit-transform: translateX(-300px); }
+.actionbar-sidenav {
+  width: 38px;
+  height: 100%;
 }
 
+.explorer-sidenav {
+  width: 260px;
+  height: 100%;
+  position: fixed;
+}
+
+.editor-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* 
 sd-actionbar {
   transform: translateX(-500%);
   -webkit-transform: translateX(-500%);
@@ -38,58 +47,37 @@ sd-actionbar {
   -webkit-animation: slide-in 0.5s forwards;
 }
 
-.expand {
-  left: 60px;
-  right: 20px;
+@keyframes slide-in {
+  100% { transform: translateX(0%); }
 }
 
-.shrink {
-  left: 270px;
-  right: 20px;
+@-webkit-keyframes slide-in {
+  100% { -webkit-transform: translateX(0%); }
 }
 
-
-/* @media screen and (max-width: 1000px) {
-
-}
-*/
-
-#annexe {
-  float:left;
+@keyframes slide-out {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-300px); }
 }
 
-#annexe li {
-  list-style: none;
-  padding-left: 30px;
-  height: 16px;
+@-webkit-keyframes slide-out {
+  0% { -webkit-transform: translateX(0%); }
+  100% { -webkit-transform: translateX(-300px); }
+} */
+
+::-webkit-scrollbar {
+  width: 7px;
+  margin-left: 10px;
 }
 
-#annexe i {
-  padding-right: 10px;
-  width:16px;
-  cursor: pointer;
+::-webkit-scrollbar-track {
+  box-shadow: 0 0 5px #b3ada7;
 }
 
-#annexe input {
-  height: 16px;
-  width: 300px;
-  background-color: #f2eae1;
-  font-family: 'Lato', sans-serif;
-  font-size: 14px;
-  color: #4f4f51;
-  float:right;
+::-webkit-scrollbar-thumb {
+  background:#838384;
 }
 
-#annexe input.cancelled {
-  color: #8f8f8f;
-  text-decoration:line-through;
-}
-
-#annexe li.cancelled {
-  color: #8f8f8f;
-  text-decoration:line-through;
-}
-
-#annexe li.done {
-  color: #8f8f8f;
+::-webkit-scrollbar-thumb:hover {
+  background:  #4a4c4f;
 }

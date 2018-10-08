@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { HotkeyModule } from 'angular2-hotkeys';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AboutModule } from './about/about.module';
 import { ProjectsModule } from './projects/projects.module';
@@ -40,6 +41,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     HotkeyModule.forRoot(),
     NgxSmartModalModule.forRoot(),
     NotFoundModule,
+    BrowserAnimationsModule,
     // FroalaEditorModule.forRoot(),
     // FroalaViewModule.forRoot()
   ],

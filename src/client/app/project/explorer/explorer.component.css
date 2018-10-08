@@ -1,15 +1,16 @@
 :host {
   position: fixed;
-  left: 40px;
-  width: 300px;
-  float: left;
-  transform: translateX(-100%);
-  -webkit-transform: translateX(-100%);
+  height: 100%;
+  overflow: auto;
+  padding-right: 10px;
+  padding-top: 20px;
+  background-color: #35383d;
+  color: #f2eae1;
 }
 
 button {
   color: #4f4f51;
-  background-color: #f2eae1;
+  background-color: #35383d;
   transition: background-color 0.2s ease 0s;
   font-size: 14px;
   width:38px;
@@ -23,11 +24,13 @@ button {
 }
 
 button:hover {
-  background-color: #e0dad3;
+  background-color: #f2eae1;
+   /* #e0dad3; */
 }
 
 button:active {
-  background-color: #cecac4;
+  background-color: #d3ccc4;
+   /* #cecac4; */
 }
 
 button:disabled {

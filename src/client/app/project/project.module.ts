@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { HotkeyModule } from 'angular2-hotkeys';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { ActionbarModule } from './actionbar/actionbar.module';
 import { EditorModule } from './editor/editor.module';
@@ -27,7 +28,8 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule,
     LoginModule,
     HotkeyModule,
-    NgxSmartModalModule
+    NgxSmartModalModule,
+    MatSidenavModule
   ],
   entryComponents: [
     // ExporterComponent
