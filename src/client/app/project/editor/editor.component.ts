@@ -13,6 +13,7 @@ declare var $: any;
 export class EditorComponent implements OnInit {
   @Input() file: Sfile;
   @Output() saving = new EventEmitter();
+  @Output() changed = new EventEmitter();
   buttons = [
     'bold',
     'italic',
@@ -84,7 +85,15 @@ export class EditorComponent implements OnInit {
     toolbarButtonsXS: this.buttons,
     events : {
       'froalaEditor.save.before' : (e: any, editor: any) =>
-        this.saving.emit()
+        this.saving.emit(),
+      'froalaEditor.contentChanged' : (e: any, editor: any) => {
+        if (!this.file.init) {
+          this.file.init = true;
+        }
+        if (this.file.init && !this.file.changed) {
+          this.changed.emit();
+        }
+      }
     },
     toolbarStickyOffset: 48
   };

@@ -30,6 +30,7 @@ export class ProjectComponent implements OnInit {
   options: FormGroup;
   showActionBar = true;
   showPanel = false;
+  contentChanged = false;
 
   constructor(
     public projectService: ProjectService,
@@ -77,6 +78,7 @@ export class ProjectComponent implements OnInit {
 
   onFileSelected(file: Sfile) {
     this.file = file;
+    this.contentChanged = false;
   }
 
   onSaving(): void {
@@ -85,6 +87,13 @@ export class ProjectComponent implements OnInit {
     //     this.toast.setMessage('Saved', 'success');
     //   });
     // }
+  }
+
+  onContentChanged(): void {
+    if (!this.file.changed) {
+      this.file.changed = true;
+      this.contentChanged = true;
+    }
   }
 
   clickNote(note: Note): void {

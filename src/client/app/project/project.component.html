@@ -19,12 +19,14 @@
         <mat-sidenav mode="side" class="explorer-sidenav"
           [(opened)]="showPanel">
 
-          <sd-explorer [className]="explorerClasses[explorerClass]"
+          <sd-explorer
+            [className]="explorerClasses[explorerClass]"
             [project]="project" *ngIf="project"
             (toggling)="onToggling($event)"
             (fileSelected)="onFileSelected($event)"
             (folderSelected)="onFolderSelected($event)"
-            (saving)="onSaving($event)"></sd-explorer>
+            (saving)="onSaving($event)"
+            [contentChangeAlertFromProject]="contentChanged"></sd-explorer>
         </mat-sidenav>
         <mat-sidenav-content  class="editor-content">
 
@@ -32,6 +34,7 @@
 
             <sd-editor [file]="file" *ngIf="file"
               (saving)="onSaving($event)"
+              (changed)="onContentChanged($event)"
               [className]="editorClasses[editorClass]"></sd-editor>
 
         </mat-sidenav-content>

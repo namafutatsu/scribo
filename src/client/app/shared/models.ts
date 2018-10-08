@@ -28,6 +28,8 @@ export class Sfolder extends Sitem {
 export class Sfile extends Sitem {
   Discriminator = 1;
   Text: string;
+  init = false;
+  changed = false;
 }
 
 export class Project extends Sfolder {

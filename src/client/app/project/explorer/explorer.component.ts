@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange } from '@angular/core';
 
 import { Project, Sitem, Sfile, Sfolder } from '../../shared/models';
 import { Node } from './explorer.models';
@@ -9,8 +9,9 @@ import { Node } from './explorer.models';
   templateUrl: 'explorer.component.html',
   styleUrls: ['explorer.component.css']
 })
-export class ExplorerComponent implements OnInit {
+export class ExplorerComponent implements OnInit, OnChanges {
   @Input() project: Project;
+  @Input() contentChangeAlertFromProject: boolean;
   @Output() fileSelected = new EventEmitter<Sfile>();
   @Output() folderSelected = new EventEmitter<Sfolder>();
   @Output() saving = new EventEmitter();
@@ -21,9 +22,14 @@ export class ExplorerComponent implements OnInit {
   selectedFile: Sfile;
   items: { [id: string]: Sitem; } = {};
   parents: { [id: string]: Sfolder; } = {};
+  contentChanged = false;
 
   ngOnInit(): void {
     this.loadItems(this.project);
+  }
+
+  ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+      this.contentChanged = this.contentChangeAlertFromProject;
   }
 
   loadItems(item: Sitem): void {

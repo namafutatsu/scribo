@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange } from '@angular/core';
 
 import { NodeEvent, Tree, TreeModel, TreeModelSettings } from 'ng2-tree';
 import { UUID } from 'angular2-uuid';
@@ -12,8 +12,9 @@ import { Node } from '../explorer.models';
   templateUrl: 'treeview.component.html',
   styleUrls: ['treeview.component.css']
 })
-export class TreeviewComponent implements OnInit {
+export class TreeviewComponent implements OnInit, OnChanges {
   @Input() project: Project;
+  @Input() contentChangeAlertFromExplorer: boolean;
   @Output() selected = new EventEmitter<string>();
   @Output() created = new EventEmitter<any>();
   @Output() renamed = new EventEmitter<string>();
@@ -41,6 +42,12 @@ export class TreeviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadTreeModel();
+  }
+
+  ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+    if (changes.contentChangeAlertFromExplorer.currentValue) {
+      this.selectedNode.value += ' ●';
+    }
   }
 
   loadNode(item: Sitem): TreeModel {
@@ -111,7 +118,6 @@ export class TreeviewComponent implements OnInit {
 
   onNodeMoved(e: NodeEvent): void {
     this.moved.emit(this.getStructure(this.getRoot(e.node)));
-
   }
 
   onNodeRenamed(e: NodeEvent): void {
