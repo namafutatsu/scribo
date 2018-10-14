@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, ResponseContentType } from '@angular/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 import { AuthService } from './auth.service';
 import { Config } from '../shared/config/env.config';
@@ -16,7 +16,10 @@ export class ProjectService {
   private fileUrl = `${Config.API}/api/File`;
   private directoryUrl = `${Config.API}/api/Directory`;
 
-  constructor(private http: Http, private httpClient: HttpClient, public auth: AuthService) { }
+  constructor(
+    private http: Http,
+    private httpClient: HttpClient,
+    public auth: AuthService) {}
 
   getProjects(): Promise<Project[]> {
     const headers = new HttpHeaders()
@@ -25,7 +28,7 @@ export class ProjectService {
     return this.httpClient.get(`${this.projectUrl}/GetAll`, { headers })
       .toPromise()
       .then(response => response as Project[])
-      .catch(this.handleError);
+      .catch(error => this.handleError(error, this.auth));
   }
 
   getProject(key: string): Promise<Project> {
@@ -36,7 +39,7 @@ export class ProjectService {
     return this.httpClient.post(url, { Name: key, Read: true }, { headers })
       .toPromise()
       .then(response => response as Project)
-      .catch(this.handleError);
+      .catch(error => this.handleError(error, this.auth));
   }
 
   // update(project: Project): Promise<Project> {
@@ -47,7 +50,7 @@ export class ProjectService {
   //   return this.httpClient.put(url, project, { headers })
   //     .toPromise()
   //     .then(() => project)
-  //     .catch(this.handleError);
+  //     .catch(error => this.handleError(error, this.auth));
   // }
 
   insert(project: Project): Promise<Project> {
@@ -58,7 +61,7 @@ export class ProjectService {
     return this.httpClient.post(`${this.projectUrl}/Post`, project, { headers })
       .toPromise()
       .then(() => project)
-      .catch(this.handleError);
+      .catch(error => this.handleError(error, this.auth));
   }
 
   export(project: Project): Promise<Project> {
@@ -74,10 +77,14 @@ export class ProjectService {
         const filename = project.key + '.zip';
         saveAs(blob, filename);
       }
-    ).catch(this.handleError);
+    )
+    .catch(error => this.handleError(error, this.auth));
   }
 
-  handleError(error: any): Promise<any> {
+  handleError(error: HttpErrorResponse, auth: AuthService): Promise<any> {
+    if (error.status === 401) {
+      auth.logout();
+    }
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }

@@ -36,6 +36,9 @@ export class Project extends Sfolder {
   Discriminator = 0;
   key: string;
   Name: string;
+  Type: number;
+  Template: string;
+  Description: string;
 }
 
 export class User {

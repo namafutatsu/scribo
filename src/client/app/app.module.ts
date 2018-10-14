@@ -11,6 +11,7 @@ import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AboutModule } from './about/about.module';
+import { CreateModule } from './create/create.module';
 import { ProjectsModule } from './projects/projects.module';
 import { ProjectModule } from './project/project.module';
 import { HomeModule } from './home/home.module';
@@ -31,6 +32,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     HttpClientModule,
     AppRoutingModule,
     AboutModule,
+    CreateModule,
     HomeModule,
     ProjectsModule,
     ProjectModule,

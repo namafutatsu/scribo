@@ -1,11 +1,13 @@
 :host {
   position: fixed;
+  top: 48px;
   height: 100%;
   overflow: auto;
   padding-right: 10px;
-  padding-top: 20px;
+  /* padding-top: 20px; */
   background-color: #35383d;
   color: #f2eae1;
+  width: 260px;
 }
 
 button {

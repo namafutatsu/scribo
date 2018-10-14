@@ -38,6 +38,7 @@ mat-drawer-content {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: auto;
 }
 /* 
 sd-actionbar {
@@ -64,20 +65,3 @@ sd-actionbar {
   0% { -webkit-transform: translateX(0%); }
   100% { -webkit-transform: translateX(-300px); }
 } */
-
-::-webkit-scrollbar {
-  width: 7px;
-  margin-left: 10px;
-}
-
-::-webkit-scrollbar-track {
-  box-shadow: 0 0 5px #b3ada7;
-}
-
-::-webkit-scrollbar-thumb {
-  background:#838384;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background:  #4a4c4f;
-}

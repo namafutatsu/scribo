@@ -1,0 +1,28 @@
+:host {
+  margin: 0 auto;
+}
+
+.card {
+  width: 770px;
+  top: 50px;
+}
+
+form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-primary {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+
+section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  padding-top: 10px;
+  padding-left: 20px;
+}
