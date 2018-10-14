@@ -9,13 +9,7 @@
         {{ project.Name }}
       </button>
     </li>
-    <li *ngIf="creation">
-      <input [(ngModel)]="Name" placeholder="Name" />
-      <button class="btn btn-primary" (click)="save()">
-        <i class="fa fa-save" aria-hidden="true"></i> Create
-      </button>
-    </li>
-    <li *ngIf="!creation">
+    <li>
       <button class="btn btn-basic" id="new" (click)="create()">
         <i class="fa fa-plus" aria-hidden="true"></i>
         <span style="padding-left:10px">New Project</span>
