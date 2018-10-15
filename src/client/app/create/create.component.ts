@@ -3,12 +3,11 @@ import { Router } from '@angular/router';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { UUID } from 'angular2-uuid';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 
 import { AuthService } from '../services/auth.service';
-import { Project, Sfile } from '../shared/models';
+import { Project } from '../shared/models';
 import { ProjectService } from '../services/project.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
@@ -17,7 +16,6 @@ export interface Type {
   value: number;
   label: string;
 }
-
 
 export class FileNode {
   children: FileNode[];
@@ -233,8 +231,6 @@ export class FileDatabase {
   providers: [FileDatabase]
 })
 export class CreateComponent implements OnInit, AfterViewInit {
-
-  // projects: Project[];
   isLoading = false;
   creation = false;
   Name: string;
@@ -305,7 +301,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
     this.reloadTree();
   }
 
-  getTemplate(): string {
+  getStructure(): string {
     if (this.firstFormGroup.value.firstCtrl2 === 0) {
       if (this.styleIndex === 0) {
         if (this.secondFormGroup.value.secondCtrl) {
@@ -374,7 +370,7 @@ export class CreateComponent implements OnInit, AfterViewInit {
   create() {
     const project = new Project();
     project.Name = this.firstFormGroup.value.firstCtrl1;
-    project.Template = this.getTemplate();
+    project.Structure = this.getStructure();
     project.Type = this.firstFormGroup.value.firstCtrl2;
     project.Description = this.firstFormGroup.value.firstCtrl3;
     this.isLoading = true;

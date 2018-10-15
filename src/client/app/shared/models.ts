@@ -37,7 +37,7 @@ export class Project extends Sfolder {
   key: string;
   Name: string;
   Type: number;
-  Template: string;
+  Structure: string;
   Description: string;
 }
 

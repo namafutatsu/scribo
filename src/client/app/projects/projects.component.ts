@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { UUID } from 'angular2-uuid';
-
 import { AuthService } from '../services/auth.service';
-import { Project, Sfile } from '../shared/models';
+import { Project } from '../shared/models';
 import { ProjectService } from '../services/project.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 
