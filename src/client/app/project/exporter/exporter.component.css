@@ -5,6 +5,6 @@
 
 .selected {
   background-color: #24292f;
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
   outline: 0;
 }

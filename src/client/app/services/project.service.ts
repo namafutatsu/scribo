@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 
 import { AuthService } from './auth.service';
 import { Config } from '../shared/config/env.config';
-import { Project } from '../shared/models';
+import { Project, STreeNode } from '../shared/models';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -31,14 +31,14 @@ export class ProjectService {
       .catch(error => this.handleError(error, this.auth));
   }
 
-  getProject(key: string): Promise<Project> {
+  getProject(key: string): Promise<STreeNode[]> {
     const url = `${this.projectUrl}/Get`; ///${key}
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization', 'Bearer ' + this.auth.token);
     return this.httpClient.post(url, { Name: key, Read: true }, { headers })
       .toPromise()
-      .then(response => response as Project)
+      .then(response => response as STreeNode[])
       .catch(error => this.handleError(error, this.auth));
   }
 

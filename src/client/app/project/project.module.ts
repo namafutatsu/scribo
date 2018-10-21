@@ -32,12 +32,8 @@ import { SharedModule } from '../shared/shared.module';
     MatSidenavModule
   ],
   entryComponents: [
-    // ExporterComponent
   ],
-  declarations: [
-    // ExporterComponent,
-    ProjectComponent
-  ],
+  declarations: [ProjectComponent],
   exports: [ProjectComponent]
 })
 export class ProjectModule { }

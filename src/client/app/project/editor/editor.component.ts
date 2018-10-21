@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { Sfile } from '../../shared/models';
+import { Sfile, STreeNode } from '../../shared/models';
 
 declare var $: any;
 
@@ -11,7 +11,7 @@ declare var $: any;
   styleUrls: ['editor.component.css']
 })
 export class EditorComponent implements OnInit {
-  @Input() file: Sfile;
+  @Input() file: STreeNode;
   @Output() saving = new EventEmitter();
   @Output() changed = new EventEmitter();
   buttons = [
@@ -85,15 +85,15 @@ export class EditorComponent implements OnInit {
     toolbarButtonsXS: this.buttons,
     events : {
       'froalaEditor.save.before' : (e: any, editor: any) =>
-        this.saving.emit(),
-      'froalaEditor.contentChanged' : (e: any, editor: any) => {
-        if (!this.file.init) {
-          this.file.init = true;
-        }
-        if (this.file.init && !this.file.changed) {
-          this.changed.emit();
-        }
-      }
+        this.saving.emit()
+      // 'froalaEditor.contentChanged' : (e: any, editor: any) => {
+      //   if (!this.file.init) {
+      //     this.file.init = true;
+      //   }
+      //   if (this.file.init && !this.file.changed) {
+      //     this.changed.emit();
+      //   }
+      // }
     },
     toolbarStickyOffset: 48
   };

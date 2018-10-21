@@ -1,6 +1,6 @@
 :host {
   background-color: #24292f;
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
   display: block;
   height: 48px;
   padding: 0 16px;
@@ -18,7 +18,7 @@ h1 {
   font-weight: normal;
   letter-spacing: 0.1px;
   line-height: 48px;
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
 }
 
 .more {

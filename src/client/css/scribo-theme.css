@@ -198,7 +198,7 @@
   left: 0;
 }
 .scribo-theme.fr-popup .fr-color-set > span .fr-selected-color {
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
   font-weight: 400;
   top: 0;
   bottom: 0;
@@ -408,7 +408,7 @@
   right: 0;
 }
 .scribo-themediv.fr-modal-body div.fr-image-list div.fr-image-container.fr-image-deleting::before {
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
   top: 0;
   left: 0;
   bottom: 0;
@@ -444,7 +444,7 @@
 }
 .scribo-themediv.fr-modal-body div.fr-image-list div.fr-image-container .fr-delete-img {
   background: #b8312f;
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
 }
 .scribo-themediv.fr-modal-body div.fr-image-list div.fr-image-container .fr-insert-img {
   background: #f2eae1;
@@ -458,7 +458,7 @@
 }
 .scribo-theme.scribo-theme.fr-desktop .fr-modal-wrapper div.fr-modal-body div.fr-image-list div.fr-image-container .fr-delete-img:hover {
   background: #be4441;
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
 }
 .scribo-theme.scribo-theme.fr-desktop .fr-modal-wrapper div.fr-modal-body div.fr-image-list div.fr-image-container .fr-insert-img:hover {
   background: #e0dad3;

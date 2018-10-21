@@ -1,0 +1,36 @@
+<div id="toolbar">
+  <button (click)="createFolderFromNode(selectedNode)" [disabled]="!selectedNode || !showNewFolder">
+    <i class="fa fa-folder-o" aria-hidden="true"></i>
+  </button>
+  <button (click)="createFileFromNode(selectedNode)" [disabled]="!selectedNode || !showNewFile">
+    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+  </button>
+  <button (click)="startRenaming(selectedNode)" [disabled]="!selectedNode">
+    <i class="fa fa-i-cursor" aria-hidden="true"></i>
+  </button>
+  <button (click)="delete(selectedNode)" [disabled]="!selectedNode || selectedNode.Level == 0">
+    <i class="fa fa-trash-o" aria-hidden="true"></i>
+  </button>
+</div>
+
+<br/><br/>
+
+<p-tree
+  [(selection)]="selectedNode"
+  [value]="tree"
+  [contextMenu]="cm"
+  (onNodeSelect)="selectEvent($event.node)"
+  (onNodeDrop)="moveEvent($event)"
+  (onNodeContextMenuSelect)="setMenuEvent($event.node)"
+  draggableNodes="true"
+  droppableNodes="true"
+  dragdropScope="files"
+  selectionMode="single">
+  
+  <ng-template let-node  pTemplate="rename">
+    <input [(ngModel)]="node.label" type="text" appAutofocus onfocus="this.select();" elastic-input/>
+    <span class="fa fa-check" (click)="rename(node)" style="padding-left: 5px;"></span>
+  </ng-template>
+  
+</p-tree>
+<p-contextMenu #cm appendTo="body" [model]="contextMenu" ></p-contextMenu>

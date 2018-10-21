@@ -1,11 +1,13 @@
 :host {
   background: #24292f;
   position:fixed;
-  height: 100%; 
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 button {
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
   background-color: #24292f;
   transition: background-color 0.2s ease 0s;
   font-size: 14px;

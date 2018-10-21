@@ -16,7 +16,7 @@
 
             <mat-form-field>
               <input matInput #input placeholder="Name" maxlength="20" formControlName="firstCtrl1" required>
-              <mat-hint align="end">{{input.value?.length || 0}}/20</mat-hint>
+              <mat-hint align="end">{{ input.value?.length || 0 }}/20</mat-hint>
             </mat-form-field>
 
             <mat-form-field>
@@ -42,15 +42,15 @@
                 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
                   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
                     <button mat-icon-button disabled></button>
-                    {{node.type}}
+                    {{ node.type }}
                   </mat-tree-node>
                   <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
                     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
                       <mat-icon class="mat-icon-rtl-mirror">
-                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
                       </mat-icon>
                     </button>
-                    {{nodeNames[node.filename]}}
+                    {{ nodeNames[node.filename] }}
                     &nbsp;<i class="fa fa-folder-o"></i>
                   </mat-tree-node>
                 </mat-tree>
@@ -59,15 +59,15 @@
                 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
                   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
                     <button mat-icon-button disabled></button>
-                    {{node.type}}
+                    {{ node.type }}
                   </mat-tree-node>
                   <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
                     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
                       <mat-icon class="mat-icon-rtl-mirror">
-                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
                       </mat-icon>
                     </button>
-                    {{nodeNames[node.filename]}}
+                    {{ nodeNames[node.filename] }}
                     &nbsp;<i class="fa fa-folder-o"></i>
                   </mat-tree-node>
                 </mat-tree>
@@ -76,15 +76,15 @@
                 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
                   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
                     <button mat-icon-button disabled></button>
-                    {{node.type}}
+                    {{ node.type }}
                   </mat-tree-node>
                   <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
                     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
                       <mat-icon class="mat-icon-rtl-mirror">
-                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
                       </mat-icon>
                     </button>
-                    {{nodeNames[node.filename]}}
+                    {{ nodeNames[node.filename] }}
                     &nbsp;<i class="fa fa-folder-o"></i>
                   </mat-tree-node>
                 </mat-tree>
@@ -93,15 +93,15 @@
                 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
                   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
                     <button mat-icon-button disabled></button>
-                    {{node.type}}
+                    {{ node.type }}
                   </mat-tree-node>
                   <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
                     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
                       <mat-icon class="mat-icon-rtl-mirror">
-                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
                       </mat-icon>
                     </button>
-                    {{nodeNames[node.filename]}}
+                    {{ nodeNames[node.filename] }}
                     &nbsp;<i class="fa fa-folder-o"></i>
                   </mat-tree-node>
                 </mat-tree>
@@ -110,15 +110,15 @@
                 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
                   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
                     <button mat-icon-button disabled></button>
-                    {{node.type}}
+                    {{ node.type }}
                   </mat-tree-node>
                   <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
                     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
                       <mat-icon class="mat-icon-rtl-mirror">
-                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
                       </mat-icon>
                     </button>
-                    {{nodeNames[node.filename]}}
+                    {{ nodeNames[node.filename] }}
                     &nbsp;<i class="fa fa-folder-o"></i>
                   </mat-tree-node>
                 </mat-tree>
@@ -127,15 +127,15 @@
                 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
                   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
                     <button mat-icon-button disabled></button>
-                    {{node.type}}
+                    {{ node.type }}
                   </mat-tree-node>
                   <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
                     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
                       <mat-icon class="mat-icon-rtl-mirror">
-                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
                       </mat-icon>
                     </button>
-                    {{nodeNames[node.filename]}}
+                    {{ nodeNames[node.filename] }}
                     &nbsp;<i class="fa fa-folder-o"></i>
                   </mat-tree-node>
                 </mat-tree>
@@ -144,15 +144,15 @@
                 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
                   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
                     <button mat-icon-button disabled></button>
-                    {{node.type}}
+                    {{ node.type }}
                   </mat-tree-node>
                   <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
                     <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
                       <mat-icon class="mat-icon-rtl-mirror">
-                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
                       </mat-icon>
                     </button>
-                    {{nodeNames[node.filename]}}
+                    {{ nodeNames[node.filename] }}
                     &nbsp;<i class="fa fa-folder-o"></i>
                   </mat-tree-node>
                 </mat-tree>

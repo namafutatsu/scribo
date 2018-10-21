@@ -301,35 +301,35 @@ export class CreateComponent implements OnInit, AfterViewInit {
     this.reloadTree();
   }
 
-  getStructure(): string {
+  getStructure(): string[] {
     if (this.firstFormGroup.value.firstCtrl2 === 0) {
       if (this.styleIndex === 0) {
         if (this.secondFormGroup.value.secondCtrl) {
-          return 'part;chapter';
+          return ['Part', 'Chapter'];
         } else {
-          return 'chapter';
+          return ['Chapter'];
         }
       } else if (this.styleIndex === 1) {
         if (this.secondFormGroup.value.secondCtrl) {
-          return 'part;chapter;scene';
+          return ['Part', 'Chapter', 'Scene'];
         } else {
-          return 'chapter;scene';
+          return ['Chapter', 'Scene'];
         }
       } else if (this.styleIndex === 2) {
         if (this.secondFormGroup.value.secondCtrl) {
-          return 'part;chapter;section;scene';
+          return ['Part', 'Chapter', 'Section', 'Scene'];
         } else {
-          return 'chapter;section;scene';
+          return ['Chapter', 'Section', 'Scene'];
         }
       }
     } else {
       if (this.styleIndex === 0) {
-        return 'scene';
+        return ['Scene'];
       } else if (this.styleIndex === 1) {
-        return 'section;scene';
+        return ['Section', 'Scene'];
       }
     }
-    return '';
+    return [];
   }
 
   reloadTree = () => {

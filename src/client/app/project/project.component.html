@@ -3,12 +3,16 @@
   <sd-toast [message]="toast.message"></sd-toast>
   <mat-sidenav-container>
 
-    <mat-sidenav mode="side" [(opened)]="showActionBar" class="actionbar-sidenav">
+    <mat-sidenav mode="side"
+      [(opened)]="showActionBar"
+      [disableClose]="true"
+      class="actionbar-sidenav">
 
       <sd-actionbar *ngIf="project"
+        [exporter]="exporter"
         (saving)="onSaving($event)"
-        (actionbarToggling)="onActionbarToggling($event)"
-        [exporter]="exporter"></sd-actionbar>
+        (actionbarToggling)="onActionbarToggling($event)">
+      </sd-actionbar>
 
     </mat-sidenav>
 
@@ -16,26 +20,28 @@
       
       <mat-sidenav-container>
 
-        <mat-sidenav mode="side" class="explorer-sidenav"
-          [(opened)]="showPanel">
+        <mat-sidenav mode="side"
+          [disableClose]="true"
+          [(opened)]="showPanel"
+          class="explorer-sidenav">
 
-          <sd-explorer
-            [className]="explorerClasses[explorerClass]"
-            [project]="project" *ngIf="project"
-            (toggling)="onToggling($event)"
+          <sd-explorer *ngIf="project"
+            [project]="project"
             (fileSelected)="onFileSelected($event)"
             (folderSelected)="onFolderSelected($event)"
-            (saving)="onSaving($event)"
-            [contentChangeAlertFromProject]="contentChanged"></sd-explorer>
+            (saving)="onSaving($event)">
+          </sd-explorer>
+
         </mat-sidenav>
         <mat-sidenav-content  class="editor-content">
 
             <sd-loading [condition]="isLoading"></sd-loading>
 
-            <sd-editor [file]="file" *ngIf="file"
+            <sd-editor *ngIf="file"
+              [file]="file"
               (saving)="onSaving($event)"
-              (changed)="onContentChanged($event)"
-              [className]="editorClasses[editorClass]"></sd-editor>
+              (changed)="onContentChanged($event)">
+            </sd-editor>
 
         </mat-sidenav-content>
       

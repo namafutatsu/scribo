@@ -88,7 +88,7 @@ tree-internal .tree li div {
 
 tree-internal .tree .node-value {
   display: inline-block;
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
   /* #4f4f51; #b3ada7;*/
 }
 

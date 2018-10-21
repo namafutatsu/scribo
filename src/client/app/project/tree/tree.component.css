@@ -1,17 +1,18 @@
 :host {
-  position: fixed;
-  top: 48px;
-  height: 100%;
-  overflow: auto;
-  padding-right: 10px;
-  /* padding-top: 20px; */
-  background-color: #35383d;
-  color: #cccccc; /* #f2eae1; */
-  width: 260px;
+  float: left;
+}
+
+input {
+  height: 25px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  float: left;
+  background-color: unset;
 }
 
 button {
-  color: #4f4f51;
+  color: #b3ada7;
   background-color: #35383d;
   transition: background-color 0.2s ease 0s;
   font-size: 14px;
@@ -36,7 +37,7 @@ button:active {
 }
 
 button:disabled {
-  color: #b3ada7;
+  color: #4f4f51;
   cursor: auto;
 }
 

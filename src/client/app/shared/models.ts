@@ -1,3 +1,7 @@
+import { TreeNode } from 'primeng/api';
+import { Tree } from 'ng2-tree';
+import { MenuItem } from 'primeng/api';
+
 export enum noteStatus {
   Cancelled = -1,
   Todo,
@@ -37,7 +41,7 @@ export class Project extends Sfolder {
   key: string;
   Name: string;
   Type: number;
-  Structure: string;
+  Structure: string[];
   Description: string;
 }
 
@@ -46,4 +50,35 @@ export class User {
   Username: string;
   Mail: string;
   Password: string;
+}
+
+export class STreeNode implements TreeNode {
+  // Common
+  Key: string;
+  ParentKey: string;
+  Index?: number;
+  Path: string;
+  // FolderLabel: string;
+  // FileLabel: string;
+  Level: number;
+  // Project
+  Structure?: string[];
+  Description?: string;
+  Type?: number;
+  // Heritage
+  label?: string;
+  data?: any;
+  icon?: any;
+  expandedIcon?: any;
+  collapsedIcon?: any;
+  children?: TreeNode[];
+  leaf?: boolean;
+  expanded?: boolean;
+  type?: string;
+  parent?: TreeNode;
+  partialSelected?: boolean;
+  styleClass?: string;
+  draggable?: boolean;
+  droppable?: boolean;
+  selectable?: boolean;
 }

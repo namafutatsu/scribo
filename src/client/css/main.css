@@ -7,6 +7,7 @@ html, body, div {
 
 ::-webkit-scrollbar {
   width: 7px;
+  height: 7px;
   margin-left: 10px;
 }
 
@@ -132,6 +133,7 @@ input {
   height: 40px;
   outline: none !important;
   padding: 8px;
+  color: unset;
 }
 
 button {
@@ -142,7 +144,7 @@ button {
   background-color: #24292f;
   border-color: #24292f;
   border-style: none;
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
   font-size: 14px;
   height: 40px;
   padding: 8px 18px;
@@ -183,17 +185,17 @@ button {
 
 .card-header {
   background-color: #24292f;
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
 }
 
 .card-header h1 {
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
   text-align: center;
 }
 
 .card-footer {
   background-color: #24292f;
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
 }
 
 .card-footer a {
@@ -207,17 +209,17 @@ button {
 .modal-header {
   border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
   background-color: #24292f;
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
   padding: 10px;
 }
 
 .modal-header button.close {
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
   cursor: pointer;
 }
 
 .modal-header h1 {
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
   text-align: center;
   padding : 0 0 0 0;
 }
@@ -225,7 +227,7 @@ button {
 .modal-footer {
   border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px);
   background-color: #24292f;
-  color: #f2eae1;
+  color: #cccccc; /* #f2eae1; */
   padding: 10px;
 }
 
