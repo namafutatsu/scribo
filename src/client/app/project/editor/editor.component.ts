@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { Sfile, STreeNode } from '../../shared/models';
+import { STreeNode } from '../../shared/models';
 
 declare var $: any;
 

@@ -1,6 +1,5 @@
+import { Subject } from 'rxjs';
 import { TreeNode } from 'primeng/api';
-import { Tree } from 'ng2-tree';
-import { MenuItem } from 'primeng/api';
 
 export enum noteStatus {
   Cancelled = -1,
@@ -15,34 +14,13 @@ export class Note {
   status: noteStatus;
 }
 
-export abstract class Sitem {
-  Discriminator: number;
-  Key: string;
-  Index: number;
-  Name: string;
-  notes: Note[];
-}
-
-export class Sfolder extends Sitem {
-  Discriminator = 0;
-  Items: Sitem[];
-  open = false;
-}
-
-export class Sfile extends Sitem {
-  Discriminator = 1;
-  Text: string;
-  init = false;
-  changed = false;
-}
-
-export class Project extends Sfolder {
-  Discriminator = 0;
+export class Project {
   key: string;
   Name: string;
   Type: number;
   Structure: string[];
   Description: string;
+  Index: number;
 }
 
 export class User {
@@ -58,13 +36,14 @@ export class STreeNode implements TreeNode {
   ParentKey: string;
   Index?: number;
   Path: string;
-  // FolderLabel: string;
-  // FileLabel: string;
   Level: number;
   // Project
   Structure?: string[];
   Description?: string;
   Type?: number;
+  // Commands
+  newPath?: string;
+  newIndex?: number;
   // Heritage
   label?: string;
   data?: any;
@@ -81,4 +60,18 @@ export class STreeNode implements TreeNode {
   draggable?: boolean;
   droppable?: boolean;
   selectable?: boolean;
+}
+
+export class Command {
+  Type: number;
+  Done: boolean;
+  Key: string;
+  CommandKey: string;
+  Path: string;
+  MoveToPath?: string;
+  Index: number;
+  MoveToIndex?: number;
+  Discriminator: number;
+  order: number;
+  subscription: Subject<any>;
 }

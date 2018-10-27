@@ -1,13 +1,11 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Location } from '@angular/common';
-import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 
 import { AuthService } from '../services/auth.service';
-import { Note, STreeNode } from '../shared/models';
+import { STreeNode } from '../shared/models';
 import { ProjectService } from '../services/project.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 
@@ -41,7 +39,7 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     if (this.auth.loggedIn) {
       this.route.params
-      .switchMap((params: Params) => this.projectService.getProject(params['key']))
+      .switchMap((params: Params) => this.projectService.get(params['key']))
       .subscribe(project => {
         this.project = project;
         this.isLoading = false;
@@ -71,7 +69,7 @@ export class ProjectComponent implements OnInit {
     // }
   }
 
-  clickNote(note: Note): void {
-    note.status = (note.status + 2) % 3 - 1;
-  }
+  // clickNote(note: Note): void {
+  //   note.status = (note.status + 2) % 3 - 1;
+  // }
 }

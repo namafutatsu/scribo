@@ -23,7 +23,6 @@ export class TreeComponent implements OnInit {
   @Input() tree: STreeNode[];
   @Output() selected = new EventEmitter<STreeNode>();
   @Output() created = new EventEmitter<STreeNode>();
-  @Output() renamed = new EventEmitter<STreeNode>();
   @Output() deleted = new EventEmitter<STreeNode>();
   @Output() moved = new EventEmitter<STreeNode>();
 
@@ -152,25 +151,26 @@ export class TreeComponent implements OnInit {
   }
 
   rename(node: STreeNode) {
+    node.newPath = node.Path.substr(0, node.Path.lastIndexOf('/') + 1) + node.label;
+    this.moved.emit(node);
     node.type = 'default';
-    node.Path = node.Path.substr(0, node.Path.lastIndexOf('/') + 1) + node.label;
-    this.renamed.emit(node);
+    node.Path = node.newPath;
   }
 
   delete(node: STreeNode): void {
     this.stopRenaming(null);
+    this.deleted.emit(node);
     if (node.ParentKey) {
       const children = this.dictionary[node.ParentKey].children;
       const index = children.indexOf(node);
       children.splice(index, 1);
       delete this.dictionary[node.Key];
-      this.deleted.emit(node);
     }
   }
 
   createNode(label: string, context: CreationContext): STreeNode {
     this.stopRenaming(null);
-    const name = label + ' ' + (context.index + 1).toString();
+    const name = 'New ' + label; // + ' ' + (context.index + 1).toString();
     const node: STreeNode = {
       Key: UUID.UUID(),
       ParentKey: context.parent.Key,
@@ -190,7 +190,6 @@ export class TreeComponent implements OnInit {
     context.parent.expanded = true;
     this.selectedNode = node;
     this.startRenaming(node);
-    this.renamed.emit(node);
     this.updateButtons(node);
     this.selected.emit(node);
     return node;
@@ -207,6 +206,7 @@ export class TreeComponent implements OnInit {
     node.droppable = true;
     node.collapsedIcon = 'fa fa-folder';
     node.expandedIcon = 'fa fa-folder-open';
+    this.created.emit(node);
     return node;
   }
 
@@ -219,17 +219,19 @@ export class TreeComponent implements OnInit {
     const node = this.createNode(label, context);
     node.droppable = false;
     node.icon = 'fa fa-file-o';
+    this.created.emit(node);
     return node;
   }
 
   moveEvent(event: any): void {
     const node: STreeNode = event.dragNode;
     const newParent: STreeNode = event.dropNode;
-    const newIndex: number = event.index;
-    newParent.expanded = true;
-    node.Path = newParent.Path + '/' + node.label;
-    node.ParentKey = newParent.Key;
-    node.Index = newIndex;
+    node.newIndex = event.index;
+    node.newPath = newParent.Path + '/' + node.label;
     this.moved.emit(node);
+    newParent.expanded = true;
+    node.Path = node.newPath;
+    node.ParentKey = newParent.Key;
+    node.Index = node.newIndex;
   }
 }

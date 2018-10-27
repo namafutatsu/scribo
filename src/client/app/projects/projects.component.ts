@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 import { AuthService } from '../services/auth.service';
-import { Project } from '../shared/models';
 import { ProjectService } from '../services/project.service';
 import { ToastComponent } from '../shared/toast/toast.component';
+import { Project } from '../shared/models';
 
 @Component({
   moduleId: module.id,
@@ -15,8 +17,6 @@ import { ToastComponent } from '../shared/toast/toast.component';
 export class ProjectsComponent implements OnInit {
   projects: Project[];
   isLoading = true;
-  creation = false;
-  Name: string;
 
   constructor(
     private projectService: ProjectService,
@@ -27,17 +27,18 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.loggedIn) {
-      this.getProjects();
+      this.getProjects()
+        .subscribe(projects => this.projects = projects);
     }
   }
 
-  getProjects(): void {
-    this.projectService
-      .getProjects()
-      .then(projects => {
-        this.projects = projects.sort(o => o.Index);
-        this.isLoading = false;
-      });
+  getProjects(): Observable<Project[]> {
+    return this.projectService
+      .getAll()
+      .pipe(
+        tap(_ => this.isLoading = false),
+        map((projects: Project[]) => projects.sort(o => o.Index))
+      );
   }
 
   select(project: Project): void {

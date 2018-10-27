@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Config } from '../shared/config/env.config';
-// import { User } from '../models';
 
 import 'rxjs/add/operator/toPromise';
 

@@ -42,7 +42,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   border: 0;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 h1 {

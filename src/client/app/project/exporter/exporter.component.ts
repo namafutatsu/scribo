@@ -1,10 +1,12 @@
 import { Component, Input } from '@angular/core';
-
-import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
 import { FormGroup } from '@angular/forms';
 
-import { Project } from '../../shared/models';
+import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
+
 import { ProjectService } from '../../services/project.service';
+import { Project } from '../../shared/models';
+
+const saveAs = require('file-saver');
 
 export interface ConfirmModel {
   title: string;
@@ -53,8 +55,9 @@ export class ExporterComponent {
   }
 
   confirm() {
-    this.projectService.export(this.project).then(
-      () => this.ngxSmartModalService.getModal('modal').close()
-    );
+    this.projectService.export(this.project).subscribe((blob: Blob) => {
+      const filename = this.project.Name + '.zip';
+      saveAs(blob, filename);
+    });
   }
 }

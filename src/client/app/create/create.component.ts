@@ -11,6 +11,7 @@ import { Project } from '../shared/models';
 import { ProjectService } from '../services/project.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 export interface Type {
   value: number;
@@ -374,10 +375,11 @@ export class CreateComponent implements OnInit, AfterViewInit {
     project.Type = this.firstFormGroup.value.firstCtrl2;
     project.Description = this.firstFormGroup.value.firstCtrl3;
     this.isLoading = true;
-    this.projectService.insert(project).then(res => {
-      this.toast.setMessage('New project created', 'success');
-      this.router.navigate(['/project', project.Name]);
-    });
+    this.projectService.post(project)
+      .subscribe(_ => {
+        this.toast.setMessage('New project created', 'success');
+        this.router.navigate(['/project', project.Name]);
+      });
   }
 
   transformer = (node: FileNode, level: number) => {

@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { STreeNode } from '../../shared/models';
+import { CommandService } from '../../services/command.service';
+import { Command, STreeNode } from '../../shared/models';
 
 @Component({
   moduleId: module.id,
@@ -8,7 +9,7 @@ import { STreeNode } from '../../shared/models';
   templateUrl: 'explorer.component.html',
   styleUrls: ['explorer.component.css']
 })
-export class ExplorerComponent implements OnInit {
+export class ExplorerComponent {
   @Input() project: STreeNode[];
   @Output() fileSelected = new EventEmitter<STreeNode>();
   @Output() folderSelected = new EventEmitter<STreeNode>();
@@ -16,9 +17,9 @@ export class ExplorerComponent implements OnInit {
 
   loading = false;
 
-  ngOnInit(): void {
-    // todo
-  }
+  constructor(
+    public commandService: CommandService
+  ) {}
 
   onSelected(node: STreeNode): void {
     if (node) {
@@ -30,20 +31,31 @@ export class ExplorerComponent implements OnInit {
     }
   }
 
-  onCreated(result: any): void {
-    // todo
+  getCommand(node: STreeNode, type: number): Command {
+    const command = new Command();
+    command.Key = node.Key;
+    command.Index = node.Index;
+    command.Path = node.Path;
+    command.Type = type;
+    command.Discriminator = node.droppable ? 0 : 1;
+    return command;
   }
 
-  onRenamed(node: STreeNode) {
-    // todo
+  onCreated(node: STreeNode): void {
+    const command = this.getCommand(node, 0);
+    this.commandService.add(command);
   }
 
-  onMoved(tree: Node): void {
-    // todo
+  onMoved(node: STreeNode): void {
+    const command = this.getCommand(node, 1);
+    command.MoveToPath = node.newPath;
+    command.MoveToIndex = node.newIndex;
+    this.commandService.add(command);
   }
 
-  onDeleted() {
-    // todo
+  onDeleted(node: STreeNode) {
+    const command = this.getCommand(node, 2);
+    this.commandService.add(command);
   }
 
   save(): void {
