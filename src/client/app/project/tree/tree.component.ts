@@ -161,10 +161,12 @@ export class TreeComponent implements OnInit {
     this.stopRenaming(null);
     this.deleted.emit(node);
     if (node.ParentKey) {
-      const children = this.dictionary[node.ParentKey].children;
+      const parent = this.dictionary[node.ParentKey];
+      const children = parent.children;
       const index = children.indexOf(node);
       children.splice(index, 1);
       delete this.dictionary[node.Key];
+      this.updateIndexes(parent);
     }
   }
 
@@ -192,6 +194,8 @@ export class TreeComponent implements OnInit {
     this.startRenaming(node);
     this.updateButtons(node);
     this.selected.emit(node);
+    const parent = this.dictionary[node.ParentKey];
+    this.updateIndexes(parent);
     return node;
   }
 
@@ -225,13 +229,23 @@ export class TreeComponent implements OnInit {
 
   moveEvent(event: any): void {
     const node: STreeNode = event.dragNode;
-    const newParent: STreeNode = event.dropNode;
-    node.newIndex = event.index;
+    const parent = this.dictionary[node.ParentKey];
+    let newParent: STreeNode = event.dropNode;
+    if (!newParent.droppable) {
+      newParent = newParent.parent as STreeNode;
+    }
+    node.newIndex = event.dropIndex;
     node.newPath = newParent.Path + '/' + node.label;
     this.moved.emit(node);
     newParent.expanded = true;
     node.Path = node.newPath;
     node.ParentKey = newParent.Key;
     node.Index = node.newIndex;
+    this.updateIndexes(parent);
+    this.updateIndexes(newParent);
+  }
+
+  updateIndexes(parent: STreeNode) {
+    parent.children.forEach(o => (o as STreeNode).Index = parent.children.indexOf(o));
   }
 }
