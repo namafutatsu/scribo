@@ -18,6 +18,10 @@ export class CommandService extends AuthedService {
     this.requests$.subscribe(request => this.execute(request));
   }
 
+  pending(): boolean {
+    return this.queue.length > 0;
+  }
+
   add(command: Command): Subject<any> {
     command.CommandKey = UUID.UUID();
     command.order = this.order++;

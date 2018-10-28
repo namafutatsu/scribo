@@ -39,8 +39,3 @@ button:disabled {
   color: #b3ada7;
   cursor: auto;
 }
-
-#explorer-tree {
-  position: relative;
-  top: -8px;
-}

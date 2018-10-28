@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
 
 import { CommandService } from '../../services/command.service';
 import { Command, STreeNode } from '../../shared/models';
@@ -20,6 +20,13 @@ export class ExplorerComponent {
   constructor(
     public commandService: CommandService
   ) {}
+
+  @HostListener('window:beforeunload', ['$event'])
+  public beforeunloadHandler($event: any) {
+    if (this.commandService.pending()) {
+      $event.returnValue = 'Changes you made may not be saved';
+    }
+  }
 
   onSelected(node: STreeNode): void {
     if (node) {

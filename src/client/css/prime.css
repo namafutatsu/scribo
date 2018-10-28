@@ -290,6 +290,9 @@
   .ui-picklist .ui-picklist-highlight a {
     color: #c9c9c9; }
 
+.ui-tree {
+  top: -10px;
+  position: relative; }
 .ui-tree .ui-tree-container {
   padding-top: 0px; }
 .ui-tree.ui-treenode-dragover {
@@ -317,6 +320,7 @@
   color: #ffffff; }
 .ui-tree.ui-tree-horizontal .ui-treenode-content.ui-treenode-selectable:not(.ui-state-highlight):hover a {
   color: #ffffff; }
+
 
 .ui-organizationchart .ui-organizationchart-node-content.ui-organizationchart-selectable-node:not(.ui-state-highlight):hover {
   border-color: #35383d;
@@ -389,17 +393,18 @@
   color: #cccccc; }
 
 .ui-menuitem .ui-menuitem-link {
-  color: #cccccc; }
+  color: #cccccc;
+  background-color: #24292f; }
   .ui-menuitem .ui-menuitem-link:hover {
     border-color: #35383d;
-    background-color: #35383d;
+    /* background-color: #35383d; */
     color: #ffffff;
     border-color: transparent; }
     .ui-menuitem .ui-menuitem-link:hover a {
       color: #ffffff; }
 .ui-menuitem.ui-menuitem-active > .ui-menuitem-link {
   border-color: #35383d;
-  background-color: #35383d;
+  /* background-color: #35383d; */
   color: #ffffff;
   border-color: transparent; }
   .ui-menuitem.ui-menuitem-active > .ui-menuitem-link a {
@@ -700,6 +705,12 @@ p-togglebutton.ng-dirty.ng-invalid .ui-button {
   border-bottom-left-radius: 6px; }
 
 .ui-corner-all {
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  border-radius: 6px; }
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px; }
+
+.ui-widget-content.ui-contextmenu {
+  background-color: #24292f; }
+
+.ui-submenu-list {
+  background-color: #24292f; }

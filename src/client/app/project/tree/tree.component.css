@@ -41,7 +41,8 @@ button:disabled {
   cursor: auto;
 }
 
-#explorer-tree {
+#toolbar {
   position: relative;
-  top: -8px;
+  z-index: 1;
+  margin-left: 2px;
 }
