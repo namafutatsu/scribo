@@ -17,7 +17,7 @@
 
 <p-tree
   [(selection)]="selectedNode"
-  [value]="tree"
+  [value]="tree.children"
   [contextMenu]="cm"
   (onNodeSelect)="selectEvent($event.node)"
   (onNodeDrop)="moveEvent($event)"
@@ -26,11 +26,6 @@
   droppableNodes="true"
   dragdropScope="files"
   selectionMode="single">
-  
-  <ng-template let-node  pTemplate="rename">
-    <input [(ngModel)]="node.label" type="text" appAutofocus onfocus="this.select();" elastic-input/>
-    <span class="fa fa-check" (click)="rename(node)" style="padding-left: 5px;"></span>
-  </ng-template>
   
 </p-tree>
 <p-contextMenu #cm appendTo="body" [model]="contextMenu" ></p-contextMenu>

@@ -1,68 +1,94 @@
-<sd-login *ngIf="!auth.loggedIn; else logged"></sd-login>
-<ng-template #logged>
-  <sd-toast [message]="toast.message"></sd-toast>
-  <mat-sidenav-container>
+<sd-toast [message]="toast.message"></sd-toast>
+<div id="title" *ngIf="project"><h1>- {{ project.label }}</h1></div>
 
-    <mat-sidenav mode="side"
-      [(opened)]="showActionBar"
-      [disableClose]="true"
-      class="actionbar-sidenav">
+<mat-sidenav-container>
 
-      <sd-actionbar *ngIf="project"
-        [exporter]="exporter"
-        (saving)="onSaving($event)"
-        (actionbarToggling)="onActionbarToggling($event)">
-      </sd-actionbar>
+  <mat-sidenav mode="side"
+    [(opened)]="showActionBar"
+    [disableClose]="true"
+    class="actionbar-sidenav">
 
-    </mat-sidenav>
+    <sd-actionbar *ngIf="project"
+      [exporter]="exporter"
+      (saving)="onSaving($event)"
+      (actionbarToggling)="onActionbarToggling($event)">
+    </sd-actionbar>
 
-    <mat-sidenav-content>
-      
-      <mat-sidenav-container>
+  </mat-sidenav>
 
-        <mat-sidenav mode="side"
-          [disableClose]="true"
-          [(opened)]="showPanel"
-          class="explorer-sidenav">
+  <mat-sidenav-content>
+    <mat-sidenav-container>
 
-          <sd-explorer *ngIf="project"
-            [project]="project"
-            (fileSelected)="onFileSelected($event)"
-            (folderSelected)="onFolderSelected($event)"
-            (saving)="onSaving($event)">
-          </sd-explorer>
+      <mat-sidenav mode="side"
+        [disableClose]="true"
+        [(opened)]="showPanel"
+        class="explorer-sidenav">
 
-        </mat-sidenav>
-        <mat-sidenav-content  class="editor-content">
+        <sd-explorer *ngIf="project"
+          [project]="project"
+          (fileSelected)="onFileSelected($event)"
+          (folderSelected)="onFolderSelected($event)"
+          (saving)="onSaving($event)"
+          (renaming)="onRenaming($event)">
 
-            <sd-loading [condition]="isLoading"></sd-loading>
+        </sd-explorer>
+      </mat-sidenav>
+      <mat-sidenav-content  class="editor-content">
 
-            <sd-editor *ngIf="file"
-              [file]="file"
-              (saving)="onSaving($event)"
-              (changed)="onContentChanged($event)">
-            </sd-editor>
+          <sd-loading [condition]="isLoading"></sd-loading>
 
-        </mat-sidenav-content>
-      
-      </mat-sidenav-container>
+          <sd-editor *ngIf="file"
+            [file]="file"
+            (saving)="onSaving($event)"
+            (changed)="onContentChanged($event)">
+          </sd-editor>
 
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-
-  <!-- <div id="annexe" *ngIf="file">
-    <div id="notes" *ngIf="file.notes?.length > 0">
-      Todo:
-      <li *ngFor="let note of file.notes" [class.cancelled]="note.status < 0">
-        <i class="fa fa-check-square-o" aria-hidden="true" *ngIf="note.status == 1" (click)="clickNote(note)"></i>
-        <i class="fa fa-square-o" aria-hidden="true" *ngIf="note.status == 0" (click)="clickNote(note)"></i>
-        <i class="fa fa-times" aria-hidden="true" *ngIf="note.status == -1" (click)="clickNote(note)"></i>
-        <input [(ngModel)]="note.Text"  [class.cancelled]="note.status < 0"/>
-      </li>
-    </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<!-- <div id="annexe" *ngIf="file">
+  <div id="notes" *ngIf="file.notes?.length > 0">
+    Todo:
+    <li *ngFor="let note of file.notes" [class.cancelled]="note.status < 0">
+      <i class="fa fa-check-square-o" aria-hidden="true" *ngIf="note.status == 1" (click)="clickNote(note)"></i>
+      <i class="fa fa-square-o" aria-hidden="true" *ngIf="note.status == 0" (click)="clickNote(note)"></i>
+      <i class="fa fa-times" aria-hidden="true" *ngIf="note.status == -1" (click)="clickNote(note)"></i>
+      <input [(ngModel)]="note.Text"  [class.cancelled]="note.status < 0"/>
+    </li>
   </div>
-  
-  <sd-exporter #exporter [project]="project" [projectService]="projectService"></sd-exporter> -->
-  
-</ng-template>
-  
+</div>
+
+<sd-exporter #exporter [project]="project" [projectService]="projectService"></sd-exporter> -->
+
+<p-dialog 
+  [(visible)]="renamingNode"
+  [modal]="true"
+  [responsive]="true"
+  [width]="350"
+  [minWidth]="200"
+  [minHeight]="100"
+  [minY]="70"
+  [maximizable]="false"
+  [baseZIndex]="10000"
+  header="Choose a name">
+
+  <input
+    #nameInput
+    [(ngModel)]="renamingInput"
+    type="text"
+    size="30">
+
+  <p-footer>
+    <button
+      (click)="renamingNode.label=renamingInput; renamingNode=null;"
+      class="btn btn-primary">
+      Rename
+    </button>
+    <button
+      (click)="renamingNode=null"
+      class="btn btn-secondary">
+      Cancel
+    </button>
+  </p-footer>
+</p-dialog>

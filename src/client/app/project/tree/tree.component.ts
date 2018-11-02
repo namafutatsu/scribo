@@ -20,11 +20,12 @@ export class CreationContext {
   providers: [TreeDragDropService]
 })
 export class TreeComponent implements OnInit {
-  @Input() tree: STreeNode[];
+  @Input() tree: STreeNode;
   @Output() selected = new EventEmitter<STreeNode>();
   @Output() created = new EventEmitter<STreeNode>();
   @Output() deleted = new EventEmitter<STreeNode>();
   @Output() moved = new EventEmitter<STreeNode>();
+  @Output() renaming = new EventEmitter<STreeNode>();
 
   selectedNode: STreeNode;
   basicContextMenu: MenuItem[];
@@ -34,7 +35,7 @@ export class TreeComponent implements OnInit {
   showNewFolder = false;
   showNewFile = false;
   ngOnInit(): void {
-    this.setDictionary(this.tree[0]);
+    this.setDictionary(this.tree);
     this.basicContextMenu = [{
       label: 'Rename',
       icon: 'fa fa-i-cursor',
@@ -46,7 +47,7 @@ export class TreeComponent implements OnInit {
       command: () => this.delete(this.selectedNode)
     }];
     this.contextMenu = this.basicContextMenu;
-    this.structure = this.tree[0].Structure;
+    this.structure = this.tree.Structure;
   }
 
   setDictionary(folder: STreeNode): void {
@@ -70,7 +71,6 @@ export class TreeComponent implements OnInit {
   }
 
   selectEvent(node: STreeNode): void {
-    this.stopRenaming(node);
     this.updateButtons(node);
     this.selected.emit(node);
   }
@@ -108,7 +108,6 @@ export class TreeComponent implements OnInit {
   }
 
   setMenuEvent(node: STreeNode) {
-    this.stopRenaming(null);
     const context = this.getCreationContext(node);
     this.setMenu(context);
   }
@@ -138,27 +137,10 @@ export class TreeComponent implements OnInit {
   }
 
   startRenaming(node: STreeNode) {
-    node.type = 'rename';
-  }
-
-  stopRenaming(node: STreeNode) {
-    for (const key in this.dictionary) {
-      const otherNode = this.dictionary[key];
-      if (node !== otherNode && otherNode.type === 'rename') {
-        this.rename(otherNode);
-      }
-    }
-  }
-
-  rename(node: STreeNode) {
-    node.newPath = node.Path.substr(0, node.Path.lastIndexOf('/') + 1) + node.label;
-    this.moved.emit(node);
-    node.type = 'default';
-    node.Path = node.newPath;
+    this.renaming.emit(node);
   }
 
   delete(node: STreeNode): void {
-    this.stopRenaming(null);
     this.deleted.emit(node);
     if (node.ParentKey) {
       const parent = this.dictionary[node.ParentKey];
@@ -171,8 +153,7 @@ export class TreeComponent implements OnInit {
   }
 
   createNode(label: string, context: CreationContext): STreeNode {
-    this.stopRenaming(null);
-    const name = 'New ' + label; // + ' ' + (context.index + 1).toString();
+    const name = this.getLabel(context.parent, 'New ' + label);
     const node: STreeNode = {
       Key: UUID.UUID(),
       ParentKey: context.parent.Key,
@@ -201,41 +182,41 @@ export class TreeComponent implements OnInit {
 
   createFolderFromNode(node: STreeNode) {
     const context = this.getCreationContext(node);
-    return this.createFolder(context.folderLabel, context);
+    this.createFolder(context.folderLabel, context);
   }
 
-  createFolder(label: string, context: CreationContext): STreeNode {
+  createFolder(label: string, context: CreationContext) {
     const node = this.createNode(label, context);
     node.children = [];
     node.droppable = true;
     node.collapsedIcon = 'fa fa-folder';
     node.expandedIcon = 'fa fa-folder-open';
     this.created.emit(node);
-    return node;
   }
 
   createFileFromNode(node: STreeNode) {
     const context = this.getCreationContext(node);
-    return this.createFile(context.fileLabel, context);
+    this.createFile(context.fileLabel, context);
   }
 
-  createFile(label: string, context: CreationContext): STreeNode {
+  createFile(label: string, context: CreationContext) {
     const node = this.createNode(label, context);
     node.droppable = false;
     node.icon = 'fa fa-file-o';
     this.created.emit(node);
-    return node;
   }
 
   moveEvent(event: any): void {
     const node: STreeNode = event.dragNode;
     const parent = this.dictionary[node.ParentKey];
     let newParent: STreeNode = event.dropNode;
-    if (!newParent.droppable) {
-      newParent = newParent.parent as STreeNode;
+    if (!newParent.droppable || event.originalEvent.target.className !== 'ng-star-inserted') {
+      newParent = this.dictionary[newParent.ParentKey];
     }
     node.newIndex = event.dropIndex;
-    node.newPath = newParent.Path + '/' + node.label;
+    const name = this.getLabel(newParent, node.label);
+    node.label = name;
+    node.newPath = newParent.Path + '/' + name;
     this.moved.emit(node);
     newParent.expanded = true;
     node.Path = node.newPath;
@@ -247,5 +228,34 @@ export class TreeComponent implements OnInit {
 
   updateIndexes(parent: STreeNode) {
     parent.children.forEach(o => (o as STreeNode).Index = parent.children.indexOf(o));
+  }
+
+  getLabel(parent: STreeNode, name: string): string {
+    const prefix = name;
+    let label = name;
+    let i = 2;
+    while (this.alreadyExists(parent, label)) {
+      label = prefix + ' ' + i++;
+    }
+    return label;
+  }
+
+  alreadyExists(parent: STreeNode, name: string) {
+    for (const i in parent.children) {
+      if (parent.children[i].label === name) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  doubleExists(parent: STreeNode, name: string) {
+    let count = 0;
+    for (const i in parent.children) {
+      if (parent.children[i].label === name && count++ >= 1) {
+        return true;
+      }
+    }
+    return false;
   }
 }

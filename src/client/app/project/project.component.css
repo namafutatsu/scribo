@@ -40,6 +40,44 @@ mat-drawer-content {
   justify-content: center;
   overflow: auto;
 }
+
+#title {
+  position: fixed;
+  top: 0px;
+  left: 112px;
+  z-index: 3000;
+}
+
+h1 {
+  display: inline;
+  font-size: 20px;
+  font-weight: normal;
+  letter-spacing: 0.1px;
+  line-height: 48px;
+  color: #cccccc; /* #f2eae1; */
+}
+
+button {
+  margin-left: 10px;
+}
+
+button:focus {
+  box-shadow: none;
+}
+
+input {
+  padding-left: 7px;
+}
+
+.ui-dialog {
+  min-height: unset;
+}
+
+.mat-drawer {
+  position: fixed;
+  top: 48px;
+}
+
 /* 
 sd-actionbar {
   transform: translateX(-500%);

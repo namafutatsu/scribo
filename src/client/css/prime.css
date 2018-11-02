@@ -26,7 +26,7 @@
 
 .ui-widget-header {
   /* border: 1px solid #323232; */
-  background-color: #333333;
+  /* background-color: #333333; */
   color: #cccccc;
   font-weight: bold; }
   .ui-widget-header a {
@@ -114,6 +114,12 @@
 .ui-inputgroup .ui-button:last-child {
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px; }
+
+.ui-float-label > input {
+  padding-left: 7px; }
+
+.ui-float-label > label {
+  left: 9px; }
 
 .ui-float-label input.ng-dirty.ng-invalid ~ label {
   color: #111111; }
@@ -291,7 +297,7 @@
     color: #c9c9c9; }
 
 .ui-tree {
-  top: -10px;
+  top: -7px;
   position: relative; }
 .ui-tree .ui-tree-container {
   padding-top: 0px; }

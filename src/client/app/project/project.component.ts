@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Directive, Renderer2, Renderer } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
@@ -16,18 +16,27 @@ import { ToastComponent } from '../shared/toast/toast.component';
   styleUrls: ['project.component.css']
 })
 export class ProjectComponent implements OnInit {
-  project: STreeNode[];
+  @ViewChild('nameInput') nameInput: ElementRef;
+  project: STreeNode;
   file: STreeNode;
   isLoading = true;
   showActionBar = true;
   showPanel = false;
+  renamingNode: STreeNode;
+  renamingInput: string;
+  extraIngredient: string;
+  // @ViewChild(BaconDirective) set appBacon(directive: BaconDirective) {
+  //   this.extraIngredient = directive.ingredient;
+  // }
+
 
   constructor(
     public projectService: ProjectService,
     private route: ActivatedRoute,
     public auth: AuthService,
     public toast: ToastComponent,
-    private hotkeysService: HotkeysService
+    private hotkeysService: HotkeysService,
+    private renderer: Renderer2
   ) {
       this.hotkeysService.add(new Hotkey('ctrl+s', (event: KeyboardEvent): boolean => {
       event.preventDefault();
@@ -67,6 +76,14 @@ export class ProjectComponent implements OnInit {
     //     this.toast.setMessage('Saved', 'success');
     //   });
     // }
+  }
+
+  onRenaming(node: STreeNode) {
+    this.renamingInput = node.label;
+    this.renamingNode = node;
+    setTimeout (() => {const element: HTMLInputElement = this.nameInput.nativeElement;
+      element.select();
+    }, 100);
   }
 
   // clickNote(note: Note): void {

@@ -10,10 +10,11 @@ import { Command, STreeNode } from '../../shared/models';
   styleUrls: ['explorer.component.css']
 })
 export class ExplorerComponent {
-  @Input() project: STreeNode[];
+  @Input() project: STreeNode;
   @Output() fileSelected = new EventEmitter<STreeNode>();
   @Output() folderSelected = new EventEmitter<STreeNode>();
   @Output() saving = new EventEmitter();
+  @Output() renaming = new EventEmitter<STreeNode>();
 
   loading = false;
 
@@ -63,6 +64,10 @@ export class ExplorerComponent {
   onDeleted(node: STreeNode) {
     const command = this.getCommand(node, 2);
     this.commandService.add(command);
+  }
+
+  onRenaming(node: STreeNode) {
+    this.renaming.emit(node);
   }
 
   save(): void {

@@ -1,3 +1,6 @@
-<sd-toolbar></sd-toolbar>
+<sd-toolbar [title]="title"></sd-toolbar>
 <sd-navbar></sd-navbar>
-<router-outlet></router-outlet>
+<sd-login *ngIf="!auth.loggedIn; else logged"></sd-login>
+<ng-template #logged>
+  <router-outlet></router-outlet>
+</ng-template>

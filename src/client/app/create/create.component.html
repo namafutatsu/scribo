@@ -1,198 +1,188 @@
-<sd-login *ngIf="!auth.loggedIn; else logged"></sd-login>
-<ng-template #logged>
-  <sd-toast [message]="toast.message"></sd-toast>
-  <sd-loading [condition]="isLoading"></sd-loading>
+<sd-toast [message]="toast.message"></sd-toast>
+<sd-loading [condition]="isLoading"></sd-loading>
 
-  <div class="card">
-    <div class="card-header">
-      <h1>New project</h1>
-    </div>
-    <div class="card-block">
-
-      <mat-vertical-stepper linear="true" #stepper>
-        <mat-step [stepControl]="firstFormGroup">
-          <form [formGroup]="firstFormGroup">
-            <ng-template matStepLabel>What's the project?</ng-template>
-
-            <mat-form-field>
-              <input matInput #input placeholder="Name" maxlength="20" formControlName="firstCtrl1" required>
-              <mat-hint align="end">{{ input.value?.length || 0 }}/20</mat-hint>
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-select placeholder="Project" #type formControlName="firstCtrl2" (change)="typeChanged($event)" required>
-                <mat-option *ngFor="let type of Types" [value]="type.value">
-                  {{ type.label }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field>
-              <textarea matInput formControlName="firstCtrl3" placeholder="Description"></textarea>
-            </mat-form-field>
-
-          </form>
-        </mat-step>
-
-        <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Choose a template</ng-template>
-            <mat-tab-group (selectedTabChange)="tabChanged($event)">
-              <mat-tab *ngIf="type.value === 0" label="Short chapters">
-                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-                  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
-                    <button mat-icon-button disabled></button>
-                    {{ node.type }}
-                  </mat-tree-node>
-                  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
-                      <mat-icon class="mat-icon-rtl-mirror">
-                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
-                      </mat-icon>
-                    </button>
-                    {{ nodeNames[node.filename] }}
-                    &nbsp;<i class="fa fa-folder-o"></i>
-                  </mat-tree-node>
-                </mat-tree>
-              </mat-tab>
-              <mat-tab *ngIf="type.value === 0" label="Medium chapters">
-                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-                  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
-                    <button mat-icon-button disabled></button>
-                    {{ node.type }}
-                  </mat-tree-node>
-                  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
-                      <mat-icon class="mat-icon-rtl-mirror">
-                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
-                      </mat-icon>
-                    </button>
-                    {{ nodeNames[node.filename] }}
-                    &nbsp;<i class="fa fa-folder-o"></i>
-                  </mat-tree-node>
-                </mat-tree>
-              </mat-tab>
-              <mat-tab *ngIf="type.value === 0" label="Long chapters">
-                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-                  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
-                    <button mat-icon-button disabled></button>
-                    {{ node.type }}
-                  </mat-tree-node>
-                  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
-                      <mat-icon class="mat-icon-rtl-mirror">
-                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
-                      </mat-icon>
-                    </button>
-                    {{ nodeNames[node.filename] }}
-                    &nbsp;<i class="fa fa-folder-o"></i>
-                  </mat-tree-node>
-                </mat-tree>
-              </mat-tab>
-              <mat-tab *ngIf="type.value === 0" label="Free style">
-                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-                  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
-                    <button mat-icon-button disabled></button>
-                    {{ node.type }}
-                  </mat-tree-node>
-                  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
-                      <mat-icon class="mat-icon-rtl-mirror">
-                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
-                      </mat-icon>
-                    </button>
-                    {{ nodeNames[node.filename] }}
-                    &nbsp;<i class="fa fa-folder-o"></i>
-                  </mat-tree-node>
-                </mat-tree>
-              </mat-tab>
-              <mat-tab *ngIf="type.value === 1" label="Simple">
-                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-                  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
-                    <button mat-icon-button disabled></button>
-                    {{ node.type }}
-                  </mat-tree-node>
-                  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
-                      <mat-icon class="mat-icon-rtl-mirror">
-                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
-                      </mat-icon>
-                    </button>
-                    {{ nodeNames[node.filename] }}
-                    &nbsp;<i class="fa fa-folder-o"></i>
-                  </mat-tree-node>
-                </mat-tree>
-              </mat-tab>
-              <mat-tab *ngIf="type.value === 1" label="Multi-section">
-                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-                  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
-                    <button mat-icon-button disabled></button>
-                    {{ node.type }}
-                  </mat-tree-node>
-                  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
-                      <mat-icon class="mat-icon-rtl-mirror">
-                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
-                      </mat-icon>
-                    </button>
-                    {{ nodeNames[node.filename] }}
-                    &nbsp;<i class="fa fa-folder-o"></i>
-                  </mat-tree-node>
-                </mat-tree>
-              </mat-tab>
-              <mat-tab *ngIf="type.value === 1" label="Free style">
-                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-                  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
-                    <button mat-icon-button disabled></button>
-                    {{ node.type }}
-                  </mat-tree-node>
-                  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
-                      <mat-icon class="mat-icon-rtl-mirror">
-                        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
-                      </mat-icon>
-                    </button>
-                    {{ nodeNames[node.filename] }}
-                    &nbsp;<i class="fa fa-folder-o"></i>
-                  </mat-tree-node>
-                </mat-tree>
-              </mat-tab>
-            </mat-tab-group>
-
-            <section *ngIf="type.value === 0" [ngSwitch]="styleIndex">
-              <div *ngSwitchCase="0">
-                Recommanded for chapters of less than 2 000 words
-              </div>
-              <div *ngSwitchCase="1">
-                Recommanded for chapters of less than 10 000 words
-              </div>
-              <div *ngSwitchCase="2">
-                Recommanded for chapters of more than 10 000 words
-              </div>
-              <div *ngSwitchCase="3">
-                You decide everything
-              </div>
-            </section>
-            <section *ngIf="type.value === 0 && styleIndex <= 2">
-              <mat-checkbox formControlName="secondCtrl" (change)="onCheckboxChanged($event, i)">Divide novel into parts</mat-checkbox>
-            </section>
-
-          </form>
-        </mat-step>
-        <mat-step>
-          <ng-template matStepLabel>Done</ng-template>
-          Your project is ready.
-          <div>
-            <!-- <button mat-button matStepperPrevious>Back</button> -->
-            <!-- <button mat-button (click)="stepper.reset()">Reset</button -->
-            <button mat-button (click)="create()">Let's go!</button>
-          </div>
-        </mat-step>
-
-      </mat-vertical-stepper>
-
-    </div>
-    <div class="card-footer"></div>
+<div class="card">
+  <div class="card-header">
+    <h1>New project</h1>
   </div>
+  <div class="card-block">
+    <mat-vertical-stepper linear="true" #stepper>
 
-</ng-template>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>What's the project?</ng-template>
+          <mat-form-field>
+            <input matInput #input placeholder="Name" maxlength="20" formControlName="firstCtrl1" required>
+            <mat-hint align="end">{{ input.value?.length || 0 }}/20</mat-hint>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="Project" #type formControlName="firstCtrl2" (change)="typeChanged($event)" required>
+              <mat-option *ngFor="let type of Types" [value]="type.value">
+                {{ type.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput formControlName="firstCtrl3" placeholder="Description"></textarea>
+          </mat-form-field>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Choose a template</ng-template>
+          <mat-tab-group (selectedTabChange)="tabChanged($event)">
+            <mat-tab *ngIf="type.value === 0" label="Short chapters">
+              <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+                  <button mat-icon-button disabled></button>
+                  {{ node.type }}
+                </mat-tree-node>
+                <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                  <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
+                    <mat-icon class="mat-icon-rtl-mirror">
+                      {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+                    </mat-icon>
+                  </button>
+                  {{ nodeNames[node.filename] }}
+                  &nbsp;<i class="fa fa-folder-o"></i>
+                </mat-tree-node>
+              </mat-tree>
+            </mat-tab>
+            <mat-tab *ngIf="type.value === 0" label="Medium chapters">
+              <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+                  <button mat-icon-button disabled></button>
+                  {{ node.type }}
+                </mat-tree-node>
+                <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                  <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
+                    <mat-icon class="mat-icon-rtl-mirror">
+                      {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+                    </mat-icon>
+                  </button>
+                  {{ nodeNames[node.filename] }}
+                  &nbsp;<i class="fa fa-folder-o"></i>
+                </mat-tree-node>
+              </mat-tree>
+            </mat-tab>
+            <mat-tab *ngIf="type.value === 0" label="Long chapters">
+              <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+                  <button mat-icon-button disabled></button>
+                  {{ node.type }}
+                </mat-tree-node>
+                <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                  <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
+                    <mat-icon class="mat-icon-rtl-mirror">
+                      {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+                    </mat-icon>
+                  </button>
+                  {{ nodeNames[node.filename] }}
+                  &nbsp;<i class="fa fa-folder-o"></i>
+                </mat-tree-node>
+              </mat-tree>
+            </mat-tab>
+            <mat-tab *ngIf="type.value === 0" label="Free style">
+              <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+                  <button mat-icon-button disabled></button>
+                  {{ node.type }}
+                </mat-tree-node>
+                <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                  <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
+                    <mat-icon class="mat-icon-rtl-mirror">
+                      {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+                    </mat-icon>
+                  </button>
+                  {{ nodeNames[node.filename] }}
+                  &nbsp;<i class="fa fa-folder-o"></i>
+                </mat-tree-node>
+              </mat-tree>
+            </mat-tab>
+            <mat-tab *ngIf="type.value === 1" label="Simple">
+              <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+                  <button mat-icon-button disabled></button>
+                  {{ node.type }}
+                </mat-tree-node>
+                <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                  <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
+                    <mat-icon class="mat-icon-rtl-mirror">
+                      {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+                    </mat-icon>
+                  </button>
+                  {{ nodeNames[node.filename] }}
+                  &nbsp;<i class="fa fa-folder-o"></i>
+                </mat-tree-node>
+              </mat-tree>
+            </mat-tab>
+            <mat-tab *ngIf="type.value === 1" label="Multi-section">
+              <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+                  <button mat-icon-button disabled></button>
+                  {{ node.type }}
+                </mat-tree-node>
+                <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                  <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
+                    <mat-icon class="mat-icon-rtl-mirror">
+                      {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+                    </mat-icon>
+                  </button>
+                  {{ nodeNames[node.filename] }}
+                  &nbsp;<i class="fa fa-folder-o"></i>
+                </mat-tree-node>
+              </mat-tree>
+            </mat-tab>
+            <mat-tab *ngIf="type.value === 1" label="Free style">
+              <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+                  <button mat-icon-button disabled></button>
+                  {{ node.type }}
+                </mat-tree-node>
+                <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                  <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
+                    <mat-icon class="mat-icon-rtl-mirror">
+                      {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+                    </mat-icon>
+                  </button>
+                  {{ nodeNames[node.filename] }}
+                  &nbsp;<i class="fa fa-folder-o"></i>
+                </mat-tree-node>
+              </mat-tree>
+            </mat-tab>
+          </mat-tab-group>
+          <section *ngIf="type.value === 0" [ngSwitch]="styleIndex">
+            <div *ngSwitchCase="0">
+              Recommanded for chapters of less than 2 000 words
+            </div>
+            <div *ngSwitchCase="1">
+              Recommanded for chapters of less than 10 000 words
+            </div>
+            <div *ngSwitchCase="2">
+              Recommanded for chapters of more than 10 000 words
+            </div>
+            <div *ngSwitchCase="3">
+              You decide everything
+            </div>
+          </section>
+          <section *ngIf="type.value === 0 && styleIndex <= 2">
+            <mat-checkbox formControlName="secondCtrl" (change)="onCheckboxChanged($event, i)">Divide novel into parts</mat-checkbox>
+          </section>
+        </form>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        Your project is ready.
+        <div>
+          <!-- <button mat-button matStepperPrevious>Back</button> -->
+          <!-- <button mat-button (click)="stepper.reset()">Reset</button -->
+          <button mat-button (click)="create()">Let's go!</button>
+        </div>
+      </mat-step>
+
+    </mat-vertical-stepper>
+  </div>
+  <div class="card-footer"></div>
+</div>
