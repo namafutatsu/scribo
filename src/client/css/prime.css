@@ -300,6 +300,7 @@
   top: -7px;
   position: relative; }
 .ui-tree .ui-tree-container {
+  overflow: unset;
   padding-top: 0px; }
 .ui-tree.ui-treenode-dragover {
   border-color: #cccccc; }

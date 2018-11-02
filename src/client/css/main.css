@@ -13,6 +13,7 @@ a {
   width: 7px;
   height: 7px;
   margin-left: 10px;
+  position: sticky;
 }
 
 ::-webkit-scrollbar-track {

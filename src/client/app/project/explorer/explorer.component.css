@@ -1,10 +1,9 @@
 :host {
-  position: fixed;
-  /* top: 48px; */
+  position: absolute;
   height: 100%;
   overflow: auto;
+  padding-top: 48px;
   padding-right: 10px;
-  /* padding-top: 20px; */
   background-color: #35383d;
   color: #cccccc; /* #f2eae1; */
   width: 260px;

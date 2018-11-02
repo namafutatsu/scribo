@@ -67,39 +67,6 @@ button:focus {
 
 input {
   padding-left: 7px;
+  border: 0;
+  border-radius: .25rem;
 }
-
-.ui-dialog {
-  min-height: unset;
-}
-
-.mat-drawer {
-  position: fixed;
-  top: 48px;
-}
-
-/* 
-sd-actionbar {
-  transform: translateX(-500%);
-  -webkit-transform: translateX(-500%);
-  animation: slide-in 0.5s forwards;
-  -webkit-animation: slide-in 0.5s forwards;
-}
-
-@keyframes slide-in {
-  100% { transform: translateX(0%); }
-}
-
-@-webkit-keyframes slide-in {
-  100% { -webkit-transform: translateX(0%); }
-}
-
-@keyframes slide-out {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-300px); }
-}
-
-@-webkit-keyframes slide-out {
-  0% { -webkit-transform: translateX(0%); }
-  100% { -webkit-transform: translateX(-300px); }
-} */

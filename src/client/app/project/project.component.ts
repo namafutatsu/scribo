@@ -1,13 +1,13 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Directive, Renderer2, Renderer } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 
 import { AuthService } from '../services/auth.service';
-import { STreeNode } from '../shared/models';
 import { ProjectService } from '../services/project.service';
 import { ToastComponent } from '../shared/toast/toast.component';
+import { STreeNode } from '../shared/models';
 
 @Component({
   moduleId: module.id,
@@ -16,7 +16,6 @@ import { ToastComponent } from '../shared/toast/toast.component';
   styleUrls: ['project.component.css']
 })
 export class ProjectComponent implements OnInit {
-  @ViewChild('nameInput') nameInput: ElementRef;
   project: STreeNode;
   file: STreeNode;
   isLoading = true;
@@ -24,19 +23,14 @@ export class ProjectComponent implements OnInit {
   showPanel = false;
   renamingNode: STreeNode;
   renamingInput: string;
-  extraIngredient: string;
-  // @ViewChild(BaconDirective) set appBacon(directive: BaconDirective) {
-  //   this.extraIngredient = directive.ingredient;
-  // }
-
+  @ViewChild('nameInput') private nameInput: ElementRef;
 
   constructor(
-    public projectService: ProjectService,
-    private route: ActivatedRoute,
     public auth: AuthService,
+    public projectService: ProjectService,
     public toast: ToastComponent,
     private hotkeysService: HotkeysService,
-    private renderer: Renderer2
+    private route: ActivatedRoute
   ) {
       this.hotkeysService.add(new Hotkey('ctrl+s', (event: KeyboardEvent): boolean => {
       event.preventDefault();
