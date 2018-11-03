@@ -93,6 +93,7 @@ export class ProjectComponent implements OnInit {
       }
     }
     this.namingNode.label = this.namingInput;
+    this.namingNode.Path = this.namingParent.Path + '/' + this.namingInput;
     this.namingNode = null;
   }
 }

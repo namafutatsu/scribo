@@ -217,7 +217,7 @@ export class TreeComponent implements OnInit {
       newParent = this.dictionary[newParent.ParentKey];
     }
     node.newIndex = event.dropIndex;
-    const name = this.getLabel(newParent, node.label);
+    const name = this.getLabel(newParent, node.label, node);
     node.label = name;
     node.newPath = newParent.Path + '/' + name;
     this.moved.emit(node);
@@ -233,32 +233,33 @@ export class TreeComponent implements OnInit {
     parent.children.forEach(o => (o as STreeNode).Index = parent.children.indexOf(o));
   }
 
-  getLabel(parent: STreeNode, name: string): string {
+  getLabel(parent: STreeNode, name: string, node: STreeNode = null): string {
     const prefix = name;
     let label = name;
     let i = 2;
-    while (this.alreadyExists(parent, label)) {
+    while (this.alreadyExists(parent, label, node)) {
       label = prefix + ' (' + i++ + ')';
     }
     return label;
   }
 
-  alreadyExists(parent: STreeNode, name: string) {
+  alreadyExists(parent: STreeNode, name: string, node: STreeNode = null) {
     for (const i in parent.children) {
-      if (parent.children[i].label === name) {
+      const c = parent.children[i];
+      if (c !== node && c.label === name) {
         return true;
       }
     }
     return false;
   }
 
-  doubleExists(parent: STreeNode, name: string) {
-    let count = 0;
-    for (const i in parent.children) {
-      if (parent.children[i].label === name && count++ >= 1) {
-        return true;
-      }
-    }
-    return false;
-  }
+  // doubleExists(parent: STreeNode, name: string) {
+  //   let count = 0;
+  //   for (const i in parent.children) {
+  //     if (parent.children[i].label === name && count++ >= 1) {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // }
 }
