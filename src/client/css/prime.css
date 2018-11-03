@@ -292,6 +292,7 @@
     color: #c9c9c9; }
 
 .ui-tree {
+  top: -10px;
   position: relative; }
 .ui-tree .ui-tree-container {
   overflow: unset;

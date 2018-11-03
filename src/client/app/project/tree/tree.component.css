@@ -43,3 +43,13 @@ button:disabled {
   z-index: 1000;
   cursor: unset;
 }
+
+.drop-blocker {
+  position: relative;
+  z-index: 1000;
+  height: 10px;
+}
+
+.ui-tree {
+  top: -10px;
+}

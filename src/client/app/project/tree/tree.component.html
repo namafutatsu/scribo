@@ -15,7 +15,7 @@
 
 <p-tree
   [(selection)]="selectedNode"
-  [value]="tree.children"
+  [value]="tree"
   [contextMenu]="cm"
   (onNodeSelect)="selectEvent($event.node)"
   (onNodeDrop)="moveEvent($event)"
@@ -24,6 +24,7 @@
   droppableNodes="true"
   dragdropScope="files"
   selectionMode="single">
-  
 </p-tree>
 <p-contextMenu #cm appendTo="body" [model]="contextMenu" ></p-contextMenu>
+
+<div class="drop-blocker"></div>

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener, OnInit } from '@angular/core';
 
 import { CommandService } from '../../services/command.service';
 import { Command, STreeNode } from '../../shared/models';
@@ -9,14 +9,18 @@ import { Command, STreeNode } from '../../shared/models';
   templateUrl: 'explorer.component.html',
   styleUrls: ['explorer.component.css']
 })
-export class ExplorerComponent {
+export class ExplorerComponent implements OnInit {
   @Input() project: STreeNode;
   @Output() fileSelected = new EventEmitter<STreeNode>();
   @Output() folderSelected = new EventEmitter<STreeNode>();
   @Output() saving = new EventEmitter();
   @Output() renaming = new EventEmitter<any>();
-
+  tree: STreeNode[];
   loading = false;
+
+  ngOnInit(): void {
+    this.tree = [this.project];
+  }
 
   constructor(
     public commandService: CommandService
