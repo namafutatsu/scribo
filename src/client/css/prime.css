@@ -1,10 +1,5 @@
 @charset "UTF-8";
-/*
-* Deprecated: Use nova instead
-*/
-/*
-* Deprecated: Use nova instead
-*/
+
 .ui-widget {
   font-family: Segoe UI, Arial, sans-serif;
   font-size: 1em; }
@@ -297,7 +292,6 @@
     color: #c9c9c9; }
 
 .ui-tree {
-  top: -7px;
   position: relative; }
 .ui-tree .ui-tree-container {
   overflow: unset;

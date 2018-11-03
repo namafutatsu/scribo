@@ -14,7 +14,7 @@ export class ExplorerComponent {
   @Output() fileSelected = new EventEmitter<STreeNode>();
   @Output() folderSelected = new EventEmitter<STreeNode>();
   @Output() saving = new EventEmitter();
-  @Output() renaming = new EventEmitter<STreeNode>();
+  @Output() renaming = new EventEmitter<any>();
 
   loading = false;
 
@@ -36,6 +36,8 @@ export class ExplorerComponent {
       } else {
         this.fileSelected.emit(node);
       }
+    } else {
+      this.fileSelected.emit(null);
     }
   }
 
@@ -66,8 +68,8 @@ export class ExplorerComponent {
     this.commandService.add(command);
   }
 
-  onRenaming(node: STreeNode) {
-    this.renaming.emit(node);
+  onRenaming(args: any) {
+    this.renaming.emit(args);
   }
 
   save(): void {

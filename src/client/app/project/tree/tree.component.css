@@ -1,7 +1,3 @@
-:host {
-  float: left;
-}
-
 input {
   height: 25px;
   margin: 0;
@@ -43,7 +39,7 @@ button:disabled {
 
 #toolbar {
   position: relative;
+  display: flex;
   z-index: 1000;
-  margin-left: 2px;
   cursor: unset;
 }

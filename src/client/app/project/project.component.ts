@@ -19,10 +19,12 @@ export class ProjectComponent implements OnInit {
   project: STreeNode;
   file: STreeNode;
   isLoading = true;
-  showActionBar = true;
+  // showActionBar = false;
   showPanel = false;
-  renamingNode: STreeNode;
-  renamingInput: string;
+  namingNode: STreeNode;
+  namingParent: STreeNode;
+  namingInput: string;
+  namingMessage: string;
   @ViewChild('nameInput') private nameInput: ElementRef;
 
   constructor(
@@ -46,8 +48,8 @@ export class ProjectComponent implements OnInit {
       .subscribe(project => {
         this.project = project;
         this.isLoading = false;
+        // this.showActionBar = true;
         this.showPanel = true;
-        this.showActionBar = true;
       });
     }
   }
@@ -72,15 +74,25 @@ export class ProjectComponent implements OnInit {
     // }
   }
 
-  onRenaming(node: STreeNode) {
-    this.renamingInput = node.label;
-    this.renamingNode = node;
+  onRenaming(args: any) {
+    this.namingMessage = null;
+    this.namingNode = args.node;
+    this.namingParent = args.parent;
+    this.namingInput = this.namingNode.label;
     setTimeout (() => {const element: HTMLInputElement = this.nameInput.nativeElement;
       element.select();
     }, 100);
   }
 
-  // clickNote(note: Note): void {
-  //   note.status = (note.status + 2) % 3 - 1;
-  // }
+  rename() {
+    for (const i in this.namingParent.children) {
+      const c = this.namingParent.children[i];
+      if (c !== this.namingNode && c.label === this.namingInput) {
+        this.namingMessage = 'Another element with the same name already exists';
+        return;
+      }
+    }
+    this.namingNode.label = this.namingInput;
+    this.namingNode = null;
+  }
 }

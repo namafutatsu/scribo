@@ -25,7 +25,7 @@ export class TreeComponent implements OnInit {
   @Output() created = new EventEmitter<STreeNode>();
   @Output() deleted = new EventEmitter<STreeNode>();
   @Output() moved = new EventEmitter<STreeNode>();
-  @Output() renaming = new EventEmitter<STreeNode>();
+  @Output() renaming = new EventEmitter<any>();
 
   selectedNode: STreeNode;
   basicContextMenu: MenuItem[];
@@ -137,12 +137,15 @@ export class TreeComponent implements OnInit {
   }
 
   startRenaming(node: STreeNode) {
-    this.renaming.emit(node);
+    const parent = this.dictionary[node.ParentKey];
+    this.renaming.emit({ node, parent });
   }
 
   delete(node: STreeNode): void {
     this.deleted.emit(node);
     if (node.ParentKey) {
+      this.selectedNode = null;
+      this.selected.emit(null);
       const parent = this.dictionary[node.ParentKey];
       const children = parent.children;
       const index = children.indexOf(node);
@@ -172,11 +175,11 @@ export class TreeComponent implements OnInit {
     context.parent.children.splice(context.index, 0, node);
     context.parent.expanded = true;
     this.selectedNode = node;
-    this.startRenaming(node);
     this.updateButtons(node);
     this.selected.emit(node);
     const parent = this.dictionary[node.ParentKey];
     this.updateIndexes(parent);
+    this.startRenaming(node);
     return node;
   }
 
@@ -235,7 +238,7 @@ export class TreeComponent implements OnInit {
     let label = name;
     let i = 2;
     while (this.alreadyExists(parent, label)) {
-      label = prefix + ' ' + i++;
+      label = prefix + ' (' + i++ + ')';
     }
     return label;
   }

@@ -3,12 +3,15 @@
 
 <mat-sidenav-container>
 
-  <mat-sidenav mode="side"
-    [(opened)]="showActionBar"
-    [disableClose]="true"
+  <!-- [(opened)]="showActionBar" -->
+  <!-- [disableClose]="true" -->
+  <mat-sidenav
+    opened
+    mode="side"
     class="actionbar-sidenav">
 
-    <sd-actionbar *ngIf="project"
+    <sd-actionbar
+      *ngIf="project"
       [exporter]="exporter"
       (saving)="onSaving($event)"
       (actionbarToggling)="onActionbarToggling($event)">
@@ -19,12 +22,14 @@
   <mat-sidenav-content>
     <mat-sidenav-container>
 
-      <mat-sidenav mode="side"
-        [disableClose]="true"
+      <mat-sidenav
         [(opened)]="showPanel"
+        [disableClose]="true"
+        mode="side"
         class="explorer-sidenav">
 
-        <sd-explorer *ngIf="project"
+        <sd-explorer
+          *ngIf="project"
           [project]="project"
           (fileSelected)="onFileSelected($event)"
           (folderSelected)="onFolderSelected($event)"
@@ -33,11 +38,12 @@
 
         </sd-explorer>
       </mat-sidenav>
-      <mat-sidenav-content  class="editor-content">
+      <mat-sidenav-content class="editor-content">
 
           <sd-loading [condition]="isLoading"></sd-loading>
 
-          <sd-editor *ngIf="file"
+          <sd-editor
+            *ngIf="file"
             [file]="file"
             (saving)="onSaving($event)"
             (changed)="onContentChanged($event)">
@@ -62,7 +68,7 @@
 <sd-exporter #exporter [project]="project" [projectService]="projectService"></sd-exporter> -->
 
 <p-dialog 
-  [(visible)]="renamingNode"
+  [(visible)]="namingNode"
   [modal]="true"
   [responsive]="true"
   [width]="350"
@@ -73,20 +79,24 @@
   [baseZIndex]="10000"
   header="Choose a name">
 
+  <div id="naming-message">{{ namingMessage }}</div>
+
   <input
     #nameInput
-    [(ngModel)]="renamingInput"
+    [(ngModel)]="namingInput"
+    elastic-input
     type="text"
-    size="30">
+    size="30"
+    id="naming-input">
 
   <p-footer>
     <button
-      (click)="renamingNode.label=renamingInput; renamingNode=null;"
+      (click)="rename()"
       class="btn btn-primary">
-      Rename
+      Save
     </button>
     <button
-      (click)="renamingNode=null"
+      (click)="namingNode=null"
       class="btn btn-secondary">
       Cancel
     </button>
