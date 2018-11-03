@@ -84,6 +84,7 @@
   <input
     #nameInput
     [(ngModel)]="namingInput"
+    (keyup)="onRenameInpuKey($event)"
     elastic-input
     type="text"
     size="30"

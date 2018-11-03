@@ -34,7 +34,7 @@ export class ProjectComponent implements OnInit {
     private hotkeysService: HotkeysService,
     private route: ActivatedRoute
   ) {
-      this.hotkeysService.add(new Hotkey('ctrl+s', (event: KeyboardEvent): boolean => {
+    this.hotkeysService.add(new Hotkey('ctrl+s', (event: KeyboardEvent): boolean => {
       event.preventDefault();
       this.onSaving();
       return false; // Prevent bubbling
@@ -95,5 +95,13 @@ export class ProjectComponent implements OnInit {
     this.namingNode.label = this.namingInput;
     this.namingNode.Path = this.namingParent.Path + '/' + this.namingInput;
     this.namingNode = null;
+  }
+
+  onRenameInpuKey(event: any) {
+    if (event.keyCode === 13) {
+      this.rename();
+    } else if (event.keyCode === 27) {
+      this.namingNode = null;
+    }
   }
 }
