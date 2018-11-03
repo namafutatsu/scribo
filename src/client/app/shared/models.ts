@@ -51,7 +51,7 @@ export class STreeNode implements TreeNode {
   expandedIcon?: any;
   collapsedIcon?: any;
   children?: TreeNode[];
-  leaf?: boolean;
+  IsLeaf?: boolean;
   expanded?: boolean;
   type?: string;
   parent?: TreeNode;

@@ -35,7 +35,7 @@ export class ExplorerComponent implements OnInit {
 
   onSelected(node: STreeNode): void {
     if (node) {
-      if (node.droppable) {
+      if (!node.IsLeaf) {
         this.folderSelected.emit(node);
       } else {
         this.fileSelected.emit(node);
@@ -51,7 +51,7 @@ export class ExplorerComponent implements OnInit {
     command.Index = node.Index;
     command.Path = node.Path;
     command.Type = type;
-    command.Discriminator = node.droppable ? 0 : 1;
+    command.Discriminator = node.IsLeaf ? 1 : 0;
     return command;
   }
 

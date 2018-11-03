@@ -55,14 +55,14 @@ export class TreeComponent implements OnInit {
   setDictionary(folder: STreeNode): void {
     this.dictionary[folder.Key] = folder;
     if (folder.children) {
-      folder.children.forEach(o => {
-        const t = o as STreeNode;
-        if (!t.droppable) {
-          this.dictionary[t.Key] = t;
+      for (const i in folder.children) {
+        const child = folder.children[i] as STreeNode;
+        if (child.IsLeaf) {
+          this.dictionary[child.Key] = child;
         } else {
-          this.setDictionary(t);
+          this.setDictionary(child);
         }
-      });
+      }
     }
   }
 
@@ -80,13 +80,17 @@ export class TreeComponent implements OnInit {
   getCreationContext(node: STreeNode) {
     const level = node.Level;
     let parentKey = node.Key;
-    if (!node.droppable) {
+    if (node.IsLeaf) {
       parentKey = node.ParentKey;
     }
     const parentFile = this.dictionary[parentKey];
     let parentFolder = this.dictionary[parentKey];
     let folderLabel = '';
     let fileLabel = '';
+    let index = node.Index + 1;
+    if (!node.IsLeaf) {
+      index = node.children.length;
+    }
     if (this.structure.length === 0) {
       folderLabel = 'Folder';
       fileLabel = 'File';
@@ -104,15 +108,15 @@ export class TreeComponent implements OnInit {
         // If we are on a file, we can create an uncle
         parentFolder = this.dictionary[parentFolder.ParentKey];
         folderLabel = this.structure[this.structure.length - 2];
+        index = parentFolder.children.length;
       }
       if (level >= this.structure.length - 1) {
         // If you are on a folder/file, we can create a child/brother
         fileLabel = this.structure[this.structure.length - 1];
+      } else {
+        // Instead of a folder, you can directly create a file as a merged version of this folder
+        fileLabel = this.structure[level];
       }
-    }
-    let index = node.Index + 1;
-    if (node.droppable) {
-      index = node.children.length;
     }
     const context = new CreationContext();
     context.folderLabel = folderLabel;
@@ -134,14 +138,14 @@ export class TreeComponent implements OnInit {
       newItems.push({
         label: 'New ' + context.folderLabel,
         icon: 'fa fa-folder',
-        command: () => this.createFolder(context.folderLabel, context)
+        command: () => this.createNode(context.folderLabel, context, false)
       });
     }
     if (context.fileLabel !== '') {
       newItems.push({
         label: 'New ' + context.fileLabel,
         icon: 'fa fa-file',
-        command: () => this.createFile(context.fileLabel, context)
+        command: () => this.createNode(context.fileLabel, context, true)
       });
     }
     // this.contextMenu = [{
@@ -171,67 +175,74 @@ export class TreeComponent implements OnInit {
     }
   }
 
-  createNode(label: string, context: CreationContext): STreeNode {
-    const name = this.getLabel(context.parent, 'New ' + label);
+  createNode(label: string, context: CreationContext, leaf: boolean): STreeNode {
+    const parent = leaf ? context.parentFile : context.parentFolder;
+    const name = this.getLabel(parent, 'New ' + label);
     const node: STreeNode = {
       Key: UUID.UUID(),
-      ParentKey: context.parent.Key,
+      ParentKey: parent.Key,
       Index: context.index,
-      Level: context.parent.Level + 1,
-      Path: context.parent.Path + '/' + name,
+      Level: parent.Level + 1,
+      Path: parent.Path + '/' + name,
       label: name
     };
-    context.parent.children.forEach(o => {
+    parent.children.forEach(o => {
       const t = o as STreeNode;
       if (t.Index >= context.index) {
         t.Index += 1;
       }
     });
+    if (leaf) {
+      node.IsLeaf = true;
+      node.droppable = !node.IsLeaf;
+      node.icon = 'fa fa-file-o';
+    } else {
+      node.children = [];
+      node.IsLeaf = false;
+      node.droppable = !node.IsLeaf;
+      node.collapsedIcon = 'fa fa-folder';
+      node.expandedIcon = 'fa fa-folder-open';
+    }
     this.dictionary[node.Key] = node;
-    context.parent.children.splice(context.index, 0, node);
-    context.parent.expanded = true;
+    parent.children.splice(context.index, 0, node);
+    parent.expanded = true;
     this.selectedNode = node;
     this.updateButtons(node);
     this.selected.emit(node);
-    const parent = this.dictionary[node.ParentKey];
-    this.updateIndexes(parent);
+    this.updateIndexes(this.dictionary[node.ParentKey]);
     this.startRenaming(node);
     return node;
   }
 
   createFolderFromNode(node: STreeNode) {
     const context = this.getCreationContext(node);
-    this.createFolder(context.folderLabel, context);
+    this.createNode(context.folderLabel, context, false);
   }
 
-  createFolder(label: string, context: CreationContext) {
-    context.parent = context.parentFolder;
-    const node = this.createNode(label, context);
-    node.children = [];
-    node.droppable = true;
-    node.collapsedIcon = 'fa fa-folder';
-    node.expandedIcon = 'fa fa-folder-open';
-    this.created.emit(node);
-  }
+  // createFolder(label: string, context: CreationContext) {
+  //   context.parent = context.parentFolder;
+  //   const node = this.createNode(label, context);
+
+  //   this.created.emit(node);
+  // }
 
   createFileFromNode(node: STreeNode) {
     const context = this.getCreationContext(node);
-    this.createFile(context.fileLabel, context);
+    this.createNode(context.fileLabel, context, true);
   }
 
-  createFile(label: string, context: CreationContext) {
-    context.parent = context.parentFile;
-    const node = this.createNode(label, context);
-    node.droppable = false;
-    node.icon = 'fa fa-file-o';
-    this.created.emit(node);
-  }
+  // createFile(label: string, context: CreationContext) {
+  //   context.parent = context.parentFile;
+  //   const node = this.createNode(label, context);
+
+  //   this.created.emit(node);
+  // }
 
   moveEvent(event: any): void {
     const node: STreeNode = event.dragNode;
     const parent = this.dictionary[node.ParentKey];
     let newParent: STreeNode = event.dropNode;
-    if (!newParent.droppable || event.originalEvent.target.className !== 'ng-star-inserted') {
+    if (newParent.IsLeaf || event.originalEvent.target.className !== 'ng-star-inserted') {
       newParent = this.dictionary[newParent.ParentKey];
     }
     node.newIndex = event.dropIndex;
