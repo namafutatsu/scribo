@@ -64,7 +64,6 @@ export class STreeNode implements TreeNode {
 
 export class Command {
   Type: number;
-  Done: boolean;
   Key: string;
   CommandKey: string;
   Path: string;
@@ -72,6 +71,7 @@ export class Command {
   Index: number;
   MoveToIndex?: number;
   Discriminator: number;
+  Text: string;
   order: number;
   subscription: Subject<any>;
 }

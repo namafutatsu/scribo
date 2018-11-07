@@ -56,11 +56,13 @@ export class ExplorerComponent implements OnInit {
   }
 
   onCreated(node: STreeNode): void {
+    this.save(node);
     const command = this.getCommand(node, 0);
     this.commandService.add(command);
   }
 
   onMoved(node: STreeNode): void {
+    this.save(node);
     const command = this.getCommand(node, 1);
     command.MoveToPath = node.newPath;
     command.MoveToIndex = node.newIndex;
@@ -68,6 +70,7 @@ export class ExplorerComponent implements OnInit {
   }
 
   onDeleted(node: STreeNode) {
+    this.save(node);
     const command = this.getCommand(node, 2);
     this.commandService.add(command);
   }
@@ -76,7 +79,7 @@ export class ExplorerComponent implements OnInit {
     this.renaming.emit(args);
   }
 
-  save(): void {
+  save(node: STreeNode): void {
     this.saving.emit();
   }
 }

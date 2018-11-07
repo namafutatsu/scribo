@@ -23,8 +23,8 @@ export class ProjectService extends AuthedService {
 
   export(project: Project): Observable<Blob> {
     return this._getBlob<void>('Export/' + project.Name)
-    .pipe(
-      map((response: any) => new Blob([response.blob()], { type: 'application/zip' }))
-    );
+      .pipe(
+        map((response: any) => new Blob([response.blob()], { type: 'application/zip' }))
+      );
   }
 }

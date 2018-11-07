@@ -23,6 +23,12 @@ export class CommandService extends AuthedService {
   }
 
   add(command: Command): Subject<any> {
+    if (this.pending() && command.Type === 3) {
+      const lastCommand = this.queue[this.queue.length - 1];
+      if (lastCommand.Type === 3 && lastCommand.Key === command.Key) {
+        return null;
+      }
+    }
     command.CommandKey = UUID.UUID();
     command.order = this.order++;
     command.Done = false;

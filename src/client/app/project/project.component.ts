@@ -7,7 +7,8 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { AuthService } from '../services/auth.service';
 import { ProjectService } from '../services/project.service';
 import { ToastComponent } from '../shared/toast/toast.component';
-import { STreeNode } from '../shared/models';
+import { STreeNode, Command } from '../shared/models';
+import { CommandService } from '../services/command.service';
 
 @Component({
   moduleId: module.id,
@@ -29,6 +30,7 @@ export class ProjectComponent implements OnInit {
 
   constructor(
     public auth: AuthService,
+    public commandService: CommandService,
     public projectService: ProjectService,
     public toast: ToastComponent,
     private hotkeysService: HotkeysService,
@@ -72,6 +74,16 @@ export class ProjectComponent implements OnInit {
     //     this.toast.setMessage('Saved', 'success');
     //   });
     // }
+    const node = this.file;
+    if (!node) {
+      return;
+    }
+    const command = new Command();
+    command.Key = node.Key;
+    command.Path = node.Path;
+    command.Type = 3;
+    command.Text = node.data;
+    this.commandService.add(command);
   }
 
   onRenaming(args: any) {
