@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
@@ -26,6 +26,7 @@ export class ProjectComponent implements OnInit {
   namingParent: STreeNode;
   namingInput: string;
   namingMessage: string;
+  texts: { [key: string]: string; } = {};
   @ViewChild('nameInput') private nameInput: ElementRef;
 
   constructor(
@@ -46,13 +47,32 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     if (this.auth.loggedIn) {
       this.route.params
-      .switchMap((params: Params) => this.projectService.get(params['key']))
-      .subscribe(project => {
-        this.project = project;
-        this.isLoading = false;
-        // this.showActionBar = true;
-        this.showPanel = true;
-      });
+        .switchMap((params: Params) => this.projectService.get(params['key'])).subscribe(project => {
+          this.project = project;
+          this.isLoading = false;
+          // this.showActionBar = true;
+          this.showPanel = true;
+          // this.getTexts(project.label, this.project);
+          this.projectService.read(project.label).subscribe(texts => {
+            this.getTexts(texts);
+          });
+        });
+    }
+  }
+
+  getTexts(/*projectName: string, */folder: STreeNode): void {
+    if (folder.children) {
+      for (const i in folder.children) {
+        const child = folder.children[i] as STreeNode;
+        if (child.IsLeaf) {
+          this.texts[child.Key] = child.data;
+          // this.fileService.get(projectName, child.Key).subscribe(file => {
+          //   this.texts[child.Key] = file;
+          // });
+        } else {
+          this.getTexts(/*projectName, */child);
+        }
+      }
     }
   }
 

@@ -1,7 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { STreeNode } from '../../shared/models';
-
 declare var $: any;
 
 @Component({
@@ -11,7 +9,8 @@ declare var $: any;
   styleUrls: ['editor.component.css']
 })
 export class EditorComponent implements OnInit {
-  @Input() file: STreeNode;
+  @Input() texts: { [key: string]: string; };
+  @Input() key: string;
   @Output() saving = new EventEmitter();
   @Output() changed = new EventEmitter();
   buttons = [

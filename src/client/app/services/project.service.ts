@@ -13,8 +13,12 @@ export class ProjectService extends AuthedService {
     return this._get<Project[]>('GetAll');
   }
 
-  get(key: string): Observable<STreeNode> {
-    return this._post<STreeNode>('Get', { Name: key, Read: true });
+  get(name: string): Observable<STreeNode> {
+    return this._post<STreeNode>('Get', { Name: name, Read: false });
+  }
+
+  read(name: string): Observable<STreeNode> {
+    return this._post<STreeNode>('Get', { Name: name, Read: true });
   }
 
   post(project: Project): Observable<Project> {

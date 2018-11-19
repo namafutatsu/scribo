@@ -1,5 +1,7 @@
 <sd-toast [message]="toast.message"></sd-toast>
-<sd-loading [condition]="isLoading"></sd-loading>
+<div id="loader">
+  <sd-loading [condition]="isLoading"></sd-loading>
+</div>
 
 <ul *ngIf="projects">
   <li *ngFor="let project of projects">

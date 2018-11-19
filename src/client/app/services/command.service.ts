@@ -31,7 +31,6 @@ export class CommandService extends AuthedService {
     }
     command.CommandKey = UUID.UUID();
     command.order = this.order++;
-    command.Done = false;
     command.subscription = new Subject<any>();
     this.queue.push(command);
     if (this.queue.length === 1) {

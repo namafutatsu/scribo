@@ -3,6 +3,10 @@
   padding: 0 16px;
 }
 
+#loader {
+  margin-left: 50%;
+}
+
 ul {
   list-style-type: none;
 }

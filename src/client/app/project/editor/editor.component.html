@@ -1,1 +1,2 @@
-<div class="editor" [froalaEditor]='options' [(froalaModel)]="file.data"></div> 
+<sd-loading [condition]="!texts[key]"></sd-loading>
+<div *ngIf="texts[key]" class="editor" [froalaEditor]='options' [(froalaModel)]="texts[key]"></div> 
