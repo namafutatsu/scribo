@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter, HostListener, OnInit } from '@angular/core';
 
-import { CommandService } from '../../services/command.service';
 import { Command, STreeNode } from '../../shared/models';
 
 @Component({
@@ -11,38 +10,21 @@ import { Command, STreeNode } from '../../shared/models';
 })
 export class ExplorerComponent implements OnInit {
   @Input() project: STreeNode;
-  @Output() fileSelected = new EventEmitter<STreeNode>();
-  @Output() folderSelected = new EventEmitter<STreeNode>();
+  @Output() selecting = new EventEmitter<STreeNode>();
   @Output() saving = new EventEmitter();
   @Output() renaming = new EventEmitter<any>();
+  @Output() creating = new EventEmitter<STreeNode>();
+  @Output() moving  = new EventEmitter<STreeNode>();
+  @Output() deleting  = new EventEmitter<STreeNode>();
   tree: STreeNode[];
   loading = false;
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.tree = [this.project];
   }
 
-  constructor(
-    public commandService: CommandService
-  ) {}
-
-  @HostListener('window:beforeunload', ['$event'])
-  public beforeunloadHandler($event: any) {
-    if (this.commandService.pending()) {
-      $event.returnValue = 'Changes you made may not be saved';
-    }
-  }
-
-  onSelected(node: STreeNode): void {
-    if (node) {
-      if (!node.IsLeaf) {
-        this.folderSelected.emit(node);
-      } else {
-        this.fileSelected.emit(node);
-      }
-    } else {
-      this.fileSelected.emit(null);
-    }
+  onSelected(node: STreeNode) {
+    this.selecting.emit(node);
   }
 
   getCommand(node: STreeNode, type: number): Command {
@@ -55,31 +37,23 @@ export class ExplorerComponent implements OnInit {
     return command;
   }
 
-  onCreated(node: STreeNode): void {
-    this.save(node);
-    const command = this.getCommand(node, 0);
-    this.commandService.add(command);
+  onCreated(node: STreeNode) {
+    this.creating.emit(node);
   }
 
-  onMoved(node: STreeNode): void {
-    this.save(node);
-    const command = this.getCommand(node, 1);
-    command.MoveToPath = node.newPath;
-    command.MoveToIndex = node.newIndex;
-    this.commandService.add(command);
+  onMoved(node: STreeNode) {
+    this.moving.emit(node);
   }
 
   onDeleted(node: STreeNode) {
-    this.save(node);
-    const command = this.getCommand(node, 2);
-    this.commandService.add(command);
+    this.deleting.emit(node);
   }
 
   onRenaming(args: any) {
     this.renaming.emit(args);
   }
 
-  save(node: STreeNode): void {
+  save(node: STreeNode) {
     this.saving.emit();
   }
 }

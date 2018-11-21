@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit, ViewChild, ElementRef, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnChanges, HostListener } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
@@ -7,8 +7,7 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { AuthService } from '../services/auth.service';
 import { ProjectService } from '../services/project.service';
 import { ToastComponent } from '../shared/toast/toast.component';
-import { STreeNode, Command } from '../shared/models';
-import { CommandService } from '../services/command.service';
+import { STreeNode } from '../shared/models';
 
 @Component({
   moduleId: module.id,
@@ -27,11 +26,11 @@ export class ProjectComponent implements OnInit {
   namingInput: string;
   namingMessage: string;
   texts: { [key: string]: string; } = {};
+  updating = false;
   @ViewChild('nameInput') private nameInput: ElementRef;
 
   constructor(
     public auth: AuthService,
-    public commandService: CommandService,
     public projectService: ProjectService,
     public toast: ToastComponent,
     private hotkeysService: HotkeysService,
@@ -52,7 +51,6 @@ export class ProjectComponent implements OnInit {
           this.isLoading = false;
           // this.showActionBar = true;
           this.showPanel = true;
-          // this.getTexts(project.label, this.project);
           this.projectService.read(project.label).subscribe(texts => {
             this.getTexts(texts);
           });
@@ -60,17 +58,21 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  getTexts(/*projectName: string, */folder: STreeNode): void {
+  @HostListener('window:beforeunload', ['$event'])
+  public beforeunloadHandler($event: any) {
+    if (this.updating) {
+      $event.returnValue = 'Changes you made may not be saved';
+    }
+  }
+
+  getTexts(folder: STreeNode): void {
     if (folder.children) {
       for (const i in folder.children) {
         const child = folder.children[i] as STreeNode;
         if (child.IsLeaf) {
           this.texts[child.Key] = child.data;
-          // this.fileService.get(projectName, child.Key).subscribe(file => {
-          //   this.texts[child.Key] = file;
-          // });
         } else {
-          this.getTexts(/*projectName, */child);
+          this.getTexts(child);
         }
       }
     }
@@ -80,12 +82,16 @@ export class ProjectComponent implements OnInit {
     this.showPanel = !this.showPanel;
   }
 
-  onFolderSelected(folder: STreeNode) {
-    this.file = null;
-  }
-
-  onFileSelected(file: STreeNode) {
-    this.file = file;
+  onSelecting(node: STreeNode): void {
+    if (node) {
+      if (!node.IsLeaf) {
+        this.file = null;
+      } else {
+        this.file = node;
+      }
+    } else {
+      this.file = null;
+    }
   }
 
   onSaving(): void {
@@ -94,16 +100,30 @@ export class ProjectComponent implements OnInit {
     //     this.toast.setMessage('Saved', 'success');
     //   });
     // }
-    const node = this.file;
-    if (!node) {
-      return;
-    }
-    const command = new Command();
-    command.Key = node.Key;
-    command.Path = node.Path;
-    command.Type = 3;
-    command.Text = node.data;
-    this.commandService.add(command);
+    // const node = this.file;
+    // if (!node) {
+    //   return;
+    // }
+    // const command = new Command();
+    // command.Key = node.Key;
+    // command.Path = node.Path;
+    // command.Type = 3;
+    // command.Text = node.data;
+    // this.commandService.add(command);
+  }
+
+  onCreating(node: STreeNode) {
+    this.texts[node.Key] = ' ';
+    this.onSelecting(node);
+    this.update();
+  }
+
+  onMoving(node: STreeNode) {
+    this.update();
+  }
+
+  onDeleting(node: STreeNode) {
+    this.update();
   }
 
   onRenaming(args: any) {
@@ -127,6 +147,7 @@ export class ProjectComponent implements OnInit {
     this.namingNode.label = this.namingInput;
     this.namingNode.Path = this.namingParent.Path + '/' + this.namingInput;
     this.namingNode = null;
+    this.update();
   }
 
   onRenameInpuKey(event: any) {
@@ -135,5 +156,10 @@ export class ProjectComponent implements OnInit {
     } else if (event.keyCode === 27) {
       this.namingNode = null;
     }
+  }
+
+  update() {
+    this.updating = true;
+    this.projectService.update(this.project).subscribe(o => this.updating = false);
   }
 }

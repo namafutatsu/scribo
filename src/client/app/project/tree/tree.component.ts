@@ -167,7 +167,6 @@ export class TreeComponent implements OnInit {
   }
 
   delete(node: STreeNode): void {
-    this.deleted.emit(node);
     if (node.ParentKey) {
       this.selectedNode = null;
       this.selected.emit(null);
@@ -177,6 +176,7 @@ export class TreeComponent implements OnInit {
       children.splice(index, 1);
       delete this.dictionary[node.Key];
       this.updateIndexes(parent);
+      this.deleted.emit(node);
     }
   }
 
@@ -215,7 +215,6 @@ export class TreeComponent implements OnInit {
     parent.expanded = true;
     this.selectedNode = node;
     this.updateButtons(node);
-    this.selected.emit(node);
     this.updateIndexes(this.dictionary[node.ParentKey]);
     this.startRenaming(node);
     this.created.emit(node);
@@ -242,13 +241,13 @@ export class TreeComponent implements OnInit {
     const name = this.getLabel(newParent, node.label, node);
     node.label = name;
     node.newPath = newParent.Path + '/' + name;
-    this.moved.emit(node);
     newParent.expanded = true;
     node.Path = node.newPath;
     node.ParentKey = newParent.Key;
     node.Index = node.newIndex;
     this.updateIndexes(parent);
     this.updateIndexes(newParent);
+    this.moved.emit(node);
   }
 
   updateIndexes(parent: STreeNode) {
@@ -278,14 +277,4 @@ export class TreeComponent implements OnInit {
     }
     return false;
   }
-
-  // doubleExists(parent: STreeNode, name: string) {
-  //   let count = 0;
-  //   for (const i in parent.children) {
-  //     if (parent.children[i].label === name && count++ >= 1) {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // }
 }

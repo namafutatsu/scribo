@@ -31,10 +31,12 @@
         <sd-explorer
           *ngIf="project"
           [project]="project"
-          (fileSelected)="onFileSelected($event)"
-          (folderSelected)="onFolderSelected($event)"
+          (selecting)="onSelecting($event)"
           (saving)="onSaving($event)"
-          (renaming)="onRenaming($event)">
+          (renaming)="onRenaming($event)"
+          (creating)="onCreating($event)"
+          (deleting)="onDeleting($event)"
+          (moving)="onMoving($event)">
         </sd-explorer>
 
       </mat-sidenav>

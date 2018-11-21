@@ -92,7 +92,7 @@ export class AuthService {
   }
 
   post<T>(operation = 'operation', url: string, model: any): Observable<T> {
-    return this.httpClient.post<T>(url, model,  { headers: this.headers })
+    return this.httpClient.post<T>(url, model, { headers: this.headers })
     .pipe(
       catchError(this.handleError(operation, null))
     );
