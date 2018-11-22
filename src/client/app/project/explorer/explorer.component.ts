@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter, HostListener, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
-import { Command, STreeNode } from '../../shared/models';
+import { STreeNode } from '../../shared/models';
 
 @Component({
   moduleId: module.id,
@@ -25,16 +25,6 @@ export class ExplorerComponent implements OnInit {
 
   onSelected(node: STreeNode) {
     this.selecting.emit(node);
-  }
-
-  getCommand(node: STreeNode, type: number): Command {
-    const command = new Command();
-    command.Key = node.Key;
-    command.Index = node.Index;
-    command.Path = node.Path;
-    command.Type = type;
-    command.Discriminator = node.IsLeaf ? 1 : 0;
-    return command;
   }
 
   onCreated(node: STreeNode) {

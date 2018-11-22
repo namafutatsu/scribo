@@ -22,10 +22,10 @@ import { ProjectsModule } from './projects/projects.module';
 import { RegisterModule } from './register/register.module';
 import { SharedModule } from './shared/shared.module';
 
+import { AuthService } from './services/auth.service';
+import { FileService } from './services/file.service';
 import { ProjectService } from './services/project.service';
 import { UserService } from './services/user.service';
-import { AuthService } from './services/auth.service';
-import { CommandService } from './services/command.service';
 
 @NgModule({
   imports: [
@@ -52,7 +52,7 @@ import { CommandService } from './services/command.service';
   declarations: [AppComponent],
   providers: [
     AuthService,
-    CommandService,
+    FileService,
     ProjectService,
     UserService,
     {

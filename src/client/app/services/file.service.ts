@@ -7,8 +7,12 @@ import { AuthedService } from './auth.service';
 export class FileService extends AuthedService {
   protected controller = 'File';
 
-  get(projectName: string, key: string): Observable<string> {
-    return this._post<string>('Read', { Project: projectName, Key: key, Read: true });
+  // get(projectName: string, key: string): Observable<string> {
+  //   return this._post<string>('Read', { Project: projectName, Key: key, Read: true });
+  // }
+
+  write(projectName: string, key: string, text: string): Observable<void> {
+    return this._post<void>('Write', { Project: projectName, Key: key, Text: text });
   }
 
   // getAll(projectName: string): Observable<{ [key: string]: string; }> {

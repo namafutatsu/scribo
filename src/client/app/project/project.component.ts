@@ -5,6 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 
 import { AuthService } from '../services/auth.service';
+import { FileService } from '../services/file.service';
 import { ProjectService } from '../services/project.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { STreeNode } from '../shared/models';
@@ -27,10 +28,14 @@ export class ProjectComponent implements OnInit {
   namingMessage: string;
   texts: { [key: string]: string; } = {};
   updating = false;
+  uploading = false;
+  uploadingTexts = new Set<string>();
   @ViewChild('nameInput') private nameInput: ElementRef;
+  @ViewChild('pending') private pending: ElementRef;
 
   constructor(
     public auth: AuthService,
+    public fileService: FileService,
     public projectService: ProjectService,
     public toast: ToastComponent,
     private hotkeysService: HotkeysService,
@@ -43,7 +48,7 @@ export class ProjectComponent implements OnInit {
     }));
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     if (this.auth.loggedIn) {
       this.route.params
         .switchMap((params: Params) => this.projectService.get(params['key'])).subscribe(project => {
@@ -56,16 +61,17 @@ export class ProjectComponent implements OnInit {
           });
         });
     }
+    this.unpend();
   }
 
   @HostListener('window:beforeunload', ['$event'])
   public beforeunloadHandler($event: any) {
-    if (this.updating) {
+    if (this.updating || this.uploading) {
       $event.returnValue = 'Changes you made may not be saved';
     }
   }
 
-  getTexts(folder: STreeNode): void {
+  getTexts(folder: STreeNode) {
     if (folder.children) {
       for (const i in folder.children) {
         const child = folder.children[i] as STreeNode;
@@ -78,11 +84,12 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  onActionbarToggling(): void {
+  onActionbarToggling() {
     this.showPanel = !this.showPanel;
   }
 
-  onSelecting(node: STreeNode): void {
+  onSelecting(node: STreeNode) {
+    this.save();
     if (node) {
       if (!node.IsLeaf) {
         this.file = null;
@@ -94,22 +101,41 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  onSaving(): void {
-    // if (this.project !== undefined) {
-    //   this.projectService.update(this.project).then(res => {
-    //     this.toast.setMessage('Saved', 'success');
-    //   });
-    // }
-    // const node = this.file;
-    // if (!node) {
-    //   return;
-    // }
-    // const command = new Command();
-    // command.Key = node.Key;
-    // command.Path = node.Path;
-    // command.Type = 3;
-    // command.Text = node.data;
-    // this.commandService.add(command);
+  pend() {
+    if (this.uploading || this.updating)
+      this.pending.nativeElement.hidden = false;
+  }
+
+  unpend() {
+    if (!this.uploading && !this.updating)
+      this.pending.nativeElement.hidden = true;
+  }
+
+  save() {
+    this.update();
+    if (this.file) {
+      const key = this.file.Key;
+      if (!this.uploadingTexts.has(key)) {
+        this.uploadingTexts.add(key);
+        this.uploading = true;
+        this.pend();
+      }
+      this.updating = true;
+      this.pend();
+      this.uploadingTexts.forEach(o => {
+        this.fileService.write(this.project.label, o, this.texts[o]).subscribe(res => {
+          this.uploadingTexts.delete(key);
+          if (this.uploadingTexts.size === 0) {
+            this.uploading = false;
+            this.unpend();
+          }
+        });
+      });
+    }
+  }
+
+  onSaving() {
+    this.save();
   }
 
   onCreating(node: STreeNode) {
@@ -160,6 +186,10 @@ export class ProjectComponent implements OnInit {
 
   update() {
     this.updating = true;
-    this.projectService.update(this.project).subscribe(o => this.updating = false);
+    this.pend();
+    this.projectService.update(this.project).subscribe(o => {
+      this.updating = false;
+      this.unpend();
+    });
   }
 }

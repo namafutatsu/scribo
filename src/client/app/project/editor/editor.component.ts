@@ -83,8 +83,10 @@ export class EditorComponent implements OnInit {
     toolbarButtonsMD: this.buttons,
     toolbarButtonsXS: this.buttons,
     events : {
-      'froalaEditor.save.before' : (e: any, editor: any) =>
-        this.saving.emit()
+      'froalaEditor.save.before' : (e: any, editor: any) => {
+        e.stopPropagation();
+        this.save();
+      }
       // 'froalaEditor.contentChanged' : (e: any, editor: any) => {
       //   if (!this.file.init) {
       //     this.file.init = true;
@@ -97,7 +99,11 @@ export class EditorComponent implements OnInit {
     toolbarStickyOffset: 48
   };
 
-  ngOnInit(): void {
+  save() {
+    this.saving.emit();
+  }
+
+  ngOnInit() {
     $.FroalaEditor.RegisterShortcut(83, 'save');
   }
 }
