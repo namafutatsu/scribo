@@ -109,7 +109,7 @@ export class ProjectComponent implements OnInit {
   }
 
   save() {
-    // this.update();
+    this.update();
     if (this.file) {
       const key = this.file.Key;
       if (!this.uploadingTexts.has(key)) {
