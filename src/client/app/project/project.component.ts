@@ -32,6 +32,7 @@ export class ProjectComponent implements OnInit {
   uploadingTexts = new Set<string>();
   @ViewChild('nameInput') private nameInput: ElementRef;
   @ViewChild('pending') private pending: ElementRef;
+  @ViewChild('warning') private warning: ElementRef;
 
   constructor(
     public auth: AuthService,
@@ -49,6 +50,8 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.updateIcons();
+    this.auth.disconnected.subscribe(o => this.updateIcons());
     if (this.auth.loggedIn) {
       this.route.params
         .switchMap((params: Params) => this.projectService.get(params['key'])).subscribe(project => {
@@ -61,7 +64,6 @@ export class ProjectComponent implements OnInit {
           });
         });
     }
-    this.unpend();
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -101,35 +103,36 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  pend() {
-    if (this.uploading || this.updating)
-      this.pending.nativeElement.hidden = false;
-  }
-
-  unpend() {
-    if (!this.uploading && !this.updating)
-      this.pending.nativeElement.hidden = true;
+  updateIcons() {
+    this.pending.nativeElement.hidden = this.auth.disconnected.value || (!this.uploading && !this.updating);
+    this.warning.nativeElement.hidden = !this.auth.disconnected.value;
   }
 
   save() {
-    this.update();
+    // this.update();
     if (this.file) {
       const key = this.file.Key;
       if (!this.uploadingTexts.has(key)) {
         this.uploadingTexts.add(key);
         this.uploading = true;
-        this.pend();
+        this.updateIcons();
       }
       this.updating = true;
-      this.pend();
+      this.updateIcons();
       this.uploadingTexts.forEach(o => {
         this.fileService.write(this.project.label, o, this.texts[o]).subscribe(res => {
+          // this.disconnected = false;
+          this.updateIcons();
           this.uploadingTexts.delete(key);
           if (this.uploadingTexts.size === 0) {
             this.uploading = false;
-            this.unpend();
+            this.updateIcons();
           }
         });
+        // , err => {
+        //   this.disconnected = true;
+        //   this.updateIcons();
+        // });
       });
     }
   }
@@ -186,10 +189,15 @@ export class ProjectComponent implements OnInit {
 
   update() {
     this.updating = true;
-    this.pend();
-    this.projectService.update(this.project).subscribe(o => {
+    this.updateIcons();
+    this.projectService.update(this.project).subscribe(res => {
+      // this.disconnected = false;
       this.updating = false;
-      this.unpend();
+      this.updateIcons();
     });
+    // , err => {
+    //   // this.disconnected = true;
+    //   this.updateIcons();
+    // });
   }
 }

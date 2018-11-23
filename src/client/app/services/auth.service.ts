@@ -1,8 +1,8 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, of, BehaviorSubject } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -13,6 +13,7 @@ import { Config } from '../shared/config/env.config';
 @Injectable()
 export class AuthService {
   public headers: HttpHeaders;
+  public disconnected = new BehaviorSubject<boolean>(false);
   loggedIn = false;
   // isAdmin = false;
   user: User;
@@ -34,6 +35,7 @@ export class AuthService {
   login(credentials: any) {
     return this.userService.login(credentials).map(
       (res: any) => {
+        this.disconnected.next(false);
         this.token = res.Token;
         this.setHeaders();
         localStorage.setItem('token', res.Token);
@@ -75,6 +77,7 @@ export class AuthService {
   get<T>(operation = 'operation', url: string): Observable<T> {
     return this.httpClient.get<T>(url, { headers: this.headers })
     .pipe(
+      tap(o => this.disconnected.next(false)),
       catchError(this.handleError(operation, null))
     );
   }
@@ -87,6 +90,7 @@ export class AuthService {
     };
     return this.httpClient.get<T>(url, options)
     .pipe(
+      tap(o => this.disconnected.next(false)),
       catchError(this.handleError(operation, null))
     );
   }
@@ -94,12 +98,14 @@ export class AuthService {
   post<T>(operation = 'operation', url: string, model: any): Observable<T> {
     return this.httpClient.post<T>(url, model, { headers: this.headers })
     .pipe(
+      tap(o => this.disconnected.next(false)),
       catchError(this.handleError(operation, null))
     );
   }
 
   handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
+      this.disconnected.next(true);
       console.error(error);
       if (error.status === 401) {
         this.logout();
