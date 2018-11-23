@@ -7,7 +7,7 @@
 }
 
 button {
-  color: #cccccc; /* #f2eae1; */
+  color: #8e8e8e; /* #f2eae1; */
   background-color: #24292f;
   transition: background-color 0.2s ease 0s;
   font-size: 14px;
@@ -22,14 +22,23 @@ button {
 }
 
 button:hover {
+  color: #dbdbdb;
   background-color: #4F5358;
 }
 
 button:active {
+  color: #dbdbdb;
   background-color: #7B7E82;
+}
+
+.toggled {
+  color: #dbdbdb;
+  /* background-color: #35383d; */
 }
 
 button:disabled {
   color: #b3ada7;
   cursor: auto;
 }
+
+/* text-shadow: 0px 0px 10px white; */

@@ -1,6 +1,15 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
-import { ExporterComponent } from '../exporter/exporter.component';
+export enum PanelType {
+  none,
+  explorer,
+  noter,
+  sheeter,
+  snapshoter,
+  stater,
+  downloader,
+  publisher
+}
 
 @Component({
   moduleId: module.id,
@@ -9,29 +18,51 @@ import { ExporterComponent } from '../exporter/exporter.component';
   styleUrls: ['actionbar.component.css']
 })
 export class ActionbarComponent {
-  @Input() exporter: ExporterComponent;
-  @Output() actionbarToggling = new EventEmitter();
   @Output() saving = new EventEmitter();
-  // @Output() onExporting = new EventEmitter();
-  hide = false;
+  @Output() switching = new EventEmitter<PanelType>();
+  public panelType = PanelType.explorer;
+  panels = [
+    PanelType.explorer,
+    PanelType.noter,
+    PanelType.sheeter,
+    PanelType.snapshoter,
+    PanelType.stater,
+    PanelType.downloader,
+    PanelType.publisher
+  ];
+  titles: { [key: number]: string; } = {
+    [PanelType.explorer]: 'files',
+    [PanelType.sheeter]: 'sheets',
+    [PanelType.noter]: 'notes',
+    [PanelType.stater]: 'statistics',
+    [PanelType.snapshoter]: 'historique',
+    [PanelType.downloader]: 'download',
+    [PanelType.publisher]: 'publish'
+  };
+  classes: { [key: number]: string; } = {
+    [PanelType.explorer]: 'fa-files-o',
+    [PanelType.sheeter]: 'fa-id-card',
+    [PanelType.noter]: 'fa-sticky-note',
+    [PanelType.stater]: 'fa-calendar',
+    [PanelType.snapshoter]: 'fa-history',
+    [PanelType.downloader]: 'fa-download',
+    [PanelType.publisher]: 'fa-book'
+  };
 
-  toggleActionbar(): void {
-    this.actionbarToggling.emit();
-    this.hide = !this.hide;
+  getTitle(type: PanelType) {
+    return (type === this.panelType ? 'Hide ' : 'Show ') + this.titles[type];
   }
 
-  showExplorer(): void {
-    if (this.hide) {
-      this.toggleActionbar();
+  toggle(type: PanelType) {
+    if (this.panelType === type) {
+      this.panelType = PanelType.none;
+    } else {
+      this.panelType = type;
     }
+    this.switching.emit(this.panelType);
   }
 
-  save(): void {
+  save() {
     this.saving.emit();
-  }
-
-  showExport(): void {
-    this.exporter.open();
-    // this.onExporting.emit();
   }
 }

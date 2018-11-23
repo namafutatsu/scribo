@@ -12,9 +12,9 @@
 
     <sd-actionbar
       *ngIf="project"
-      [exporter]="exporter"
       (saving)="onSaving($event)"
-      (actionbarToggling)="onActionbarToggling($event)">
+      (switching)="onPanelSwitching($event)"
+      >
     </sd-actionbar>
 
   </mat-sidenav>
@@ -26,18 +26,26 @@
         [(opened)]="showPanel"
         [disableClose]="true"
         mode="side"
-        class="explorer-sidenav">
+        class="panel-sidenav">
 
         <sd-explorer
-          *ngIf="project"
+          *ngIf="project && panel === 1"
           [project]="project"
           (selecting)="onSelecting($event)"
           (saving)="onSaving($event)"
           (renaming)="onRenaming($event)"
           (creating)="onCreating($event)"
           (deleting)="onDeleting($event)"
-          (moving)="onMoving($event)">
+          (moving)="onMoving($event)"
+          class="panel">
         </sd-explorer>
+
+        <div *ngIf="panel > 1" class="panel">
+          <br/><br/>
+          <span id="unavailable">
+            Not available yet :'(
+          </span>
+        </div>
 
       </mat-sidenav>
       <mat-sidenav-content class="editor-content">
@@ -113,5 +121,5 @@
 </div>
 
 <div #warning id="warner">
-  <i class="fa fa-exclamation-triangle"></i>
+  <i class="fa fa-signal"></i>
 </div>

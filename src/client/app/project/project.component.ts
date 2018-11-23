@@ -9,6 +9,7 @@ import { FileService } from '../services/file.service';
 import { ProjectService } from '../services/project.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { STreeNode } from '../shared/models';
+import { ActionbarComponent, PanelType } from './actionbar/actionbar.component';
 
 @Component({
   moduleId: module.id,
@@ -20,7 +21,7 @@ export class ProjectComponent implements OnInit {
   project: STreeNode;
   file: STreeNode;
   isLoading = true;
-  // showActionBar = false;
+  panel = PanelType.none;
   showPanel = false;
   namingNode: STreeNode;
   namingParent: STreeNode;
@@ -57,8 +58,7 @@ export class ProjectComponent implements OnInit {
         .switchMap((params: Params) => this.projectService.get(params['key'])).subscribe(project => {
           this.project = project;
           this.isLoading = false;
-          // this.showActionBar = true;
-          this.showPanel = true;
+          this.onPanelSwitching(PanelType.explorer);
           this.projectService.read(project.label).subscribe(texts => {
             this.getTexts(texts);
           });
@@ -86,8 +86,9 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  onActionbarToggling() {
-    this.showPanel = !this.showPanel;
+  onPanelSwitching(panel: PanelType) {
+    this.panel = panel;
+    this.showPanel = panel > PanelType.none;
   }
 
   onSelecting(node: STreeNode) {
@@ -121,7 +122,6 @@ export class ProjectComponent implements OnInit {
       this.updateIcons();
       this.uploadingTexts.forEach(o => {
         this.fileService.write(this.project.label, o, this.texts[o]).subscribe(res => {
-          // this.disconnected = false;
           this.updateIcons();
           this.uploadingTexts.delete(key);
           if (this.uploadingTexts.size === 0) {
@@ -129,10 +129,6 @@ export class ProjectComponent implements OnInit {
             this.updateIcons();
           }
         });
-        // , err => {
-        //   this.disconnected = true;
-        //   this.updateIcons();
-        // });
       });
     }
   }
@@ -191,13 +187,8 @@ export class ProjectComponent implements OnInit {
     this.updating = true;
     this.updateIcons();
     this.projectService.update(this.project).subscribe(res => {
-      // this.disconnected = false;
       this.updating = false;
       this.updateIcons();
     });
-    // , err => {
-    //   // this.disconnected = true;
-    //   this.updateIcons();
-    // });
   }
 }
