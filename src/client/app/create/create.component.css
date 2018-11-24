@@ -2,8 +2,12 @@
   margin: 0 auto;
 }
 
+#loader {
+  margin-left: 50%;
+}
+
 .card {
-  width: 770px;
+  min-width: 770px;
   top: 50px;
 }
 

@@ -1,10 +1,12 @@
 <sd-toast [message]="toast.message"></sd-toast>
-<sd-loading [condition]="isLoading"></sd-loading>
+<div id="loader">
+  <sd-loading [condition]="isLoading"></sd-loading>
+</div>
 
-<div class="card">
-  <div class="card-header">
+<div class="card" *ngIf="!isLoading">
+  <!-- <div class="card-header">
     <h1>New project</h1>
-  </div>
+  </div> -->
   <div class="card-block">
     <mat-vertical-stepper linear="true" #stepper>
 
@@ -184,5 +186,5 @@
 
     </mat-vertical-stepper>
   </div>
-  <div class="card-footer"></div>
+  <!-- <div class="card-footer"></div> -->
 </div>

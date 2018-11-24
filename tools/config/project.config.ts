@@ -30,23 +30,22 @@ export class ProjectConfig extends SeedConfig {
       { src: 'froala-editor/js/froala_editor.pkgd.min.js', inject: 'libs' },
       { src: 'web-animations-js/web-animations.min.js', inject: 'shims' },
       { src: 'hammerjs/hammer.js', inject: 'libs' },
-      // {src: 'lodash/lodash.min.js', inject: 'libs'},
       { src: 'primeng/resources/primeng.css', inject: true },
-      // { src: 'primeng/resources/themes/darkness/theme.css', inject: true },
       { src: 'primeicons/primeicons.css', inject: true },
       { src: 'font-awesome/css/font-awesome.min.css', inject: true },
       { src: 'froala-editor/css/froala_editor.pkgd.min.css', inject: true },
       { src: `bootstrap/dist/css/bootstrap.min.css`, inject: true },
-      { src: '@angular/material/prebuilt-themes/indigo-pink.css', inject: true }
     ];
 
     // Add `local` third-party libraries to be injected/bundled.
     this.APP_ASSETS = [
       // {src: `${this.APP_SRC}/your-path-to-lib/libs/jquery-ui.js`, inject: true, vendor: false}
       // {src: `${this.CSS_SRC}/path-to-lib/test-lib.css`, inject: true, vendor: false},
+      { src: `${this.CSS_SRC}/mat.css`, inject: true, vendor: false },
       { src: `${this.CSS_SRC}/scribo-theme.css`, inject: true, vendor: false },
       { src: `${this.CSS_SRC}/tree.css`, inject: true, vendor: false },
       { src: `${this.CSS_SRC}/prime.css`, inject: true, vendor: false },
+      { src: `${this.CSS_SRC}/main.css`, inject: true, vendor: false },
     ];
 
     this.ROLLUP_INCLUDE_DIR = [

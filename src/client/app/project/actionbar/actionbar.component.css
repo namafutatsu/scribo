@@ -7,7 +7,7 @@
 }
 
 button {
-  color: #8e8e8e; /* #f2eae1; */
+  color: #757575; /* #f2eae1; */
   background-color: #24292f;
   transition: background-color 0.2s ease 0s;
   font-size: 14px;
@@ -27,7 +27,7 @@ button:hover {
 }
 
 button:active {
-  color: #dbdbdb;
+  color: #cecece;
   background-color: #7B7E82;
 }
 

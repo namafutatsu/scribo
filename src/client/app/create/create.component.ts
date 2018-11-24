@@ -11,7 +11,6 @@ import { Project } from '../shared/models';
 import { ProjectService } from '../services/project.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 
 export interface Type {
   value: number;
@@ -25,8 +24,7 @@ export class FileNode {
 }
 
 export class FileFlatNode {
-  constructor(
-    public expandable: boolean, public filename: string, public level: number, public type: any) {}
+  constructor(public expandable: boolean, public filename: string, public level: number, public type: any) {}
 }
 
 //#region Trees
