@@ -104,10 +104,10 @@ export class TreeComponent implements OnInit {
       if (node.IsLeaf) {
         // We can only create brother files
         fileLabel = this.structure[level - 1];
-        if (level < this.structure.length - 1) {
+        if (level <= this.structure.length - 1) {
           // Those are merged file, we can only create brother folders
           folderLabel = this.structure[level - 1];
-        } else if (level >= 2) {
+        } else {
           // Here, we can only create an uncle
           folderLabel = this.structure[level - 2];
           indexFolder = parentFolder.Index + 1;
@@ -120,9 +120,10 @@ export class TreeComponent implements OnInit {
           // Basic child creation on the last index
           folderLabel = this.structure[level];
           indexFolder = parentFile.children.length;
-        } else {
+        } else if (level === this.structure.length - 1) {
           // The last kind of folder can only create brothers
           folderLabel = this.structure[level - 1];
+          parentFolder = this.dictionary[parentFolder.ParentKey];
         }
       }
     }
