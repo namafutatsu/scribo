@@ -4,11 +4,13 @@ export enum PanelType {
   none,
   explorer,
   noter,
+  drafter,
   sheeter,
   snapshoter,
   stater,
   downloader,
-  publisher
+  publisher,
+  settingser
 }
 
 @Component({
@@ -24,34 +26,40 @@ export class ActionbarComponent {
   panels = [
     PanelType.explorer,
     PanelType.noter,
+    PanelType.drafter,
     PanelType.sheeter,
     PanelType.snapshoter,
     PanelType.stater,
     PanelType.downloader,
-    PanelType.publisher
+    PanelType.publisher,
+    PanelType.settingser
   ];
   titles: { [key: number]: string; } = {
-    [PanelType.explorer]: 'files',
-    [PanelType.sheeter]: 'sheets',
-    [PanelType.noter]: 'notes',
-    [PanelType.stater]: 'statistics',
-    [PanelType.snapshoter]: 'historique',
-    [PanelType.downloader]: 'download',
-    [PanelType.publisher]: 'publish'
+    [PanelType.explorer]: 'Files',
+    [PanelType.noter]: 'Notes',
+    [PanelType.drafter]: 'Drafts',
+    [PanelType.sheeter]: 'Sheets',
+    [PanelType.stater]: 'Statistics',
+    [PanelType.snapshoter]: 'Historic',
+    [PanelType.downloader]: 'Download',
+    [PanelType.publisher]: 'Publish',
+    [PanelType.settingser]: 'Settings'
   };
   classes: { [key: number]: string; } = {
     [PanelType.explorer]: 'fa-files-o',
-    [PanelType.sheeter]: 'fa-id-card',
     [PanelType.noter]: 'fa-sticky-note',
+    [PanelType.drafter]: 'fa-pencil',
+    [PanelType.sheeter]: 'fa-id-card',
     [PanelType.stater]: 'fa-calendar',
     [PanelType.snapshoter]: 'fa-history',
     [PanelType.downloader]: 'fa-download',
-    [PanelType.publisher]: 'fa-book'
+    [PanelType.publisher]: 'fa-book',
+    [PanelType.settingser]: 'fa-cogs'
   };
 
-  getTitle(type: PanelType) {
-    return (type === this.panelType ? 'Hide ' : 'Show ') + this.titles[type];
-  }
+  // getTitle(type: PanelType) {
+  //   return (type === this.panelType ? 'Hide ' : 'Show ') + this.titles[type];
+  // }
 
   toggle(type: PanelType) {
     if (this.panelType === type) {

@@ -6,13 +6,15 @@ import { TreeModule } from 'primeng/tree';
 import { ContextMenuModule } from 'primeng/contextmenu';
 
 import { TreeComponent } from './tree.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   imports: [
     ContextMenuModule,
     TreeModule,
     FormsModule,
-    ElasticInputModule
+    ElasticInputModule,
+    MatTooltipModule
   ],
   declarations: [TreeComponent],
   exports: [TreeComponent]

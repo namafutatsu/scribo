@@ -1,4 +1,4 @@
-<button *ngFor="let type of panels" (click)="toggle(type)" [ngClass]="{'toggled':panelType === type}" title="{{ getTitle(type) }}">
+<button *ngFor="let type of panels" (click)="toggle(type)" [ngClass]="{'toggled':panelType === type}" [matTooltip]="titles[type]">
   <i class="fa" aria-hidden="true" [ngClass]="classes[type]"></i>
 </button>
 <button (click)="save()">

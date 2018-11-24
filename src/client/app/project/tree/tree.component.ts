@@ -37,6 +37,8 @@ export class TreeComponent implements OnInit {
   structure: string[];
   showNewFolder = false;
   showNewFile = false;
+  newFolderLabel = 'New folder';
+  newFileLabel = 'New file';
   ngOnInit(): void {
     this.setDictionary(this.tree[0]);
     this.basicContextMenu = [{
@@ -69,6 +71,8 @@ export class TreeComponent implements OnInit {
 
   updateButtons(node: STreeNode): void {
     const context = this.getCreationContext(node);
+    this.newFolderLabel = 'New ' + context.folderLabel;
+    this.newFileLabel = 'New ' + context.fileLabel;
     this.showNewFolder = context.folderLabel !== '';
     this.showNewFile = context.fileLabel !== '';
   }

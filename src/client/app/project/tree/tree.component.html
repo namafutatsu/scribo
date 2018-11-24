@@ -1,14 +1,22 @@
 <div id="toolbar">
-  <button (click)="createFolderFromNode(selectedNode)" [disabled]="!selectedNode || !showNewFolder">
+  <button (click)="createFolderFromNode(selectedNode)"
+    [disabled]="!selectedNode || !showNewFolder"
+    [matTooltip]="newFolderLabel">
     <i class="fa fa-folder-o" aria-hidden="true"></i>
   </button>
-  <button (click)="createFileFromNode(selectedNode)" [disabled]="!selectedNode || !showNewFile">
+  <button (click)="createFileFromNode(selectedNode)"
+    [disabled]="!selectedNode || !showNewFile"
+    [matTooltip]="newFileLabel">
     <i class="fa fa-file-text-o" aria-hidden="true"></i>
   </button>
-  <button (click)="startRenaming(selectedNode)" [disabled]="!selectedNode">
+  <button (click)="startRenaming(selectedNode)"
+    [disabled]="!selectedNode"
+    matTooltip="Rename">
     <i class="fa fa-i-cursor" aria-hidden="true"></i>
   </button>
-  <button (click)="delete(selectedNode)" [disabled]="!selectedNode || selectedNode.Level == 0">
+  <button (click)="delete(selectedNode)"
+    [disabled]="!selectedNode || selectedNode.Level == 0"
+    matTooltip="Delete">
     <i class="fa fa-trash-o" aria-hidden="true"></i>
   </button>
 </div>
