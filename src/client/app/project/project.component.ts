@@ -17,7 +17,7 @@ import { PanelType } from './actionbar/actionbar.component';
   templateUrl: 'project.component.html',
   styleUrls: ['project.component.css']
 })
-export class ProjectComponent implements OnInit {
+export class ProjectComponent implements OnInit  {
   project: STreeNode;
   file: STreeNode;
   isLoading = true;
@@ -110,27 +110,29 @@ export class ProjectComponent implements OnInit {
   }
 
   onSaving() {
-    this.update();
-    if (this.file) {
-      const key = this.file.Key;
-      if (!this.uploadingTexts.has(key)) {
-        this.uploadingTexts.add(key);
-        this.uploading = true;
-        this.updateIcons();
-      }
-      this.updating = true;
-      this.updateIcons();
-      this.uploadingTexts.forEach(o => {
-        this.fileService.write(this.project.label, o, this.texts[o]).subscribe(res => {
-          this.updateIcons();
-          this.uploadingTexts.delete(key);
-          if (this.uploadingTexts.size === 0) {
-            this.uploading = false;
-            this.updateIcons();
-          }
-        });
-      });
+    if (!this.file || !this.file.changed) {
+      return;
     }
+    this.file.changed = false;
+    this.update();
+    const key = this.file.Key;
+    if (!this.uploadingTexts.has(key)) {
+      this.uploadingTexts.add(key);
+      this.uploading = true;
+      this.updateIcons();
+    }
+    this.updating = true;
+    this.updateIcons();
+    this.uploadingTexts.forEach(o => {
+      this.fileService.write(this.project.label, o, this.texts[o]).subscribe(res => {
+        this.updateIcons();
+        this.uploadingTexts.delete(key);
+        if (this.uploadingTexts.size === 0) {
+          this.uploading = false;
+          this.updateIcons();
+        }
+      });
+    });
   }
 
   onCreating(node: STreeNode) {

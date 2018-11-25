@@ -55,7 +55,7 @@
           <sd-editor
             *ngIf="file"
             [texts]="texts"
-            [key]="file.Key"
+            [file]="file"
             (saving)="onSaving($event)"
             (changed)="onContentChanged($event)">
           </sd-editor>

@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
+import { STreeNode } from '../../shared/models';
+
 declare var $: any;
 
 @Component({
@@ -10,7 +12,7 @@ declare var $: any;
 })
 export class EditorComponent implements OnInit {
   @Input() texts: { [key: string]: string; };
-  @Input() key: string;
+  @Input() file: STreeNode;
   @Output() saving = new EventEmitter();
   @Output() changed = new EventEmitter();
   buttons = [
@@ -86,15 +88,12 @@ export class EditorComponent implements OnInit {
       'froalaEditor.save.before' : (e: any, editor: any) => {
         e.stopPropagation();
         this.save();
+      },
+      'froalaEditor.contentChanged' : (e: any, editor: any) => {
+        if (this.file) {
+          this.file.changed = true;
+        }
       }
-      // 'froalaEditor.contentChanged' : (e: any, editor: any) => {
-      //   if (!this.file.init) {
-      //     this.file.init = true;
-      //   }
-      //   if (this.file.init && !this.file.changed) {
-      //     this.changed.emit();
-      //   }
-      // }
     },
     toolbarStickyOffset: 48
   };

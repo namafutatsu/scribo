@@ -44,6 +44,7 @@ export class STreeNode implements TreeNode {
   // Commands
   newPath?: string;
   newIndex?: number;
+  changed: boolean;
   // Heritage
   label?: string;
   data?: any;
