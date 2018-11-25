@@ -9,7 +9,7 @@ import { FileService } from '../services/file.service';
 import { ProjectService } from '../services/project.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { STreeNode } from '../shared/models';
-import { ActionbarComponent, PanelType } from './actionbar/actionbar.component';
+import { PanelType } from './actionbar/actionbar.component';
 
 @Component({
   moduleId: module.id,
@@ -92,7 +92,7 @@ export class ProjectComponent implements OnInit {
   }
 
   onSelecting(node: STreeNode) {
-    this.save();
+    this.onSaving();
     if (node) {
       if (!node.IsLeaf) {
         this.file = null;
@@ -109,7 +109,7 @@ export class ProjectComponent implements OnInit {
     this.warning.nativeElement.hidden = !this.auth.disconnected.value;
   }
 
-  save() {
+  onSaving() {
     this.update();
     if (this.file) {
       const key = this.file.Key;
@@ -131,10 +131,6 @@ export class ProjectComponent implements OnInit {
         });
       });
     }
-  }
-
-  onSaving() {
-    this.save();
   }
 
   onCreating(node: STreeNode) {
