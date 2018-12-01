@@ -13,6 +13,7 @@ export class CreationContext {
   parent: STreeNode;
   indexFile: number;
   indexFolder: number;
+  intern: boolean;
 }
 
 @Component({
@@ -31,7 +32,6 @@ export class TreeComponent implements OnInit {
   @Output() renaming = new EventEmitter<any>();
 
   selectedNode: STreeNode;
-  basicContextMenu: MenuItem[];
   contextMenu: MenuItem[];
   dictionary: { [key: string]: STreeNode; } = {};
   structure: string[];
@@ -39,23 +39,13 @@ export class TreeComponent implements OnInit {
   showNewFile = false;
   newFolderLabel = 'New folder';
   newFileLabel = 'New file';
-  ngOnInit(): void {
+  ngOnInit() {
     this.setDictionary(this.tree[0]);
-    this.basicContextMenu = [{
-      label: 'Rename',
-      icon: 'fa fa-i-cursor',
-      command: () => this.startRenaming(this.selectedNode)
-    },
-    {
-      label: 'Delete',
-      icon: 'fa fa-close',
-      command: () => this.delete(this.selectedNode)
-    }];
-    this.contextMenu = this.basicContextMenu;
+    this.contextMenu = [];
     this.structure = this.tree[0].Structure;
   }
 
-  setDictionary(folder: STreeNode): void {
+  setDictionary(folder: STreeNode) {
     this.dictionary[folder.Key] = folder;
     if (folder.children) {
       for (const i in folder.children) {
@@ -69,7 +59,7 @@ export class TreeComponent implements OnInit {
     }
   }
 
-  updateButtons(node: STreeNode): void {
+  updateButtons(node: STreeNode) {
     const context = this.getCreationContext(node);
     this.newFolderLabel = 'New ' + context.folderLabel;
     this.newFileLabel = 'New ' + context.fileLabel;
@@ -77,9 +67,19 @@ export class TreeComponent implements OnInit {
     this.showNewFile = context.fileLabel !== '';
   }
 
-  selectEvent(node: STreeNode): void {
+  selectEvent(node: STreeNode) {
     this.updateButtons(node);
     this.selected.emit(node);
+  }
+
+  getInternAncestor(node: STreeNode): STreeNode {
+    if (node.ParentKey === null || node.ParentKey === undefined) {
+      return null;
+    }
+    if (node.Intern) {
+      return node;
+    }
+    return this.getInternAncestor(this.dictionary[node.ParentKey]);
   }
 
   getCreationContext(node: STreeNode) {
@@ -94,36 +94,42 @@ export class TreeComponent implements OnInit {
     let fileLabel = '';
     let indexFile = node.Index + 1;
     let indexFolder = node.Index + 1;
-    if (this.structure.length === 0) {
-      folderLabel = 'Folder';
-      fileLabel = 'File';
-      if (!node.IsLeaf) {
-        indexFile = indexFolder = node.children.length;
-      }
+    const internAncestor = this.getInternAncestor(node);
+    if (internAncestor !== null) {
+      folderLabel = internAncestor.Structure[0];
+      fileLabel = internAncestor.Structure[1];
     } else {
-      if (node.IsLeaf) {
-        // We can only create brother files
-        fileLabel = this.structure[level - 1];
-        if (level <= this.structure.length - 1) {
-          // Those are merged file, we can only create brother folders
-          folderLabel = this.structure[level - 1];
-        } else {
-          // Here, we can only create an uncle
-          folderLabel = this.structure[level - 2];
-          indexFolder = parentFolder.Index + 1;
-          parentFolder = this.dictionary[parentFolder.ParentKey];
+      if (this.structure.length === 0) {
+        folderLabel = 'Folder';
+        fileLabel = 'File';
+        if (!node.IsLeaf) {
+          indexFile = indexFolder = node.children.length;
         }
       } else {
-        fileLabel = this.structure[level];
-        indexFile = parentFile.children.length;
-        if (level < this.structure.length - 1) {
-          // Basic child creation on the last index
-          folderLabel = this.structure[level];
-          indexFolder = parentFile.children.length;
-        } else if (level === this.structure.length - 1) {
-          // The last kind of folder can only create brothers
-          folderLabel = this.structure[level - 1];
-          parentFolder = this.dictionary[parentFolder.ParentKey];
+        if (node.IsLeaf) {
+          // We can only create brother files
+          fileLabel = this.structure[level - 1];
+          if (level <= this.structure.length - 1) {
+            // Those are merged file, we can only create brother folders
+            folderLabel = this.structure[level - 1];
+          } else {
+            // Here, we can only create an uncle
+            folderLabel = this.structure[level - 2];
+            indexFolder = parentFolder.Index + 1;
+            parentFolder = this.dictionary[parentFolder.ParentKey];
+          }
+        } else {
+          fileLabel = this.structure[level];
+          indexFile = parentFile.children.length;
+          if (level < this.structure.length - 1) {
+            // Basic child creation on the last index
+            folderLabel = this.structure[level];
+            indexFolder = parentFile.children.length;
+          } else if (level === this.structure.length - 1) {
+            // The last kind of folder can only create brothers
+            folderLabel = this.structure[level - 1];
+            parentFolder = this.dictionary[parentFolder.ParentKey];
+          }
         }
       }
     }
@@ -134,6 +140,7 @@ export class TreeComponent implements OnInit {
     context.parentFolder = parentFolder;
     context.indexFile = indexFile;
     context.indexFolder = indexFolder;
+    context.intern = node.Intern;
     return context;
   }
 
@@ -146,24 +153,31 @@ export class TreeComponent implements OnInit {
     const newItems: MenuItem[] = [];
     if (context.folderLabel !== '') {
       newItems.push({
-        label: 'New ' + context.folderLabel,
+        label: 'New Folder', // + context.folderLabel,
         icon: 'fa fa-folder',
         command: () => this.createNode(context.folderLabel, context, false)
       });
     }
     if (context.fileLabel !== '') {
       newItems.push({
-        label: 'New ' + context.fileLabel,
+        label: 'New File', // + context.fileLabel,
         icon: 'fa fa-file',
         command: () => this.createNode(context.fileLabel, context, true)
       });
     }
-    // this.contextMenu = [{
-    //   label: 'New',
-    //   icon: 'pi pi-fw pi-plus',
-    //   items: newItems
-    // }];
-    this.contextMenu = newItems.concat(this.basicContextMenu);
+    if (!context.intern) {
+      newItems.push({
+        label: 'Rename',
+        icon: 'fa fa-i-cursor',
+        command: () => this.startRenaming(this.selectedNode)
+      });
+      newItems.push({
+        label: 'Delete',
+        icon: 'fa fa-close',
+        command: () => this.delete(this.selectedNode)
+      });
+    }
+    this.contextMenu = newItems;
   }
 
   startRenaming(node: STreeNode) {
@@ -171,7 +185,7 @@ export class TreeComponent implements OnInit {
     this.renaming.emit({ node, parent });
   }
 
-  delete(node: STreeNode): void {
+  delete(node: STreeNode) {
     if (node.ParentKey) {
       this.selectedNode = null;
       this.selected.emit(null);
@@ -234,7 +248,7 @@ export class TreeComponent implements OnInit {
     this.createNode(context.fileLabel, context, true);
   }
 
-  moveEvent(event: any): void {
+  moveEvent(event: any) {
     const node: STreeNode = event.dragNode;
     const parent = this.dictionary[node.ParentKey];
     let newParent: STreeNode = event.dropNode;

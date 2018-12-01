@@ -10,12 +10,12 @@
     <i class="fa fa-file-text-o" aria-hidden="true"></i>
   </button>
   <button (click)="startRenaming(selectedNode)"
-    [disabled]="!selectedNode || selectedNode.Level == 0 || selectedNode.Intern"
+    [disabled]="!selectedNode || selectedNode.Intern"
     matTooltip="Rename">
     <i class="fa fa-i-cursor" aria-hidden="true"></i>
   </button>
   <button (click)="delete(selectedNode)"
-    [disabled]="!selectedNode || selectedNode.Level == 0 || selectedNode.Intern"
+    [disabled]="!selectedNode || selectedNode.Intern"
     matTooltip="Delete">
     <i class="fa fa-trash-o" aria-hidden="true"></i>
   </button>
