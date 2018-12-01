@@ -4,7 +4,6 @@ export enum PanelType {
   none,
   explorer,
   noter,
-  drafter,
   sheeter,
   snapshoter,
   stater,
@@ -26,7 +25,6 @@ export class ActionbarComponent {
   panels = [
     PanelType.explorer,
     PanelType.noter,
-    PanelType.drafter,
     PanelType.sheeter,
     PanelType.snapshoter,
     PanelType.stater,
@@ -37,7 +35,6 @@ export class ActionbarComponent {
   titles: { [key: number]: string; } = {
     [PanelType.explorer]: 'Files',
     [PanelType.noter]: 'Notes',
-    [PanelType.drafter]: 'Drafts',
     [PanelType.sheeter]: 'Sheets',
     [PanelType.stater]: 'Statistics',
     [PanelType.snapshoter]: 'Historic',
@@ -48,7 +45,6 @@ export class ActionbarComponent {
   classes: { [key: number]: string; } = {
     [PanelType.explorer]: 'fa-files-o',
     [PanelType.noter]: 'fa-sticky-note',
-    [PanelType.drafter]: 'fa-pencil',
     [PanelType.sheeter]: 'fa-id-card',
     [PanelType.stater]: 'fa-calendar',
     [PanelType.snapshoter]: 'fa-history',

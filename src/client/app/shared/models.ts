@@ -41,6 +41,7 @@ export class STreeNode implements TreeNode {
   Structure?: string[];
   Description?: string;
   Type?: number;
+  Intern: boolean;
   // Commands
   newPath?: string;
   newIndex?: number;

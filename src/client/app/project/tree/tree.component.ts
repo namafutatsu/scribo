@@ -190,14 +190,13 @@ export class TreeComponent implements OnInit {
     const index = leaf ? context.indexFile : context.indexFolder;
     const name = this.getLabel(parent, 'New ' + label);
     // name = index + '.' + name + '.' + (parent.Level + 1).toString();
-    const node: STreeNode = {
-      Key: UUID.UUID(),
-      ParentKey: parent.Key,
-      Index: index,
-      Level: parent.Level + 1,
-      Path: parent.Path + '/' + name,
-      label: name
-    };
+    const node = new STreeNode();
+    node.Key = UUID.UUID();
+    node.ParentKey = parent.Key;
+    node.Index = index;
+    node.Level = parent.Level + 1;
+    node.Path = parent.Path + '/' + name;
+    node.label = name;
     parent.children.forEach(o => {
       const t = o as STreeNode;
       if (t.Index >= index) {
